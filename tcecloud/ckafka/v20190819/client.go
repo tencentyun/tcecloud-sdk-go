@@ -15,9 +15,9 @@
 package v20190819
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2019-08-19"
@@ -68,106 +68,6 @@ func (c *Client) CreateAcl(request *CreateAclRequest) (response *CreateAclRespon
     return
 }
 
-func NewCreateConnectorRequest() (request *CreateConnectorRequest) {
-    request = &CreateConnectorRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "CreateConnector")
-    return
-}
-
-func NewCreateConnectorResponse() (response *CreateConnectorResponse) {
-    response = &CreateConnectorResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 创建数据同步任务
-func (c *Client) CreateConnector(request *CreateConnectorRequest) (response *CreateConnectorResponse, err error) {
-    if request == nil {
-        request = NewCreateConnectorRequest()
-    }
-    response = NewCreateConnectorResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreateInstanceRequest() (request *CreateInstanceRequest) {
-    request = &CreateInstanceRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "CreateInstance")
-    return
-}
-
-func NewCreateInstanceResponse() (response *CreateInstanceResponse) {
-    response = &CreateInstanceResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 创建实例
-func (c *Client) CreateInstance(request *CreateInstanceRequest) (response *CreateInstanceResponse, err error) {
-    if request == nil {
-        request = NewCreateInstanceRequest()
-    }
-    response = NewCreateInstanceResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreateInstancePostRequest() (request *CreateInstancePostRequest) {
-    request = &CreateInstancePostRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "CreateInstancePost")
-    return
-}
-
-func NewCreateInstancePostResponse() (response *CreateInstancePostResponse) {
-    response = &CreateInstancePostResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 创建按量计费实例
-func (c *Client) CreateInstancePost(request *CreateInstancePostRequest) (response *CreateInstancePostResponse, err error) {
-    if request == nil {
-        request = NewCreateInstancePostRequest()
-    }
-    response = NewCreateInstancePostResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreateInstancePreRequest() (request *CreateInstancePreRequest) {
-    request = &CreateInstancePreRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "CreateInstancePre")
-    return
-}
-
-func NewCreateInstancePreResponse() (response *CreateInstancePreResponse) {
-    response = &CreateInstancePreResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 创建实例(预付费包年包月)
-func (c *Client) CreateInstancePre(request *CreateInstancePreRequest) (response *CreateInstancePreResponse, err error) {
-    if request == nil {
-        request = NewCreateInstancePreRequest()
-    }
-    response = NewCreateInstancePreResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewCreatePartitionRequest() (request *CreatePartitionRequest) {
     request = &CreatePartitionRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -189,31 +89,6 @@ func (c *Client) CreatePartition(request *CreatePartitionRequest) (response *Cre
         request = NewCreatePartitionRequest()
     }
     response = NewCreatePartitionResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreateRouteRequest() (request *CreateRouteRequest) {
-    request = &CreateRouteRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "CreateRoute")
-    return
-}
-
-func NewCreateRouteResponse() (response *CreateRouteResponse) {
-    response = &CreateRouteResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 添加实例路由
-func (c *Client) CreateRoute(request *CreateRouteRequest) (response *CreateRouteResponse, err error) {
-    if request == nil {
-        request = NewCreateRouteRequest()
-    }
-    response = NewCreateRouteResponse()
     err = c.Send(request, response)
     return
 }
@@ -318,81 +193,6 @@ func (c *Client) DeleteAcl(request *DeleteAclRequest) (response *DeleteAclRespon
     return
 }
 
-func NewDeleteConnectorRequest() (request *DeleteConnectorRequest) {
-    request = &DeleteConnectorRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DeleteConnector")
-    return
-}
-
-func NewDeleteConnectorResponse() (response *DeleteConnectorResponse) {
-    response = &DeleteConnectorResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 删除Connector
-func (c *Client) DeleteConnector(request *DeleteConnectorRequest) (response *DeleteConnectorResponse, err error) {
-    if request == nil {
-        request = NewDeleteConnectorRequest()
-    }
-    response = NewDeleteConnectorResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDeleteInstanceRequest() (request *DeleteInstanceRequest) {
-    request = &DeleteInstanceRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DeleteInstance")
-    return
-}
-
-func NewDeleteInstanceResponse() (response *DeleteInstanceResponse) {
-    response = &DeleteInstanceResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 删除实例
-func (c *Client) DeleteInstance(request *DeleteInstanceRequest) (response *DeleteInstanceResponse, err error) {
-    if request == nil {
-        request = NewDeleteInstanceRequest()
-    }
-    response = NewDeleteInstanceResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDeleteRouteRequest() (request *DeleteRouteRequest) {
-    request = &DeleteRouteRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DeleteRoute")
-    return
-}
-
-func NewDeleteRouteResponse() (response *DeleteRouteResponse) {
-    response = &DeleteRouteResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 删除路由
-func (c *Client) DeleteRoute(request *DeleteRouteRequest) (response *DeleteRouteResponse, err error) {
-    if request == nil {
-        request = NewDeleteRouteRequest()
-    }
-    response = NewDeleteRouteResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDeleteTopicRequest() (request *DeleteTopicRequest) {
     request = &DeleteTopicRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -493,31 +293,6 @@ func (c *Client) DescribeACL(request *DescribeACLRequest) (response *DescribeACL
     return
 }
 
-func NewDescribeAppIdIsVipRequest() (request *DescribeAppIdIsVipRequest) {
-    request = &DescribeAppIdIsVipRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DescribeAppIdIsVip")
-    return
-}
-
-func NewDescribeAppIdIsVipResponse() (response *DescribeAppIdIsVipResponse) {
-    response = &DescribeAppIdIsVipResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询客户是否为大客户
-func (c *Client) DescribeAppIdIsVip(request *DescribeAppIdIsVipRequest) (response *DescribeAppIdIsVipResponse, err error) {
-    if request == nil {
-        request = NewDescribeAppIdIsVipRequest()
-    }
-    response = NewDescribeAppIdIsVipResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeAppInfoRequest() (request *DescribeAppInfoRequest) {
     request = &DescribeAppInfoRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -539,156 +314,6 @@ func (c *Client) DescribeAppInfo(request *DescribeAppInfoRequest) (response *Des
         request = NewDescribeAppInfoRequest()
     }
     response = NewDescribeAppInfoResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeCkafkaPriceRequest() (request *DescribeCkafkaPriceRequest) {
-    request = &DescribeCkafkaPriceRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DescribeCkafkaPrice")
-    return
-}
-
-func NewDescribeCkafkaPriceResponse() (response *DescribeCkafkaPriceResponse) {
-    response = &DescribeCkafkaPriceResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 询价
-func (c *Client) DescribeCkafkaPrice(request *DescribeCkafkaPriceRequest) (response *DescribeCkafkaPriceResponse, err error) {
-    if request == nil {
-        request = NewDescribeCkafkaPriceRequest()
-    }
-    response = NewDescribeCkafkaPriceResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeCkafkaTypeConfigsRequest() (request *DescribeCkafkaTypeConfigsRequest) {
-    request = &DescribeCkafkaTypeConfigsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DescribeCkafkaTypeConfigs")
-    return
-}
-
-func NewDescribeCkafkaTypeConfigsResponse() (response *DescribeCkafkaTypeConfigsResponse) {
-    response = &DescribeCkafkaTypeConfigsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取实例规格配置
-func (c *Client) DescribeCkafkaTypeConfigs(request *DescribeCkafkaTypeConfigsRequest) (response *DescribeCkafkaTypeConfigsResponse, err error) {
-    if request == nil {
-        request = NewDescribeCkafkaTypeConfigsRequest()
-    }
-    response = NewDescribeCkafkaTypeConfigsResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeCkafkaZoneRequest() (request *DescribeCkafkaZoneRequest) {
-    request = &DescribeCkafkaZoneRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DescribeCkafkaZone")
-    return
-}
-
-func NewDescribeCkafkaZoneResponse() (response *DescribeCkafkaZoneResponse) {
-    response = &DescribeCkafkaZoneResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 用于查看ckafka的可用区列表
-func (c *Client) DescribeCkafkaZone(request *DescribeCkafkaZoneRequest) (response *DescribeCkafkaZoneResponse, err error) {
-    if request == nil {
-        request = NewDescribeCkafkaZoneRequest()
-    }
-    response = NewDescribeCkafkaZoneResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeConnectorRequest() (request *DescribeConnectorRequest) {
-    request = &DescribeConnectorRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DescribeConnector")
-    return
-}
-
-func NewDescribeConnectorResponse() (response *DescribeConnectorResponse) {
-    response = &DescribeConnectorResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取数据同步任务列表
-func (c *Client) DescribeConnector(request *DescribeConnectorRequest) (response *DescribeConnectorResponse, err error) {
-    if request == nil {
-        request = NewDescribeConnectorRequest()
-    }
-    response = NewDescribeConnectorResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeConnectorConfigsRequest() (request *DescribeConnectorConfigsRequest) {
-    request = &DescribeConnectorConfigsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DescribeConnectorConfigs")
-    return
-}
-
-func NewDescribeConnectorConfigsResponse() (response *DescribeConnectorConfigsResponse) {
-    response = &DescribeConnectorConfigsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询connector配置
-func (c *Client) DescribeConnectorConfigs(request *DescribeConnectorConfigsRequest) (response *DescribeConnectorConfigsResponse, err error) {
-    if request == nil {
-        request = NewDescribeConnectorConfigsRequest()
-    }
-    response = NewDescribeConnectorConfigsResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeConnectorStatusRequest() (request *DescribeConnectorStatusRequest) {
-    request = &DescribeConnectorStatusRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DescribeConnectorStatus")
-    return
-}
-
-func NewDescribeConnectorStatusResponse() (response *DescribeConnectorStatusResponse) {
-    response = &DescribeConnectorStatusResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询Connector状态
-func (c *Client) DescribeConnectorStatus(request *DescribeConnectorStatusRequest) (response *DescribeConnectorStatusResponse, err error) {
-    if request == nil {
-        request = NewDescribeConnectorStatusRequest()
-    }
-    response = NewDescribeConnectorStatusResponse()
     err = c.Send(request, response)
     return
 }
@@ -793,56 +418,6 @@ func (c *Client) DescribeGroupOffsets(request *DescribeGroupOffsetsRequest) (res
     return
 }
 
-func NewDescribeIfCommunityRequest() (request *DescribeIfCommunityRequest) {
-    request = &DescribeIfCommunityRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DescribeIfCommunity")
-    return
-}
-
-func NewDescribeIfCommunityResponse() (response *DescribeIfCommunityResponse) {
-    response = &DescribeIfCommunityResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询实例是否为社区版
-func (c *Client) DescribeIfCommunity(request *DescribeIfCommunityRequest) (response *DescribeIfCommunityResponse, err error) {
-    if request == nil {
-        request = NewDescribeIfCommunityRequest()
-    }
-    response = NewDescribeIfCommunityResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeInstanceRequest() (request *DescribeInstanceRequest) {
-    request = &DescribeInstanceRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DescribeInstance")
-    return
-}
-
-func NewDescribeInstanceResponse() (response *DescribeInstanceResponse) {
-    response = &DescribeInstanceResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（DescribeInstance）用于在用户账户下获取消息队列 CKafka 实例列表
-func (c *Client) DescribeInstance(request *DescribeInstanceRequest) (response *DescribeInstanceResponse, err error) {
-    if request == nil {
-        request = NewDescribeInstanceRequest()
-    }
-    response = NewDescribeInstanceResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeInstanceAttributesRequest() (request *DescribeInstanceAttributesRequest) {
     request = &DescribeInstanceAttributesRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -864,31 +439,6 @@ func (c *Client) DescribeInstanceAttributes(request *DescribeInstanceAttributesR
         request = NewDescribeInstanceAttributesRequest()
     }
     response = NewDescribeInstanceAttributesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeInstanceDetailRequest() (request *DescribeInstanceDetailRequest) {
-    request = &DescribeInstanceDetailRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DescribeInstanceDetail")
-    return
-}
-
-func NewDescribeInstanceDetailResponse() (response *DescribeInstanceDetailResponse) {
-    response = &DescribeInstanceDetailResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 用户账户下获取实例列表详情
-func (c *Client) DescribeInstanceDetail(request *DescribeInstanceDetailRequest) (response *DescribeInstanceDetailResponse, err error) {
-    if request == nil {
-        request = NewDescribeInstanceDetailRequest()
-    }
-    response = NewDescribeInstanceDetailResponse()
     err = c.Send(request, response)
     return
 }
@@ -939,81 +489,6 @@ func (c *Client) DescribeInstancesDetail(request *DescribeInstancesDetailRequest
         request = NewDescribeInstancesDetailRequest()
     }
     response = NewDescribeInstancesDetailResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeRegionRequest() (request *DescribeRegionRequest) {
-    request = &DescribeRegionRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DescribeRegion")
-    return
-}
-
-func NewDescribeRegionResponse() (response *DescribeRegionResponse) {
-    response = &DescribeRegionResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 枚举地域
-func (c *Client) DescribeRegion(request *DescribeRegionRequest) (response *DescribeRegionResponse, err error) {
-    if request == nil {
-        request = NewDescribeRegionRequest()
-    }
-    response = NewDescribeRegionResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeRouteRequest() (request *DescribeRouteRequest) {
-    request = &DescribeRouteRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DescribeRoute")
-    return
-}
-
-func NewDescribeRouteResponse() (response *DescribeRouteResponse) {
-    response = &DescribeRouteResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查看路由信息
-func (c *Client) DescribeRoute(request *DescribeRouteRequest) (response *DescribeRouteResponse, err error) {
-    if request == nil {
-        request = NewDescribeRouteRequest()
-    }
-    response = NewDescribeRouteResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeTaskStatusRequest() (request *DescribeTaskStatusRequest) {
-    request = &DescribeTaskStatusRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "DescribeTaskStatus")
-    return
-}
-
-func NewDescribeTaskStatusResponse() (response *DescribeTaskStatusResponse) {
-    response = &DescribeTaskStatusResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询任务状态
-func (c *Client) DescribeTaskStatus(request *DescribeTaskStatusRequest) (response *DescribeTaskStatusResponse, err error) {
-    if request == nil {
-        request = NewDescribeTaskStatusRequest()
-    }
-    response = NewDescribeTaskStatusResponse()
     err = c.Send(request, response)
     return
 }
@@ -1119,31 +594,6 @@ func (c *Client) DescribeUser(request *DescribeUserRequest) (response *DescribeU
     return
 }
 
-func NewModifyForwardRequest() (request *ModifyForwardRequest) {
-    request = &ModifyForwardRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "ModifyForward")
-    return
-}
-
-func NewModifyForwardResponse() (response *ModifyForwardResponse) {
-    response = &ModifyForwardResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口  用于给消息队列 主题配置转发规则。
-func (c *Client) ModifyForward(request *ModifyForwardRequest) (response *ModifyForwardResponse, err error) {
-    if request == nil {
-        request = NewModifyForwardRequest()
-    }
-    response = NewModifyForwardResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewModifyGroupOffsetsRequest() (request *ModifyGroupOffsetsRequest) {
     request = &ModifyGroupOffsetsRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1240,81 +690,6 @@ func (c *Client) ModifyTopicAttributes(request *ModifyTopicAttributesRequest) (r
         request = NewModifyTopicAttributesRequest()
     }
     response = NewModifyTopicAttributesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewPauseConnectorRequest() (request *PauseConnectorRequest) {
-    request = &PauseConnectorRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "PauseConnector")
-    return
-}
-
-func NewPauseConnectorResponse() (response *PauseConnectorResponse) {
-    response = &PauseConnectorResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 暂停数据同步任务
-func (c *Client) PauseConnector(request *PauseConnectorRequest) (response *PauseConnectorResponse, err error) {
-    if request == nil {
-        request = NewPauseConnectorRequest()
-    }
-    response = NewPauseConnectorResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewRenewInstanceRequest() (request *RenewInstanceRequest) {
-    request = &RenewInstanceRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "RenewInstance")
-    return
-}
-
-func NewRenewInstanceResponse() (response *RenewInstanceResponse) {
-    response = &RenewInstanceResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 续费实例
-func (c *Client) RenewInstance(request *RenewInstanceRequest) (response *RenewInstanceResponse, err error) {
-    if request == nil {
-        request = NewRenewInstanceRequest()
-    }
-    response = NewRenewInstanceResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewResumeConnectorRequest() (request *ResumeConnectorRequest) {
-    request = &ResumeConnectorRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ckafka", APIVersion, "ResumeConnector")
-    return
-}
-
-func NewResumeConnectorResponse() (response *ResumeConnectorResponse) {
-    response = &ResumeConnectorResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 启动Connector任务
-func (c *Client) ResumeConnector(request *ResumeConnectorRequest) (response *ResumeConnectorResponse, err error) {
-    if request == nil {
-        request = NewResumeConnectorRequest()
-    }
-    response = NewResumeConnectorResponse()
     err = c.Send(request, response)
     return
 }

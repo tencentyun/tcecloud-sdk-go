@@ -17,7 +17,7 @@ package v20200305
 import (
     "encoding/json"
 
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
 )
 
 type Credentials struct {
@@ -30,88 +30,6 @@ type Credentials struct {
 
 	// 临时证书密钥Key
 	TmpSecretKey *string `json:"TmpSecretKey,omitempty" name:"TmpSecretKey"`
-}
-
-type GetConsoleSessionTokenRequest struct {
-	*tchttp.BaseRequest
-
-	// sessionId的md5值
-	Sid *string `json:"Sid,omitempty" name:"Sid"`
-
-	// 客户端UserAgent
-	ClientUA *string `json:"ClientUA,omitempty" name:"ClientUA"`
-
-	// 客户端设备(pc或者mobile)
-	ClientDevice *string `json:"ClientDevice,omitempty" name:"ClientDevice"`
-
-	// 分配给控制台的secretId
-	ConSecretId *string `json:"ConSecretId,omitempty" name:"ConSecretId"`
-
-	// 生成签名时使用
-	Noncet *uint64 `json:"Noncet,omitempty" name:"Noncet"`
-
-	// 根据签名的计算方法生成的签名
-	Signaturet *string `json:"Signaturet,omitempty" name:"Signaturet"`
-
-	// 过期时间
-	Duration *uint64 `json:"Duration,omitempty" name:"Duration"`
-
-	// 客户端IP
-	ClientIPt *string `json:"ClientIPt,omitempty" name:"ClientIPt"`
-
-	// 操作接口，获取临时证书后要操作的api名称
-	Actiont *string `json:"Actiont,omitempty" name:"Actiont"`
-
-	// 时间戳(计算签名时使用)
-	Timestampt *uint64 `json:"Timestampt,omitempty" name:"Timestampt"`
-
-	// Skey
-	Skey *string `json:"Skey,omitempty" name:"Skey"`
-
-	// 操作资源
-	Resource *string `json:"Resource,omitempty" name:"Resource"`
-
-	// 控制台信息，cos v4 控制台填写"COSV4"，其他情况不需要传入该参数
-	ConsoleInfo *string `json:"ConsoleInfo,omitempty" name:"ConsoleInfo"`
-}
-
-func (r *GetConsoleSessionTokenRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *GetConsoleSessionTokenRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type GetConsoleSessionTokenResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// token
-		Token *string `json:"Token,omitempty" name:"Token"`
-
-		// 临时证书秘钥ID
-		SecretId *string `json:"SecretId,omitempty" name:"SecretId"`
-
-		// 临时证书秘钥Key
-		SecretKey *string `json:"SecretKey,omitempty" name:"SecretKey"`
-
-		// 过期时间
-		SecretExpire *uint64 `json:"SecretExpire,omitempty" name:"SecretExpire"`
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *GetConsoleSessionTokenResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *GetConsoleSessionTokenResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
 }
 
 type GetFederationTokenRequest struct {

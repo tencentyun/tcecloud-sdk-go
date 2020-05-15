@@ -15,9 +15,9 @@
 package v20200226
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2020-02-26"
@@ -42,56 +42,6 @@ func NewClient(credential *common.Credential, region string, clientProfile *prof
     return
 }
 
-
-func NewCheckUserPolicyAttachmentRequest() (request *CheckUserPolicyAttachmentRequest) {
-    request = &CheckUserPolicyAttachmentRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cam", APIVersion, "CheckUserPolicyAttachment")
-    return
-}
-
-func NewCheckUserPolicyAttachmentResponse() (response *CheckUserPolicyAttachmentResponse) {
-    response = &CheckUserPolicyAttachmentResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（CheckUserPolicyAttachment）用于查询用户是否关联策略。
-func (c *Client) CheckUserPolicyAttachment(request *CheckUserPolicyAttachmentRequest) (response *CheckUserPolicyAttachmentResponse, err error) {
-    if request == nil {
-        request = NewCheckUserPolicyAttachmentRequest()
-    }
-    response = NewCheckUserPolicyAttachmentResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewConfirmCASProviderRequest() (request *ConfirmCASProviderRequest) {
-    request = &ConfirmCASProviderRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cam", APIVersion, "ConfirmCASProvider")
-    return
-}
-
-func NewConfirmCASProviderResponse() (response *ConfirmCASProviderResponse) {
-    response = &ConfirmCASProviderResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 确认CAS身份提供商
-func (c *Client) ConfirmCASProvider(request *ConfirmCASProviderRequest) (response *ConfirmCASProviderResponse, err error) {
-    if request == nil {
-        request = NewConfirmCASProviderRequest()
-    }
-    response = NewConfirmCASProviderResponse()
-    err = c.Send(request, response)
-    return
-}
 
 func NewCreateCASProviderRequest() (request *CreateCASProviderRequest) {
     request = &CreateCASProviderRequest{
@@ -118,56 +68,6 @@ func (c *Client) CreateCASProvider(request *CreateCASProviderRequest) (response 
     return
 }
 
-func NewDeleteCASProviderRequest() (request *DeleteCASProviderRequest) {
-    request = &DeleteCASProviderRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cam", APIVersion, "DeleteCASProvider")
-    return
-}
-
-func NewDeleteCASProviderResponse() (response *DeleteCASProviderResponse) {
-    response = &DeleteCASProviderResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 删除cas身份提供商信息
-func (c *Client) DeleteCASProvider(request *DeleteCASProviderRequest) (response *DeleteCASProviderResponse, err error) {
-    if request == nil {
-        request = NewDeleteCASProviderRequest()
-    }
-    response = NewDeleteCASProviderResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDeleteSubAccountRequest() (request *DeleteSubAccountRequest) {
-    request = &DeleteSubAccountRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cam", APIVersion, "DeleteSubAccount")
-    return
-}
-
-func NewDeleteSubAccountResponse() (response *DeleteSubAccountResponse) {
-    response = &DeleteSubAccountResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 删除子帐号
-func (c *Client) DeleteSubAccount(request *DeleteSubAccountRequest) (response *DeleteSubAccountResponse, err error) {
-    if request == nil {
-        request = NewDeleteSubAccountRequest()
-    }
-    response = NewDeleteSubAccountResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeCasProviderRequest() (request *DescribeCasProviderRequest) {
     request = &DescribeCasProviderRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -189,106 +89,6 @@ func (c *Client) DescribeCasProvider(request *DescribeCasProviderRequest) (respo
         request = NewDescribeCasProviderRequest()
     }
     response = NewDescribeCasProviderResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDisableCASProviderRequest() (request *DisableCASProviderRequest) {
-    request = &DisableCASProviderRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cam", APIVersion, "DisableCASProvider")
-    return
-}
-
-func NewDisableCASProviderResponse() (response *DisableCASProviderResponse) {
-    response = &DisableCASProviderResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 禁用CAS身份提供商
-func (c *Client) DisableCASProvider(request *DisableCASProviderRequest) (response *DisableCASProviderResponse, err error) {
-    if request == nil {
-        request = NewDisableCASProviderRequest()
-    }
-    response = NewDisableCASProviderResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewListSubAccountsRequest() (request *ListSubAccountsRequest) {
-    request = &ListSubAccountsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cam", APIVersion, "ListSubAccounts")
-    return
-}
-
-func NewListSubAccountsResponse() (response *ListSubAccountsResponse) {
-    response = &ListSubAccountsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 拉取子帐号列表
-func (c *Client) ListSubAccounts(request *ListSubAccountsRequest) (response *ListSubAccountsResponse, err error) {
-    if request == nil {
-        request = NewListSubAccountsRequest()
-    }
-    response = NewListSubAccountsResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewListUsersForPolicyRequest() (request *ListUsersForPolicyRequest) {
-    request = &ListUsersForPolicyRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cam", APIVersion, "ListUsersForPolicy")
-    return
-}
-
-func NewListUsersForPolicyResponse() (response *ListUsersForPolicyResponse) {
-    response = &ListUsersForPolicyResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（ListUsersForPolicy）用于列出策略关联的用户列表（包括随组关联）。
-func (c *Client) ListUsersForPolicy(request *ListUsersForPolicyRequest) (response *ListUsersForPolicyResponse, err error) {
-    if request == nil {
-        request = NewListUsersForPolicyRequest()
-    }
-    response = NewListUsersForPolicyResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewUpdateCASProviderRequest() (request *UpdateCASProviderRequest) {
-    request = &UpdateCASProviderRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cam", APIVersion, "UpdateCASProvider")
-    return
-}
-
-func NewUpdateCASProviderResponse() (response *UpdateCASProviderResponse) {
-    response = &UpdateCASProviderResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 更新CAS身份提供商
-func (c *Client) UpdateCASProvider(request *UpdateCASProviderRequest) (response *UpdateCASProviderResponse, err error) {
-    if request == nil {
-        request = NewUpdateCASProviderRequest()
-    }
-    response = NewUpdateCASProviderResponse()
     err = c.Send(request, response)
     return
 }

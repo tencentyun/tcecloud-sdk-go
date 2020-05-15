@@ -17,7 +17,7 @@ package v20180813
 import (
     "encoding/json"
 
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
 )
 
 type ActionTimer struct {
@@ -384,43 +384,6 @@ type Placement struct {
 
 	// 实例所属项目ID。该参数可以通过调用 DescribeProject 的返回值中的 projectId 字段来获取。不填为默认项目。
 	ProjectId *int64 `json:"ProjectId,omitempty" name:"ProjectId"`
-}
-
-type QueryTaskRequest struct {
-	*tchttp.BaseRequest
-
-	// 异步任务请求返回的TaskId。
-	TaskId *string `json:"TaskId,omitempty" name:"TaskId"`
-}
-
-func (r *QueryTaskRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *QueryTaskRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type QueryTaskResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 异步任务执行结果
-		Status *string `json:"Status,omitempty" name:"Status"`
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *QueryTaskResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *QueryTaskResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
 }
 
 type RebootInstancesRequest struct {

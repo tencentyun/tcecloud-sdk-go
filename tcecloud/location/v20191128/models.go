@@ -17,7 +17,7 @@ package v20191128
 import (
     "encoding/json"
 
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
 )
 
 type DescribeRegionsRequest struct {

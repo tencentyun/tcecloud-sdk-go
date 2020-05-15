@@ -15,9 +15,9 @@
 package v20180420
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2018-04-20"
@@ -43,31 +43,6 @@ func NewClient(credential *common.Credential, region string, clientProfile *prof
 }
 
 
-func NewCreateInstanceRequest() (request *CreateInstanceRequest) {
-    request = &CreateInstanceRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("dsaudit", APIVersion, "CreateInstance")
-    return
-}
-
-func NewCreateInstanceResponse() (response *CreateInstanceResponse) {
-    response = &CreateInstanceResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 创建数据安全审计实例
-func (c *Client) CreateInstance(request *CreateInstanceRequest) (response *CreateInstanceResponse, err error) {
-    if request == nil {
-        request = NewCreateInstanceRequest()
-    }
-    response = NewCreateInstanceResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeInstancesRequest() (request *DescribeInstancesRequest) {
     request = &DescribeInstancesRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -89,56 +64,6 @@ func (c *Client) DescribeInstances(request *DescribeInstancesRequest) (response 
         request = NewDescribeInstancesRequest()
     }
     response = NewDescribeInstancesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeProductTypesRequest() (request *DescribeProductTypesRequest) {
-    request = &DescribeProductTypesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("dsaudit", APIVersion, "DescribeProductTypes")
-    return
-}
-
-func NewDescribeProductTypesResponse() (response *DescribeProductTypesResponse) {
-    response = &DescribeProductTypesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取数据安全审计产品规格列表
-func (c *Client) DescribeProductTypes(request *DescribeProductTypesRequest) (response *DescribeProductTypesResponse, err error) {
-    if request == nil {
-        request = NewDescribeProductTypesRequest()
-    }
-    response = NewDescribeProductTypesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeSaleInfoRequest() (request *DescribeSaleInfoRequest) {
-    request = &DescribeSaleInfoRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("dsaudit", APIVersion, "DescribeSaleInfo")
-    return
-}
-
-func NewDescribeSaleInfoResponse() (response *DescribeSaleInfoResponse) {
-    response = &DescribeSaleInfoResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取产品的销售信息，规格，时长
-func (c *Client) DescribeSaleInfo(request *DescribeSaleInfoRequest) (response *DescribeSaleInfoResponse, err error) {
-    if request == nil {
-        request = NewDescribeSaleInfoRequest()
-    }
-    response = NewDescribeSaleInfoResponse()
     err = c.Send(request, response)
     return
 }

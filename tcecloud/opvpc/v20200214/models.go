@@ -379,7 +379,7 @@ func (r *DescribeLbLimitResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type DescribeNatGatewayRequest struct {
+type DescribeNatGatewaysRequest struct {
 	*tchttp.BaseRequest
 
 	// 排序类型
@@ -398,16 +398,16 @@ type DescribeNatGatewayRequest struct {
 	Filters []*Filter `json:"Filters,omitempty" name:"Filters" list`
 }
 
-func (r *DescribeNatGatewayRequest) ToJsonString() string {
+func (r *DescribeNatGatewaysRequest) ToJsonString() string {
     b, _ := json.Marshal(r)
     return string(b)
 }
 
-func (r *DescribeNatGatewayRequest) FromJsonString(s string) error {
+func (r *DescribeNatGatewaysRequest) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type DescribeNatGatewayResponse struct {
+type DescribeNatGatewaysResponse struct {
 	*tchttp.BaseResponse
 	Response *struct {
 
@@ -422,12 +422,12 @@ type DescribeNatGatewayResponse struct {
 	} `json:"Response"`
 }
 
-func (r *DescribeNatGatewayResponse) ToJsonString() string {
+func (r *DescribeNatGatewaysResponse) ToJsonString() string {
     b, _ := json.Marshal(r)
     return string(b)
 }
 
-func (r *DescribeNatGatewayResponse) FromJsonString(s string) error {
+func (r *DescribeNatGatewaysResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
@@ -560,7 +560,7 @@ func (r *DescribeSecurityGroupResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type DescribeSubnetExRequest struct {
+type DescribeSubnetsExRequest struct {
 	*tchttp.BaseRequest
 
 	// 偏移量
@@ -579,16 +579,16 @@ type DescribeSubnetExRequest struct {
 	OrderDirection *string `json:"OrderDirection,omitempty" name:"OrderDirection"`
 }
 
-func (r *DescribeSubnetExRequest) ToJsonString() string {
+func (r *DescribeSubnetsExRequest) ToJsonString() string {
     b, _ := json.Marshal(r)
     return string(b)
 }
 
-func (r *DescribeSubnetExRequest) FromJsonString(s string) error {
+func (r *DescribeSubnetsExRequest) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type DescribeSubnetExResponse struct {
+type DescribeSubnetsExResponse struct {
 	*tchttp.BaseResponse
 	Response *struct {
 
@@ -596,19 +596,19 @@ type DescribeSubnetExResponse struct {
 		TotalCount []*string `json:"TotalCount,omitempty" name:"TotalCount" list`
 
 		// 子网列表
-		SubNetSet []*SubNetInfo `json:"SubNetSet,omitempty" name:"SubNetSet" list`
+		SubnetSet []*SubNetInfo `json:"SubnetSet,omitempty" name:"SubnetSet" list`
 
 		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
 		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
 	} `json:"Response"`
 }
 
-func (r *DescribeSubnetExResponse) ToJsonString() string {
+func (r *DescribeSubnetsExResponse) ToJsonString() string {
     b, _ := json.Marshal(r)
     return string(b)
 }
 
-func (r *DescribeSubnetExResponse) FromJsonString(s string) error {
+func (r *DescribeSubnetsExResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 

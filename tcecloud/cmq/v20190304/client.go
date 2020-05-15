@@ -15,9 +15,9 @@
 package v20190304
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2019-03-04"
@@ -293,31 +293,6 @@ func (c *Client) DescribeQueueDetail(request *DescribeQueueDetailRequest) (respo
     return
 }
 
-func NewDescribeQueuesRequest() (request *DescribeQueuesRequest) {
-    request = &DescribeQueuesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cmq", APIVersion, "DescribeQueues")
-    return
-}
-
-func NewDescribeQueuesResponse() (response *DescribeQueuesResponse) {
-    response = &DescribeQueuesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询全量队列
-func (c *Client) DescribeQueues(request *DescribeQueuesRequest) (response *DescribeQueuesResponse, err error) {
-    if request == nil {
-        request = NewDescribeQueuesRequest()
-    }
-    response = NewDescribeQueuesResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeSubscriptionDetailRequest() (request *DescribeSubscriptionDetailRequest) {
     request = &DescribeSubscriptionDetailRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -364,31 +339,6 @@ func (c *Client) DescribeTopicDetail(request *DescribeTopicDetailRequest) (respo
         request = NewDescribeTopicDetailRequest()
     }
     response = NewDescribeTopicDetailResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeTopicsRequest() (request *DescribeTopicsRequest) {
-    request = &DescribeTopicsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cmq", APIVersion, "DescribeTopics")
-    return
-}
-
-func NewDescribeTopicsResponse() (response *DescribeTopicsResponse) {
-    response = &DescribeTopicsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 枚举全量主题
-func (c *Client) DescribeTopics(request *DescribeTopicsRequest) (response *DescribeTopicsResponse, err error) {
-    if request == nil {
-        request = NewDescribeTopicsRequest()
-    }
-    response = NewDescribeTopicsResponse()
     err = c.Send(request, response)
     return
 }

@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 	"os"
-        "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-        "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/errors"
-        "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
-        "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/regions"
-        cvm "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/cvm/v20170312"
+        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/errors"
+        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
+        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/regions"
+        cvm "github.com/tencentyun/tcecloud-sdk-go/tcecloud/cvm/v20170312"
 
 )
 

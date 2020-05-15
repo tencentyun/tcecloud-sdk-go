@@ -15,9 +15,9 @@
 package v20190924
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2019-09-24"
@@ -42,31 +42,6 @@ func NewClient(credential *common.Credential, region string, clientProfile *prof
     return
 }
 
-
-func NewBatchDeleteFavorRepositoryPersonalRequest() (request *BatchDeleteFavorRepositoryPersonalRequest) {
-    request = &BatchDeleteFavorRepositoryPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "BatchDeleteFavorRepositoryPersonal")
-    return
-}
-
-func NewBatchDeleteFavorRepositoryPersonalResponse() (response *BatchDeleteFavorRepositoryPersonalResponse) {
-    response = &BatchDeleteFavorRepositoryPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 批量删除个人收藏仓库
-func (c *Client) BatchDeleteFavorRepositoryPersonal(request *BatchDeleteFavorRepositoryPersonalRequest) (response *BatchDeleteFavorRepositoryPersonalResponse, err error) {
-    if request == nil {
-        request = NewBatchDeleteFavorRepositoryPersonalRequest()
-    }
-    response = NewBatchDeleteFavorRepositoryPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
 
 func NewBatchDeleteImagePersonalRequest() (request *BatchDeleteImagePersonalRequest) {
     request = &BatchDeleteImagePersonalRequest{
@@ -118,31 +93,6 @@ func (c *Client) BatchDeleteRepositoryPersonal(request *BatchDeleteRepositoryPer
     return
 }
 
-func NewCreateApplicationTokenPersonalRequest() (request *CreateApplicationTokenPersonalRequest) {
-    request = &CreateApplicationTokenPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "CreateApplicationTokenPersonal")
-    return
-}
-
-func NewCreateApplicationTokenPersonalResponse() (response *CreateApplicationTokenPersonalResponse) {
-    response = &CreateApplicationTokenPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 用于创建第三方应用访问凭证
-func (c *Client) CreateApplicationTokenPersonal(request *CreateApplicationTokenPersonalRequest) (response *CreateApplicationTokenPersonalResponse, err error) {
-    if request == nil {
-        request = NewCreateApplicationTokenPersonalRequest()
-    }
-    response = NewCreateApplicationTokenPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewCreateApplicationTriggerPersonalRequest() (request *CreateApplicationTriggerPersonalRequest) {
     request = &CreateApplicationTriggerPersonalRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -164,106 +114,6 @@ func (c *Client) CreateApplicationTriggerPersonal(request *CreateApplicationTrig
         request = NewCreateApplicationTriggerPersonalRequest()
     }
     response = NewCreateApplicationTriggerPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreateFavorRepositoryPersonalRequest() (request *CreateFavorRepositoryPersonalRequest) {
-    request = &CreateFavorRepositoryPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "CreateFavorRepositoryPersonal")
-    return
-}
-
-func NewCreateFavorRepositoryPersonalResponse() (response *CreateFavorRepositoryPersonalResponse) {
-    response = &CreateFavorRepositoryPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 创建个人收藏仓库
-func (c *Client) CreateFavorRepositoryPersonal(request *CreateFavorRepositoryPersonalRequest) (response *CreateFavorRepositoryPersonalResponse, err error) {
-    if request == nil {
-        request = NewCreateFavorRepositoryPersonalRequest()
-    }
-    response = NewCreateFavorRepositoryPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreateImageBuildPersonalRequest() (request *CreateImageBuildPersonalRequest) {
-    request = &CreateImageBuildPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "CreateImageBuildPersonal")
-    return
-}
-
-func NewCreateImageBuildPersonalResponse() (response *CreateImageBuildPersonalResponse) {
-    response = &CreateImageBuildPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 创建镜像构建规则
-func (c *Client) CreateImageBuildPersonal(request *CreateImageBuildPersonalRequest) (response *CreateImageBuildPersonalResponse, err error) {
-    if request == nil {
-        request = NewCreateImageBuildPersonalRequest()
-    }
-    response = NewCreateImageBuildPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreateImageBuildTaskDockerPersonalRequest() (request *CreateImageBuildTaskDockerPersonalRequest) {
-    request = &CreateImageBuildTaskDockerPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "CreateImageBuildTaskDockerPersonal")
-    return
-}
-
-func NewCreateImageBuildTaskDockerPersonalResponse() (response *CreateImageBuildTaskDockerPersonalResponse) {
-    response = &CreateImageBuildTaskDockerPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 创建基于Dockerfile的镜像构建任务
-func (c *Client) CreateImageBuildTaskDockerPersonal(request *CreateImageBuildTaskDockerPersonalRequest) (response *CreateImageBuildTaskDockerPersonalResponse, err error) {
-    if request == nil {
-        request = NewCreateImageBuildTaskDockerPersonalRequest()
-    }
-    response = NewCreateImageBuildTaskDockerPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreateImageBuildTaskManuallyPersonalRequest() (request *CreateImageBuildTaskManuallyPersonalRequest) {
-    request = &CreateImageBuildTaskManuallyPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "CreateImageBuildTaskManuallyPersonal")
-    return
-}
-
-func NewCreateImageBuildTaskManuallyPersonalResponse() (response *CreateImageBuildTaskManuallyPersonalResponse) {
-    response = &CreateImageBuildTaskManuallyPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 创建手动执行的镜像构建任务
-func (c *Client) CreateImageBuildTaskManuallyPersonal(request *CreateImageBuildTaskManuallyPersonalRequest) (response *CreateImageBuildTaskManuallyPersonalResponse, err error) {
-    if request == nil {
-        request = NewCreateImageBuildTaskManuallyPersonalRequest()
-    }
-    response = NewCreateImageBuildTaskManuallyPersonalResponse()
     err = c.Send(request, response)
     return
 }
@@ -368,31 +218,6 @@ func (c *Client) CreateNamespacePersonal(request *CreateNamespacePersonalRequest
     return
 }
 
-func NewCreateRepoRequest() (request *CreateRepoRequest) {
-    request = &CreateRepoRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "CreateRepo")
-    return
-}
-
-func NewCreateRepoResponse() (response *CreateRepoResponse) {
-    response = &CreateRepoResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 用于在共享版仓库中创建镜像仓库
-func (c *Client) CreateRepo(request *CreateRepoRequest) (response *CreateRepoResponse, err error) {
-    if request == nil {
-        request = NewCreateRepoRequest()
-    }
-    response = NewCreateRepoResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewCreateRepositoryPersonalRequest() (request *CreateRepositoryPersonalRequest) {
     request = &CreateRepositoryPersonalRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -414,81 +239,6 @@ func (c *Client) CreateRepositoryPersonal(request *CreateRepositoryPersonalReque
         request = NewCreateRepositoryPersonalRequest()
     }
     response = NewCreateRepositoryPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreateSecurityPoliciesRequest() (request *CreateSecurityPoliciesRequest) {
-    request = &CreateSecurityPoliciesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "CreateSecurityPolicies")
-    return
-}
-
-func NewCreateSecurityPoliciesResponse() (response *CreateSecurityPoliciesResponse) {
-    response = &CreateSecurityPoliciesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 创建实例公网访问白名单策略
-func (c *Client) CreateSecurityPolicies(request *CreateSecurityPoliciesRequest) (response *CreateSecurityPoliciesResponse, err error) {
-    if request == nil {
-        request = NewCreateSecurityPoliciesRequest()
-    }
-    response = NewCreateSecurityPoliciesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreateSecurityPolicyRequest() (request *CreateSecurityPolicyRequest) {
-    request = &CreateSecurityPolicyRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "CreateSecurityPolicy")
-    return
-}
-
-func NewCreateSecurityPolicyResponse() (response *CreateSecurityPolicyResponse) {
-    response = &CreateSecurityPolicyResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 创建实例公网访问白名单策略
-func (c *Client) CreateSecurityPolicy(request *CreateSecurityPolicyRequest) (response *CreateSecurityPolicyResponse, err error) {
-    if request == nil {
-        request = NewCreateSecurityPolicyRequest()
-    }
-    response = NewCreateSecurityPolicyResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreateSourceCodeAuthPersonalRequest() (request *CreateSourceCodeAuthPersonalRequest) {
-    request = &CreateSourceCodeAuthPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "CreateSourceCodeAuthPersonal")
-    return
-}
-
-func NewCreateSourceCodeAuthPersonalResponse() (response *CreateSourceCodeAuthPersonalResponse) {
-    response = &CreateSourceCodeAuthPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 创建源代码授权
-func (c *Client) CreateSourceCodeAuthPersonal(request *CreateSourceCodeAuthPersonalRequest) (response *CreateSourceCodeAuthPersonalResponse, err error) {
-    if request == nil {
-        request = NewCreateSourceCodeAuthPersonalRequest()
-    }
-    response = NewCreateSourceCodeAuthPersonalResponse()
     err = c.Send(request, response)
     return
 }
@@ -539,106 +289,6 @@ func (c *Client) DeleteApplicationTriggerPersonal(request *DeleteApplicationTrig
         request = NewDeleteApplicationTriggerPersonalRequest()
     }
     response = NewDeleteApplicationTriggerPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDeleteFavorRepositoryPersonalRequest() (request *DeleteFavorRepositoryPersonalRequest) {
-    request = &DeleteFavorRepositoryPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DeleteFavorRepositoryPersonal")
-    return
-}
-
-func NewDeleteFavorRepositoryPersonalResponse() (response *DeleteFavorRepositoryPersonalResponse) {
-    response = &DeleteFavorRepositoryPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 删除个人收藏仓库
-func (c *Client) DeleteFavorRepositoryPersonal(request *DeleteFavorRepositoryPersonalRequest) (response *DeleteFavorRepositoryPersonalResponse, err error) {
-    if request == nil {
-        request = NewDeleteFavorRepositoryPersonalRequest()
-    }
-    response = NewDeleteFavorRepositoryPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDeleteFavorRepositoryRegionPersonalRequest() (request *DeleteFavorRepositoryRegionPersonalRequest) {
-    request = &DeleteFavorRepositoryRegionPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DeleteFavorRepositoryRegionPersonal")
-    return
-}
-
-func NewDeleteFavorRepositoryRegionPersonalResponse() (response *DeleteFavorRepositoryRegionPersonalResponse) {
-    response = &DeleteFavorRepositoryRegionPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 删除指定地域所有个人收藏仓库
-func (c *Client) DeleteFavorRepositoryRegionPersonal(request *DeleteFavorRepositoryRegionPersonalRequest) (response *DeleteFavorRepositoryRegionPersonalResponse, err error) {
-    if request == nil {
-        request = NewDeleteFavorRepositoryRegionPersonalRequest()
-    }
-    response = NewDeleteFavorRepositoryRegionPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDeleteImageBuildPersonalRequest() (request *DeleteImageBuildPersonalRequest) {
-    request = &DeleteImageBuildPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DeleteImageBuildPersonal")
-    return
-}
-
-func NewDeleteImageBuildPersonalResponse() (response *DeleteImageBuildPersonalResponse) {
-    response = &DeleteImageBuildPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 删除镜像构建规则
-func (c *Client) DeleteImageBuildPersonal(request *DeleteImageBuildPersonalRequest) (response *DeleteImageBuildPersonalResponse, err error) {
-    if request == nil {
-        request = NewDeleteImageBuildPersonalRequest()
-    }
-    response = NewDeleteImageBuildPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDeleteImageBuildTaskPersonalRequest() (request *DeleteImageBuildTaskPersonalRequest) {
-    request = &DeleteImageBuildTaskPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DeleteImageBuildTaskPersonal")
-    return
-}
-
-func NewDeleteImageBuildTaskPersonalResponse() (response *DeleteImageBuildTaskPersonalResponse) {
-    response = &DeleteImageBuildTaskPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 删除镜像构建任务
-func (c *Client) DeleteImageBuildTaskPersonal(request *DeleteImageBuildTaskPersonalRequest) (response *DeleteImageBuildTaskPersonalResponse, err error) {
-    if request == nil {
-        request = NewDeleteImageBuildTaskPersonalRequest()
-    }
-    response = NewDeleteImageBuildTaskPersonalResponse()
     err = c.Send(request, response)
     return
 }
@@ -718,31 +368,6 @@ func (c *Client) DeleteImagePersonal(request *DeleteImagePersonalRequest) (respo
     return
 }
 
-func NewDeleteInstanceRequest() (request *DeleteInstanceRequest) {
-    request = &DeleteInstanceRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DeleteInstance")
-    return
-}
-
-func NewDeleteInstanceResponse() (response *DeleteInstanceResponse) {
-    response = &DeleteInstanceResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 删除镜像仓库企业版实例
-func (c *Client) DeleteInstance(request *DeleteInstanceRequest) (response *DeleteInstanceResponse, err error) {
-    if request == nil {
-        request = NewDeleteInstanceRequest()
-    }
-    response = NewDeleteInstanceResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDeleteNamespacePersonalRequest() (request *DeleteNamespacePersonalRequest) {
     request = &DeleteNamespacePersonalRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -789,81 +414,6 @@ func (c *Client) DeleteRepositoryPersonal(request *DeleteRepositoryPersonalReque
         request = NewDeleteRepositoryPersonalRequest()
     }
     response = NewDeleteRepositoryPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDeleteSecurityPolicyRequest() (request *DeleteSecurityPolicyRequest) {
-    request = &DeleteSecurityPolicyRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DeleteSecurityPolicy")
-    return
-}
-
-func NewDeleteSecurityPolicyResponse() (response *DeleteSecurityPolicyResponse) {
-    response = &DeleteSecurityPolicyResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 删除实例公网访问白名单策略
-func (c *Client) DeleteSecurityPolicy(request *DeleteSecurityPolicyRequest) (response *DeleteSecurityPolicyResponse, err error) {
-    if request == nil {
-        request = NewDeleteSecurityPolicyRequest()
-    }
-    response = NewDeleteSecurityPolicyResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDeleteSourceCodeAuthPersonalRequest() (request *DeleteSourceCodeAuthPersonalRequest) {
-    request = &DeleteSourceCodeAuthPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DeleteSourceCodeAuthPersonal")
-    return
-}
-
-func NewDeleteSourceCodeAuthPersonalResponse() (response *DeleteSourceCodeAuthPersonalResponse) {
-    response = &DeleteSourceCodeAuthPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 删除源代码授权
-func (c *Client) DeleteSourceCodeAuthPersonal(request *DeleteSourceCodeAuthPersonalRequest) (response *DeleteSourceCodeAuthPersonalResponse, err error) {
-    if request == nil {
-        request = NewDeleteSourceCodeAuthPersonalRequest()
-    }
-    response = NewDeleteSourceCodeAuthPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeApplicationTokenPersonalRequest() (request *DescribeApplicationTokenPersonalRequest) {
-    request = &DescribeApplicationTokenPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeApplicationTokenPersonal")
-    return
-}
-
-func NewDescribeApplicationTokenPersonalResponse() (response *DescribeApplicationTokenPersonalResponse) {
-    response = &DescribeApplicationTokenPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 用于获取第三方应用访问凭证
-func (c *Client) DescribeApplicationTokenPersonal(request *DescribeApplicationTokenPersonalRequest) (response *DescribeApplicationTokenPersonalResponse, err error) {
-    if request == nil {
-        request = NewDescribeApplicationTokenPersonalRequest()
-    }
-    response = NewDescribeApplicationTokenPersonalResponse()
     err = c.Send(request, response)
     return
 }
@@ -918,106 +468,6 @@ func (c *Client) DescribeApplicationTriggerPersonal(request *DescribeApplication
     return
 }
 
-func NewDescribeDockerHubImagePersonalRequest() (request *DescribeDockerHubImagePersonalRequest) {
-    request = &DescribeDockerHubImagePersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeDockerHubImagePersonal")
-    return
-}
-
-func NewDescribeDockerHubImagePersonalResponse() (response *DescribeDockerHubImagePersonalResponse) {
-    response = &DescribeDockerHubImagePersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询DockerHub镜像列表
-func (c *Client) DescribeDockerHubImagePersonal(request *DescribeDockerHubImagePersonalRequest) (response *DescribeDockerHubImagePersonalResponse, err error) {
-    if request == nil {
-        request = NewDescribeDockerHubImagePersonalRequest()
-    }
-    response = NewDescribeDockerHubImagePersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeDockerHubRepositoryInfoPersonalRequest() (request *DescribeDockerHubRepositoryInfoPersonalRequest) {
-    request = &DescribeDockerHubRepositoryInfoPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeDockerHubRepositoryInfoPersonal")
-    return
-}
-
-func NewDescribeDockerHubRepositoryInfoPersonalResponse() (response *DescribeDockerHubRepositoryInfoPersonalResponse) {
-    response = &DescribeDockerHubRepositoryInfoPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询DockerHub仓库信息
-func (c *Client) DescribeDockerHubRepositoryInfoPersonal(request *DescribeDockerHubRepositoryInfoPersonalRequest) (response *DescribeDockerHubRepositoryInfoPersonalResponse, err error) {
-    if request == nil {
-        request = NewDescribeDockerHubRepositoryInfoPersonalRequest()
-    }
-    response = NewDescribeDockerHubRepositoryInfoPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeDockerHubRepositoryPersonalRequest() (request *DescribeDockerHubRepositoryPersonalRequest) {
-    request = &DescribeDockerHubRepositoryPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeDockerHubRepositoryPersonal")
-    return
-}
-
-func NewDescribeDockerHubRepositoryPersonalResponse() (response *DescribeDockerHubRepositoryPersonalResponse) {
-    response = &DescribeDockerHubRepositoryPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询DockerHub仓库列表
-func (c *Client) DescribeDockerHubRepositoryPersonal(request *DescribeDockerHubRepositoryPersonalRequest) (response *DescribeDockerHubRepositoryPersonalResponse, err error) {
-    if request == nil {
-        request = NewDescribeDockerHubRepositoryPersonalRequest()
-    }
-    response = NewDescribeDockerHubRepositoryPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeExternalEndpointStatusRequest() (request *DescribeExternalEndpointStatusRequest) {
-    request = &DescribeExternalEndpointStatusRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeExternalEndpointStatus")
-    return
-}
-
-func NewDescribeExternalEndpointStatusResponse() (response *DescribeExternalEndpointStatusResponse) {
-    response = &DescribeExternalEndpointStatusResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询实例公网访问入口状态
-func (c *Client) DescribeExternalEndpointStatus(request *DescribeExternalEndpointStatusRequest) (response *DescribeExternalEndpointStatusResponse, err error) {
-    if request == nil {
-        request = NewDescribeExternalEndpointStatusRequest()
-    }
-    response = NewDescribeExternalEndpointStatusResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeFavorRepositoryPersonalRequest() (request *DescribeFavorRepositoryPersonalRequest) {
     request = &DescribeFavorRepositoryPersonalRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1039,106 +489,6 @@ func (c *Client) DescribeFavorRepositoryPersonal(request *DescribeFavorRepositor
         request = NewDescribeFavorRepositoryPersonalRequest()
     }
     response = NewDescribeFavorRepositoryPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeImageBuildPersonalRequest() (request *DescribeImageBuildPersonalRequest) {
-    request = &DescribeImageBuildPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeImageBuildPersonal")
-    return
-}
-
-func NewDescribeImageBuildPersonalResponse() (response *DescribeImageBuildPersonalResponse) {
-    response = &DescribeImageBuildPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询镜像构建规则
-func (c *Client) DescribeImageBuildPersonal(request *DescribeImageBuildPersonalRequest) (response *DescribeImageBuildPersonalResponse, err error) {
-    if request == nil {
-        request = NewDescribeImageBuildPersonalRequest()
-    }
-    response = NewDescribeImageBuildPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeImageBuildTaskLogInfoPersonalRequest() (request *DescribeImageBuildTaskLogInfoPersonalRequest) {
-    request = &DescribeImageBuildTaskLogInfoPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeImageBuildTaskLogInfoPersonal")
-    return
-}
-
-func NewDescribeImageBuildTaskLogInfoPersonalResponse() (response *DescribeImageBuildTaskLogInfoPersonalResponse) {
-    response = &DescribeImageBuildTaskLogInfoPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询镜像构建任务日志信息
-func (c *Client) DescribeImageBuildTaskLogInfoPersonal(request *DescribeImageBuildTaskLogInfoPersonalRequest) (response *DescribeImageBuildTaskLogInfoPersonalResponse, err error) {
-    if request == nil {
-        request = NewDescribeImageBuildTaskLogInfoPersonalRequest()
-    }
-    response = NewDescribeImageBuildTaskLogInfoPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeImageBuildTaskLogPersonalRequest() (request *DescribeImageBuildTaskLogPersonalRequest) {
-    request = &DescribeImageBuildTaskLogPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeImageBuildTaskLogPersonal")
-    return
-}
-
-func NewDescribeImageBuildTaskLogPersonalResponse() (response *DescribeImageBuildTaskLogPersonalResponse) {
-    response = &DescribeImageBuildTaskLogPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询镜像构建任务日志
-func (c *Client) DescribeImageBuildTaskLogPersonal(request *DescribeImageBuildTaskLogPersonalRequest) (response *DescribeImageBuildTaskLogPersonalResponse, err error) {
-    if request == nil {
-        request = NewDescribeImageBuildTaskLogPersonalRequest()
-    }
-    response = NewDescribeImageBuildTaskLogPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeImageConfigPersonalRequest() (request *DescribeImageConfigPersonalRequest) {
-    request = &DescribeImageConfigPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeImageConfigPersonal")
-    return
-}
-
-func NewDescribeImageConfigPersonalResponse() (response *DescribeImageConfigPersonalResponse) {
-    response = &DescribeImageConfigPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 用于查询镜像版本配置信息
-func (c *Client) DescribeImageConfigPersonal(request *DescribeImageConfigPersonalRequest) (response *DescribeImageConfigPersonalResponse, err error) {
-    if request == nil {
-        request = NewDescribeImageConfigPersonalRequest()
-    }
-    response = NewDescribeImageConfigPersonalResponse()
     err = c.Send(request, response)
     return
 }
@@ -1293,31 +643,6 @@ func (c *Client) DescribeInstances(request *DescribeInstancesRequest) (response 
     return
 }
 
-func NewDescribeInternalEndpointsRequest() (request *DescribeInternalEndpointsRequest) {
-    request = &DescribeInternalEndpointsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeInternalEndpoints")
-    return
-}
-
-func NewDescribeInternalEndpointsResponse() (response *DescribeInternalEndpointsResponse) {
-    response = &DescribeInternalEndpointsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询实例内网访问VPC链接
-func (c *Client) DescribeInternalEndpoints(request *DescribeInternalEndpointsRequest) (response *DescribeInternalEndpointsResponse, err error) {
-    if request == nil {
-        request = NewDescribeInternalEndpointsRequest()
-    }
-    response = NewDescribeInternalEndpointsResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeNamespacePersonalRequest() (request *DescribeNamespacePersonalRequest) {
     request = &DescribeNamespacePersonalRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1339,56 +664,6 @@ func (c *Client) DescribeNamespacePersonal(request *DescribeNamespacePersonalReq
         request = NewDescribeNamespacePersonalRequest()
     }
     response = NewDescribeNamespacePersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeRegionsRequest() (request *DescribeRegionsRequest) {
-    request = &DescribeRegionsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeRegions")
-    return
-}
-
-func NewDescribeRegionsResponse() (response *DescribeRegionsResponse) {
-    response = &DescribeRegionsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 用于在TCR中获取可用区域
-func (c *Client) DescribeRegions(request *DescribeRegionsRequest) (response *DescribeRegionsResponse, err error) {
-    if request == nil {
-        request = NewDescribeRegionsRequest()
-    }
-    response = NewDescribeRegionsResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeRepositoryAllPersonalRequest() (request *DescribeRepositoryAllPersonalRequest) {
-    request = &DescribeRepositoryAllPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeRepositoryAllPersonal")
-    return
-}
-
-func NewDescribeRepositoryAllPersonalResponse() (response *DescribeRepositoryAllPersonalResponse) {
-    response = &DescribeRepositoryAllPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 用于查询所有可访问的镜像仓库
-func (c *Client) DescribeRepositoryAllPersonal(request *DescribeRepositoryAllPersonalRequest) (response *DescribeRepositoryAllPersonalResponse, err error) {
-    if request == nil {
-        request = NewDescribeRepositoryAllPersonalRequest()
-    }
-    response = NewDescribeRepositoryAllPersonalResponse()
     err = c.Send(request, response)
     return
 }
@@ -1468,156 +743,6 @@ func (c *Client) DescribeRepositoryPersonal(request *DescribeRepositoryPersonalR
     return
 }
 
-func NewDescribeSecurityPoliciesRequest() (request *DescribeSecurityPoliciesRequest) {
-    request = &DescribeSecurityPoliciesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeSecurityPolicies")
-    return
-}
-
-func NewDescribeSecurityPoliciesResponse() (response *DescribeSecurityPoliciesResponse) {
-    response = &DescribeSecurityPoliciesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询实例公网访问白名单策略
-func (c *Client) DescribeSecurityPolicies(request *DescribeSecurityPoliciesRequest) (response *DescribeSecurityPoliciesResponse, err error) {
-    if request == nil {
-        request = NewDescribeSecurityPoliciesRequest()
-    }
-    response = NewDescribeSecurityPoliciesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeSourceCodeAuthPersonalRequest() (request *DescribeSourceCodeAuthPersonalRequest) {
-    request = &DescribeSourceCodeAuthPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeSourceCodeAuthPersonal")
-    return
-}
-
-func NewDescribeSourceCodeAuthPersonalResponse() (response *DescribeSourceCodeAuthPersonalResponse) {
-    response = &DescribeSourceCodeAuthPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询源代码授权
-func (c *Client) DescribeSourceCodeAuthPersonal(request *DescribeSourceCodeAuthPersonalRequest) (response *DescribeSourceCodeAuthPersonalResponse, err error) {
-    if request == nil {
-        request = NewDescribeSourceCodeAuthPersonalRequest()
-    }
-    response = NewDescribeSourceCodeAuthPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeSourceCodeAuthUserInfoPersonalRequest() (request *DescribeSourceCodeAuthUserInfoPersonalRequest) {
-    request = &DescribeSourceCodeAuthUserInfoPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeSourceCodeAuthUserInfoPersonal")
-    return
-}
-
-func NewDescribeSourceCodeAuthUserInfoPersonalResponse() (response *DescribeSourceCodeAuthUserInfoPersonalResponse) {
-    response = &DescribeSourceCodeAuthUserInfoPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询源代码授权用户信息
-func (c *Client) DescribeSourceCodeAuthUserInfoPersonal(request *DescribeSourceCodeAuthUserInfoPersonalRequest) (response *DescribeSourceCodeAuthUserInfoPersonalResponse, err error) {
-    if request == nil {
-        request = NewDescribeSourceCodeAuthUserInfoPersonalRequest()
-    }
-    response = NewDescribeSourceCodeAuthUserInfoPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeSourceCodeRepositoryBranchPersonalRequest() (request *DescribeSourceCodeRepositoryBranchPersonalRequest) {
-    request = &DescribeSourceCodeRepositoryBranchPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeSourceCodeRepositoryBranchPersonal")
-    return
-}
-
-func NewDescribeSourceCodeRepositoryBranchPersonalResponse() (response *DescribeSourceCodeRepositoryBranchPersonalResponse) {
-    response = &DescribeSourceCodeRepositoryBranchPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询源代码仓库分支列表
-func (c *Client) DescribeSourceCodeRepositoryBranchPersonal(request *DescribeSourceCodeRepositoryBranchPersonalRequest) (response *DescribeSourceCodeRepositoryBranchPersonalResponse, err error) {
-    if request == nil {
-        request = NewDescribeSourceCodeRepositoryBranchPersonalRequest()
-    }
-    response = NewDescribeSourceCodeRepositoryBranchPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeSourceCodeRepositoryPersonalRequest() (request *DescribeSourceCodeRepositoryPersonalRequest) {
-    request = &DescribeSourceCodeRepositoryPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeSourceCodeRepositoryPersonal")
-    return
-}
-
-func NewDescribeSourceCodeRepositoryPersonalResponse() (response *DescribeSourceCodeRepositoryPersonalResponse) {
-    response = &DescribeSourceCodeRepositoryPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询源代码仓库列表
-func (c *Client) DescribeSourceCodeRepositoryPersonal(request *DescribeSourceCodeRepositoryPersonalRequest) (response *DescribeSourceCodeRepositoryPersonalResponse, err error) {
-    if request == nil {
-        request = NewDescribeSourceCodeRepositoryPersonalRequest()
-    }
-    response = NewDescribeSourceCodeRepositoryPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeUserPersonalRequest() (request *DescribeUserPersonalRequest) {
-    request = &DescribeUserPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "DescribeUserPersonal")
-    return
-}
-
-func NewDescribeUserPersonalResponse() (response *DescribeUserPersonalResponse) {
-    response = &DescribeUserPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询个人用户信息
-func (c *Client) DescribeUserPersonal(request *DescribeUserPersonalRequest) (response *DescribeUserPersonalResponse, err error) {
-    if request == nil {
-        request = NewDescribeUserPersonalRequest()
-    }
-    response = NewDescribeUserPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeUserQuotaPersonalRequest() (request *DescribeUserQuotaPersonalRequest) {
     request = &DescribeUserQuotaPersonalRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1668,56 +793,6 @@ func (c *Client) DuplicateImagePersonal(request *DuplicateImagePersonalRequest) 
     return
 }
 
-func NewForwardRequestRequest() (request *ForwardRequestRequest) {
-    request = &ForwardRequestRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "ForwardRequest")
-    return
-}
-
-func NewForwardRequestResponse() (response *ForwardRequestResponse) {
-    response = &ForwardRequestResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// TCR 代理转发接口
-func (c *Client) ForwardRequest(request *ForwardRequestRequest) (response *ForwardRequestResponse, err error) {
-    if request == nil {
-        request = NewForwardRequestRequest()
-    }
-    response = NewForwardRequestResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewManageExternalEndpointRequest() (request *ManageExternalEndpointRequest) {
-    request = &ManageExternalEndpointRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "ManageExternalEndpoint")
-    return
-}
-
-func NewManageExternalEndpointResponse() (response *ManageExternalEndpointResponse) {
-    response = &ManageExternalEndpointResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 管理实例公网访问
-func (c *Client) ManageExternalEndpoint(request *ManageExternalEndpointRequest) (response *ManageExternalEndpointResponse, err error) {
-    if request == nil {
-        request = NewManageExternalEndpointRequest()
-    }
-    response = NewManageExternalEndpointResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewManageImageLifecycleGlobalPersonalRequest() (request *ManageImageLifecycleGlobalPersonalRequest) {
     request = &ManageImageLifecycleGlobalPersonalRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1743,56 +818,6 @@ func (c *Client) ManageImageLifecycleGlobalPersonal(request *ManageImageLifecycl
     return
 }
 
-func NewManageInternalEndpointRequest() (request *ManageInternalEndpointRequest) {
-    request = &ManageInternalEndpointRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "ManageInternalEndpoint")
-    return
-}
-
-func NewManageInternalEndpointResponse() (response *ManageInternalEndpointResponse) {
-    response = &ManageInternalEndpointResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 管理实例内网访问VPC链接
-func (c *Client) ManageInternalEndpoint(request *ManageInternalEndpointRequest) (response *ManageInternalEndpointResponse, err error) {
-    if request == nil {
-        request = NewManageInternalEndpointRequest()
-    }
-    response = NewManageInternalEndpointResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewManageReplicationRequest() (request *ManageReplicationRequest) {
-    request = &ManageReplicationRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "ManageReplication")
-    return
-}
-
-func NewManageReplicationResponse() (response *ManageReplicationResponse) {
-    response = &ManageReplicationResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 管理实例同步
-func (c *Client) ManageReplication(request *ManageReplicationRequest) (response *ManageReplicationResponse, err error) {
-    if request == nil {
-        request = NewManageReplicationRequest()
-    }
-    response = NewManageReplicationResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewModifyApplicationTriggerPersonalRequest() (request *ModifyApplicationTriggerPersonalRequest) {
     request = &ModifyApplicationTriggerPersonalRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1814,56 +839,6 @@ func (c *Client) ModifyApplicationTriggerPersonal(request *ModifyApplicationTrig
         request = NewModifyApplicationTriggerPersonalRequest()
     }
     response = NewModifyApplicationTriggerPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewModifyImageBuildPersonalRequest() (request *ModifyImageBuildPersonalRequest) {
-    request = &ModifyImageBuildPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "ModifyImageBuildPersonal")
-    return
-}
-
-func NewModifyImageBuildPersonalResponse() (response *ModifyImageBuildPersonalResponse) {
-    response = &ModifyImageBuildPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 修改镜像构建规则
-func (c *Client) ModifyImageBuildPersonal(request *ModifyImageBuildPersonalRequest) (response *ModifyImageBuildPersonalResponse, err error) {
-    if request == nil {
-        request = NewModifyImageBuildPersonalRequest()
-    }
-    response = NewModifyImageBuildPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewModifyInstanceRequest() (request *ModifyInstanceRequest) {
-    request = &ModifyInstanceRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "ModifyInstance")
-    return
-}
-
-func NewModifyInstanceResponse() (response *ModifyInstanceResponse) {
-    response = &ModifyInstanceResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 更新实例信息
-func (c *Client) ModifyInstance(request *ModifyInstanceRequest) (response *ModifyInstanceResponse, err error) {
-    if request == nil {
-        request = NewModifyInstanceRequest()
-    }
-    response = NewModifyInstanceResponse()
     err = c.Send(request, response)
     return
 }
@@ -1918,31 +893,6 @@ func (c *Client) ModifyRepositoryInfoPersonal(request *ModifyRepositoryInfoPerso
     return
 }
 
-func NewModifySecurityPolicyRequest() (request *ModifySecurityPolicyRequest) {
-    request = &ModifySecurityPolicyRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "ModifySecurityPolicy")
-    return
-}
-
-func NewModifySecurityPolicyResponse() (response *ModifySecurityPolicyResponse) {
-    response = &ModifySecurityPolicyResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 更新实例公网访问白名单
-func (c *Client) ModifySecurityPolicy(request *ModifySecurityPolicyRequest) (response *ModifySecurityPolicyResponse, err error) {
-    if request == nil {
-        request = NewModifySecurityPolicyRequest()
-    }
-    response = NewModifySecurityPolicyResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewModifyUserPasswordPersonalRequest() (request *ModifyUserPasswordPersonalRequest) {
     request = &ModifyUserPasswordPersonalRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1964,56 +914,6 @@ func (c *Client) ModifyUserPasswordPersonal(request *ModifyUserPasswordPersonalR
         request = NewModifyUserPasswordPersonalRequest()
     }
     response = NewModifyUserPasswordPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewValidateApplicationTokenPersonalRequest() (request *ValidateApplicationTokenPersonalRequest) {
-    request = &ValidateApplicationTokenPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "ValidateApplicationTokenPersonal")
-    return
-}
-
-func NewValidateApplicationTokenPersonalResponse() (response *ValidateApplicationTokenPersonalResponse) {
-    response = &ValidateApplicationTokenPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 用于验证第三方应用访问凭证
-func (c *Client) ValidateApplicationTokenPersonal(request *ValidateApplicationTokenPersonalRequest) (response *ValidateApplicationTokenPersonalResponse, err error) {
-    if request == nil {
-        request = NewValidateApplicationTokenPersonalRequest()
-    }
-    response = NewValidateApplicationTokenPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewValidateGitHubAuthPersonalRequest() (request *ValidateGitHubAuthPersonalRequest) {
-    request = &ValidateGitHubAuthPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "ValidateGitHubAuthPersonal")
-    return
-}
-
-func NewValidateGitHubAuthPersonalResponse() (response *ValidateGitHubAuthPersonalResponse) {
-    response = &ValidateGitHubAuthPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 验证GitHub授权
-func (c *Client) ValidateGitHubAuthPersonal(request *ValidateGitHubAuthPersonalRequest) (response *ValidateGitHubAuthPersonalResponse, err error) {
-    if request == nil {
-        request = NewValidateGitHubAuthPersonalRequest()
-    }
-    response = NewValidateGitHubAuthPersonalResponse()
     err = c.Send(request, response)
     return
 }
@@ -2064,31 +964,6 @@ func (c *Client) ValidateRepositoryExistPersonal(request *ValidateRepositoryExis
         request = NewValidateRepositoryExistPersonalRequest()
     }
     response = NewValidateRepositoryExistPersonalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewValidateUserPersonalRequest() (request *ValidateUserPersonalRequest) {
-    request = &ValidateUserPersonalRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("tcr", APIVersion, "ValidateUserPersonal")
-    return
-}
-
-func NewValidateUserPersonalResponse() (response *ValidateUserPersonalResponse) {
-    response = &ValidateUserPersonalResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 验证个人用户
-func (c *Client) ValidateUserPersonal(request *ValidateUserPersonalRequest) (response *ValidateUserPersonalResponse, err error) {
-    if request == nil {
-        request = NewValidateUserPersonalRequest()
-    }
-    response = NewValidateUserPersonalResponse()
     err = c.Send(request, response)
     return
 }

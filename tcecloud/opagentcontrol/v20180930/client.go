@@ -15,9 +15,9 @@
 package v20180930
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2018-09-30"
@@ -143,31 +143,6 @@ func (c *Client) DescribeModules(request *DescribeModulesRequest) (response *Des
     return
 }
 
-func NewDescribeNodesRequest() (request *DescribeNodesRequest) {
-    request = &DescribeNodesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("opagentcontrol", APIVersion, "DescribeNodes")
-    return
-}
-
-func NewDescribeNodesResponse() (response *DescribeNodesResponse) {
-    response = &DescribeNodesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取节点名称、os类型、ip、节点类型、地域、可用区、主控状态、部署模块（版本、模块状态）、最后心跳等
-func (c *Client) DescribeNodes(request *DescribeNodesRequest) (response *DescribeNodesResponse, err error) {
-    if request == nil {
-        request = NewDescribeNodesRequest()
-    }
-    response = NewDescribeNodesResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewGetEnumInfoRequest() (request *GetEnumInfoRequest) {
     request = &GetEnumInfoRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -239,56 +214,6 @@ func (c *Client) ModifyModuleDesc(request *ModifyModuleDescRequest) (response *M
         request = NewModifyModuleDescRequest()
     }
     response = NewModifyModuleDescResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewSampleRequest() (request *SampleRequest) {
-    request = &SampleRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("opagentcontrol", APIVersion, "Sample")
-    return
-}
-
-func NewSampleResponse() (response *SampleResponse) {
-    response = &SampleResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 样例
-func (c *Client) Sample(request *SampleRequest) (response *SampleResponse, err error) {
-    if request == nil {
-        request = NewSampleRequest()
-    }
-    response = NewSampleResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewUninstallMainAgentRequest() (request *UninstallMainAgentRequest) {
-    request = &UninstallMainAgentRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("opagentcontrol", APIVersion, "UninstallMainAgent")
-    return
-}
-
-func NewUninstallMainAgentResponse() (response *UninstallMainAgentResponse) {
-    response = &UninstallMainAgentResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 主控卸载
-func (c *Client) UninstallMainAgent(request *UninstallMainAgentRequest) (response *UninstallMainAgentResponse, err error) {
-    if request == nil {
-        request = NewUninstallMainAgentRequest()
-    }
-    response = NewUninstallMainAgentResponse()
     err = c.Send(request, response)
     return
 }

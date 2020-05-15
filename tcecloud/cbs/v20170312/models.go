@@ -17,7 +17,7 @@ package v20170312
 import (
     "encoding/json"
 
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
 )
 
 type ApplySnapshotRequest struct {
@@ -66,14 +66,8 @@ type AttachDisksRequest struct {
 	// 云服务器实例ID。云盘将被挂载到此云服务器上，通过DescribeInstances接口查询。
 	InstanceId *string `json:"InstanceId,omitempty" name:"InstanceId"`
 
-	// 可选参数，不传该参数则仅执行挂载操作。<br>传入该参数，会在挂载时将云盘的生命周期与待挂载主机对齐。取值范围：<br><li>AUTO_RENEW：云盘未设置自动续费时，可传该值，将云盘设置为自动续费。<br><li> DEADLINE_ALIGN：当云盘的到期时间早于待挂载主机，可传该值，将云盘的到期时间与主机对齐。
-	AlignType *string `json:"AlignType,omitempty" name:"AlignType"`
-
 	// 可选参数，不传该参数则仅执行挂载操作。传入`True`时，会在挂载成功后将云硬盘设置为随云主机销毁模式，仅对按量计费云硬盘有效。
 	DeleteWithInstance *bool `json:"DeleteWithInstance,omitempty" name:"DeleteWithInstance"`
-
-	// 可选参数，用于控制台批量挂载共享盘到多个CVM时指定实例ID。如果传入多个InstanceId，那么DisksId中指定的云盘必须全部为共享云盘，否则返回错误。
-	InstanceIds []*string `json:"InstanceIds,omitempty" name:"InstanceIds" list`
 }
 
 func (r *AttachDisksRequest) ToJsonString() string {
@@ -306,12 +300,6 @@ type CreateDisksRequest struct {
 
 	// 可选参数，默认为False。传入True时，云盘将创建为共享型云盘。
 	Shareable *bool `json:"Shareable,omitempty" name:"Shareable"`
-
-	// 定期快照策略ID。传入该参数时，云硬盘创建成功后将会自动绑定该定期快照策略
-	AutoSnapshotPolicyId *string `json:"AutoSnapshotPolicyId,omitempty" name:"AutoSnapshotPolicyId"`
-
-	// 可选参数，云硬盘存储池组
-	DiskStoragePoolGroup *string `json:"DiskStoragePoolGroup,omitempty" name:"DiskStoragePoolGroup"`
 }
 
 func (r *CreateDisksRequest) ToJsonString() string {
@@ -614,9 +602,6 @@ type DescribeDiskConfigQuotaRequest struct {
 	// 系统盘或数据盘。取值范围：<br><li>SYSTEM_DISK：表示系统盘<br><li>DATA_DISK：表示数据盘。
 	DiskUsage *string `json:"DiskUsage,omitempty" name:"DiskUsage"`
 
-	// 实例机型。
-	DeviceClasses []*string `json:"DeviceClasses,omitempty" name:"DeviceClasses" list`
-
 	// 按照实例机型系列过滤。实例机型系列形如：S1、I1、M1等。详见实例类型
 	InstanceFamilies []*string `json:"InstanceFamilies,omitempty" name:"InstanceFamilies" list`
 
@@ -625,9 +610,6 @@ type DescribeDiskConfigQuotaRequest struct {
 
 	// 实例内存大小。
 	Memory *uint64 `json:"Memory,omitempty" name:"Memory"`
-
-	// INQUIRY_RESIZE、INQUIRY_CREATE
-	InnerInquiryType *string `json:"InnerInquiryType,omitempty" name:"InnerInquiryType"`
 }
 
 func (r *DescribeDiskConfigQuotaRequest) ToJsonString() string {
@@ -763,9 +745,6 @@ type DescribeDisksRequest struct {
 
 	// 云盘详情中是否需要返回云盘绑定的定期快照策略ID，TRUE表示需要返回，FALSE表示不返回。
 	ReturnBindAutoSnapshotPolicy *bool `json:"ReturnBindAutoSnapshotPolicy,omitempty" name:"ReturnBindAutoSnapshotPolicy"`
-
-	// 内部参数，用于支持搜索框搜索。
-	InnerSearch *string `json:"InnerSearch,omitempty" name:"InnerSearch"`
 }
 
 func (r *DescribeDisksRequest) ToJsonString() string {
@@ -1304,18 +1283,6 @@ type DiskOverview struct {
 	DiskNumberExpireIn7days *int64 `json:"DiskNumberExpireIn7days,omitempty" name:"DiskNumberExpireIn7days"`
 }
 
-type DiskResizeConfig struct {
-
-	// 产品ID。
-	Pid *uint64 `json:"Pid,omitempty" name:"Pid"`
-
-	// 云盘大小。
-	CbsSize *uint64 `json:"CbsSize,omitempty" name:"CbsSize"`
-
-	// 云盘介质类型。
-	MediumType *string `json:"MediumType,omitempty" name:"MediumType"`
-}
-
 type DiskStoragePoolGroup struct {
 
 	// 存储资源池组属性名
@@ -1335,49 +1302,6 @@ type Filter struct {
 
 	// 一个或者多个过滤值。
 	Values []*string `json:"Values,omitempty" name:"Values" list`
-}
-
-type GetSnapOverviewRequest struct {
-	*tchttp.BaseRequest
-}
-
-func (r *GetSnapOverviewRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *GetSnapOverviewRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type GetSnapOverviewResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 用户快照总大小
-		TotalSize *float64 `json:"TotalSize,omitempty" name:"TotalSize"`
-
-		// 用户快照总大小（用于计费）
-		RealTradeSize *float64 `json:"RealTradeSize,omitempty" name:"RealTradeSize"`
-
-		// 快照免费额度
-		FreeQuota *float64 `json:"FreeQuota,omitempty" name:"FreeQuota"`
-
-		// 快照总个数
-		TotalNums *int64 `json:"TotalNums,omitempty" name:"TotalNums"`
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *GetSnapOverviewResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *GetSnapOverviewResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
 }
 
 type GoodsDetail struct {
@@ -1922,36 +1846,6 @@ func (r *RenewDiskResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type ResizeDiskOrder struct {
-
-	// 产品类别。
-	GoodsCategoryId *uint64 `json:"GoodsCategoryId,omitempty" name:"GoodsCategoryId"`
-
-	// 产品数量。
-	GoodsNum *uint64 `json:"GoodsNum,omitempty" name:"GoodsNum"`
-
-	// 项目ID。
-	ProjectId *uint64 `json:"ProjectId,omitempty" name:"ProjectId"`
-
-	// 地域ID。
-	RegionId *uint64 `json:"RegionId,omitempty" name:"RegionId"`
-
-	// 可用区ID。
-	ZoneId *uint64 `json:"ZoneId,omitempty" name:"ZoneId"`
-
-	// 付费模式。
-	PayMode *uint64 `json:"PayMode,omitempty" name:"PayMode"`
-
-	// 云盘类别。
-	Type *string `json:"Type,omitempty" name:"Type"`
-
-	// 子产品ID。
-	SubProductCode *string `json:"SubProductCode,omitempty" name:"SubProductCode"`
-
-	// 产品详情。
-	GoodsDetail *ResizeGoodsDetail `json:"GoodsDetail,omitempty" name:"GoodsDetail"`
-}
-
 type ResizeDiskRequest struct {
 	*tchttp.BaseRequest
 
@@ -1987,27 +1881,6 @@ func (r *ResizeDiskResponse) ToJsonString() string {
 
 func (r *ResizeDiskResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
-}
-
-type ResizeGoodsDetail struct {
-
-	// 产品ID。
-	Pid *uint64 `json:"Pid,omitempty" name:"Pid"`
-
-	// 云盘ID。
-	ResourceId *string `json:"ResourceId,omitempty" name:"ResourceId"`
-
-	// 云盘当前到期时间。
-	CurDeadline *string `json:"CurDeadline,omitempty" name:"CurDeadline"`
-
-	// 产品信息描述。
-	ProductInfo []*ProductInfo `json:"ProductInfo,omitempty" name:"ProductInfo" list`
-
-	// 云盘扩容后的配置。
-	NewConfig *DiskResizeConfig `json:"NewConfig,omitempty" name:"NewConfig"`
-
-	// 云盘扩容前的配置。
-	OldConfig *DiskResizeConfig `json:"OldConfig,omitempty" name:"OldConfig"`
 }
 
 type ResourcesDetail struct {
@@ -2170,46 +2043,6 @@ func (r *SwitchParameterCreateDisksResponse) ToJsonString() string {
 }
 
 func (r *SwitchParameterCreateDisksResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type SwitchParameterModifyDiskAttributesRequest struct {
-	*tchttp.BaseRequest
-
-	// 需迁移的云盘实例ID列表，**当前仅支持一次传入一块云盘**。
-	DiskIds []*string `json:"DiskIds,omitempty" name:"DiskIds" list`
-
-	// 云盘变更的目标类型，取值范围：<br><li>CLOUD_PREMIUM：表示高性能云硬盘<br><li>CLOUD_SSD：表示SSD云硬盘。<br>**当前不支持类型降级**
-	DiskType *string `json:"DiskType,omitempty" name:"DiskType"`
-}
-
-func (r *SwitchParameterModifyDiskAttributesRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *SwitchParameterModifyDiskAttributesRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type SwitchParameterModifyDiskAttributesResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 变更云盘类型计费订单参数。
-		DiskOrder *ResizeDiskOrder `json:"DiskOrder,omitempty" name:"DiskOrder"`
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *SwitchParameterModifyDiskAttributesResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *SwitchParameterModifyDiskAttributesResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 

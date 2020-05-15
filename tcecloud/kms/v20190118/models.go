@@ -17,42 +17,8 @@ package v20190118
 import (
     "encoding/json"
 
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
 )
-
-type BuyServiceRequest struct {
-	*tchttp.BaseRequest
-
-	// 开通服务类型，默认为0，当前只支持0，表示基础版。
-	Type *int64 `json:"Type,omitempty" name:"Type"`
-}
-
-func (r *BuyServiceRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *BuyServiceRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type BuyServiceResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *BuyServiceResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *BuyServiceResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
 
 type CancelKeyDeletionRequest struct {
 	*tchttp.BaseRequest
@@ -571,40 +537,6 @@ func (r *GenerateDataKeyResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type GetBaradSubModulesRequest struct {
-	*tchttp.BaseRequest
-}
-
-func (r *GetBaradSubModulesRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *GetBaradSubModulesRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type GetBaradSubModulesResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// Barad 子模块
-		SubModules []*string `json:"SubModules,omitempty" name:"SubModules" list`
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *GetBaradSubModulesResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *GetBaradSubModulesResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
 type GetKeyRotationStatusRequest struct {
 	*tchttp.BaseRequest
 
@@ -639,40 +571,6 @@ func (r *GetKeyRotationStatusResponse) ToJsonString() string {
 }
 
 func (r *GetKeyRotationStatusResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type GetRegionsRequest struct {
-	*tchttp.BaseRequest
-}
-
-func (r *GetRegionsRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *GetRegionsRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type GetRegionsResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 可用region列表
-		Regions []*string `json:"Regions,omitempty" name:"Regions" list`
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *GetRegionsResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *GetRegionsResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 

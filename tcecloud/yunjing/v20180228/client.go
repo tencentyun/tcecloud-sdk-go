@@ -15,9 +15,9 @@
 package v20180228
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2018-02-28"
@@ -118,56 +118,6 @@ func (c *Client) CloseProVersion(request *CloseProVersionRequest) (response *Clo
     return
 }
 
-func NewCreateBanRecordRequest() (request *CreateBanRecordRequest) {
-    request = &CreateBanRecordRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "CreateBanRecord")
-    return
-}
-
-func NewCreateBanRecordResponse() (response *CreateBanRecordResponse) {
-    response = &CreateBanRecordResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 添加阻断白名单
-func (c *Client) CreateBanRecord(request *CreateBanRecordRequest) (response *CreateBanRecordResponse, err error) {
-    if request == nil {
-        request = NewCreateBanRecordRequest()
-    }
-    response = NewCreateBanRecordResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreateBanWhiteListRequest() (request *CreateBanWhiteListRequest) {
-    request = &CreateBanWhiteListRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "CreateBanWhiteList")
-    return
-}
-
-func NewCreateBanWhiteListResponse() (response *CreateBanWhiteListResponse) {
-    response = &CreateBanWhiteListResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 添加阻断白名单列表
-func (c *Client) CreateBanWhiteList(request *CreateBanWhiteListRequest) (response *CreateBanWhiteListResponse, err error) {
-    if request == nil {
-        request = NewCreateBanWhiteListRequest()
-    }
-    response = NewCreateBanWhiteListResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewCreateOpenPortTaskRequest() (request *CreateOpenPortTaskRequest) {
     request = &CreateOpenPortTaskRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -264,56 +214,6 @@ func (c *Client) DeleteAttackLogs(request *DeleteAttackLogsRequest) (response *D
         request = NewDeleteAttackLogsRequest()
     }
     response = NewDeleteAttackLogsResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDeleteBanListRequest() (request *DeleteBanListRequest) {
-    request = &DeleteBanListRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DeleteBanList")
-    return
-}
-
-func NewDeleteBanListResponse() (response *DeleteBanListResponse) {
-    response = &DeleteBanListResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 删除阻断白名单
-func (c *Client) DeleteBanList(request *DeleteBanListRequest) (response *DeleteBanListResponse, err error) {
-    if request == nil {
-        request = NewDeleteBanListRequest()
-    }
-    response = NewDeleteBanListResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDeleteBanWhiteListRequest() (request *DeleteBanWhiteListRequest) {
-    request = &DeleteBanWhiteListRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DeleteBanWhiteList")
-    return
-}
-
-func NewDeleteBanWhiteListResponse() (response *DeleteBanWhiteListResponse) {
-    response = &DeleteBanWhiteListResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// DeleteBanWhiteList
-func (c *Client) DeleteBanWhiteList(request *DeleteBanWhiteListRequest) (response *DeleteBanWhiteListResponse, err error) {
-    if request == nil {
-        request = NewDeleteBanWhiteListRequest()
-    }
-    response = NewDeleteBanWhiteListResponse()
     err = c.Send(request, response)
     return
 }
@@ -693,31 +593,6 @@ func (c *Client) DeleteUsualLoginPlaces(request *DeleteUsualLoginPlacesRequest) 
     return
 }
 
-func NewDescribeAbTestStatusRequest() (request *DescribeAbTestStatusRequest) {
-    request = &DescribeAbTestStatusRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeAbTestStatus")
-    return
-}
-
-func NewDescribeAbTestStatusResponse() (response *DescribeAbTestStatusResponse) {
-    response = &DescribeAbTestStatusResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（DescribeAbTestStatus）用户获取用户当前灰度状态
-func (c *Client) DescribeAbTestStatus(request *DescribeAbTestStatusRequest) (response *DescribeAbTestStatusResponse, err error) {
-    if request == nil {
-        request = NewDescribeAbTestStatusRequest()
-    }
-    response = NewDescribeAbTestStatusResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeAccountStatisticsRequest() (request *DescribeAccountStatisticsRequest) {
     request = &DescribeAccountStatisticsRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -818,31 +693,6 @@ func (c *Client) DescribeAlarmAttribute(request *DescribeAlarmAttributeRequest) 
     return
 }
 
-func NewDescribeAllMachinesRequest() (request *DescribeAllMachinesRequest) {
-    request = &DescribeAllMachinesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeAllMachines")
-    return
-}
-
-func NewDescribeAllMachinesResponse() (response *DescribeAllMachinesResponse) {
-    response = &DescribeAllMachinesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（DescribeAllMachines）按所有获取机器列表。
-func (c *Client) DescribeAllMachines(request *DescribeAllMachinesRequest) (response *DescribeAllMachinesResponse, err error) {
-    if request == nil {
-        request = NewDescribeAllMachinesRequest()
-    }
-    response = NewDescribeAllMachinesResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeAttackLogInfoRequest() (request *DescribeAttackLogInfoRequest) {
     request = &DescribeAttackLogInfoRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -893,106 +743,6 @@ func (c *Client) DescribeAttackLogs(request *DescribeAttackLogsRequest) (respons
     return
 }
 
-func NewDescribeAutoQuaraInfoRequest() (request *DescribeAutoQuaraInfoRequest) {
-    request = &DescribeAutoQuaraInfoRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeAutoQuaraInfo")
-    return
-}
-
-func NewDescribeAutoQuaraInfoResponse() (response *DescribeAutoQuaraInfoResponse) {
-    response = &DescribeAutoQuaraInfoResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取自动隔离配置
-func (c *Client) DescribeAutoQuaraInfo(request *DescribeAutoQuaraInfoRequest) (response *DescribeAutoQuaraInfoResponse, err error) {
-    if request == nil {
-        request = NewDescribeAutoQuaraInfoRequest()
-    }
-    response = NewDescribeAutoQuaraInfoResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeBanListRequest() (request *DescribeBanListRequest) {
-    request = &DescribeBanListRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeBanList")
-    return
-}
-
-func NewDescribeBanListResponse() (response *DescribeBanListResponse) {
-    response = &DescribeBanListResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取阻断白名单列表
-func (c *Client) DescribeBanList(request *DescribeBanListRequest) (response *DescribeBanListResponse, err error) {
-    if request == nil {
-        request = NewDescribeBanListRequest()
-    }
-    response = NewDescribeBanListResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeBanStatusRequest() (request *DescribeBanStatusRequest) {
-    request = &DescribeBanStatusRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeBanStatus")
-    return
-}
-
-func NewDescribeBanStatusResponse() (response *DescribeBanStatusResponse) {
-    response = &DescribeBanStatusResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取阻断按钮状态
-func (c *Client) DescribeBanStatus(request *DescribeBanStatusRequest) (response *DescribeBanStatusResponse, err error) {
-    if request == nil {
-        request = NewDescribeBanStatusRequest()
-    }
-    response = NewDescribeBanStatusResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeBanWhiteListRequest() (request *DescribeBanWhiteListRequest) {
-    request = &DescribeBanWhiteListRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeBanWhiteList")
-    return
-}
-
-func NewDescribeBanWhiteListResponse() (response *DescribeBanWhiteListResponse) {
-    response = &DescribeBanWhiteListResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取阻断白名单列表
-func (c *Client) DescribeBanWhiteList(request *DescribeBanWhiteListRequest) (response *DescribeBanWhiteListResponse, err error) {
-    if request == nil {
-        request = NewDescribeBanWhiteListRequest()
-    }
-    response = NewDescribeBanWhiteListResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeBashEventsRequest() (request *DescribeBashEventsRequest) {
     request = &DescribeBashEventsRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1039,31 +789,6 @@ func (c *Client) DescribeBashRules(request *DescribeBashRulesRequest) (response 
         request = NewDescribeBashRulesRequest()
     }
     response = NewDescribeBashRulesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeBlockStatusRequest() (request *DescribeBlockStatusRequest) {
-    request = &DescribeBlockStatusRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeBlockStatus")
-    return
-}
-
-func NewDescribeBlockStatusResponse() (response *DescribeBlockStatusResponse) {
-    response = &DescribeBlockStatusResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取阻断状态
-func (c *Client) DescribeBlockStatus(request *DescribeBlockStatusRequest) (response *DescribeBlockStatusResponse, err error) {
-    if request == nil {
-        request = NewDescribeBlockStatusRequest()
-    }
-    response = NewDescribeBlockStatusResponse()
     err = c.Send(request, response)
     return
 }
@@ -1168,56 +893,6 @@ func (c *Client) DescribeComponents(request *DescribeComponentsRequest) (respons
     return
 }
 
-func NewDescribeEventListRequest() (request *DescribeEventListRequest) {
-    request = &DescribeEventListRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeEventList")
-    return
-}
-
-func NewDescribeEventListResponse() (response *DescribeEventListResponse) {
-    response = &DescribeEventListResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 漏洞管理模块，获取事件列表
-func (c *Client) DescribeEventList(request *DescribeEventListRequest) (response *DescribeEventListResponse, err error) {
-    if request == nil {
-        request = NewDescribeEventListRequest()
-    }
-    response = NewDescribeEventListResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeEventlogRequest() (request *DescribeEventlogRequest) {
-    request = &DescribeEventlogRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeEventlog")
-    return
-}
-
-func NewDescribeEventlogResponse() (response *DescribeEventlogResponse) {
-    response = &DescribeEventlogResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 安全事件日志列表
-func (c *Client) DescribeEventlog(request *DescribeEventlogRequest) (response *DescribeEventlogResponse, err error) {
-    if request == nil {
-        request = NewDescribeEventlogRequest()
-    }
-    response = NewDescribeEventlogResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeHistoryAccountsRequest() (request *DescribeHistoryAccountsRequest) {
     request = &DescribeHistoryAccountsRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1314,31 +989,6 @@ func (c *Client) DescribeMachineInfo(request *DescribeMachineInfoRequest) (respo
         request = NewDescribeMachineInfoRequest()
     }
     response = NewDescribeMachineInfoResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeMachineRegionsRequest() (request *DescribeMachineRegionsRequest) {
-    request = &DescribeMachineRegionsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeMachineRegions")
-    return
-}
-
-func NewDescribeMachineRegionsResponse() (response *DescribeMachineRegionsResponse) {
-    response = &DescribeMachineRegionsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取机器地域列表
-func (c *Client) DescribeMachineRegions(request *DescribeMachineRegionsRequest) (response *DescribeMachineRegionsResponse, err error) {
-    if request == nil {
-        request = NewDescribeMachineRegionsRequest()
-    }
-    response = NewDescribeMachineRegionsResponse()
     err = c.Send(request, response)
     return
 }
@@ -1543,31 +1193,6 @@ func (c *Client) DescribeOverviewStatistics(request *DescribeOverviewStatisticsR
     return
 }
 
-func NewDescribePolicyRequest() (request *DescribePolicyRequest) {
-    request = &DescribePolicyRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribePolicy")
-    return
-}
-
-func NewDescribePolicyResponse() (response *DescribePolicyResponse) {
-    response = &DescribePolicyResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 自定义策略详情
-func (c *Client) DescribePolicy(request *DescribePolicyRequest) (response *DescribePolicyResponse, err error) {
-    if request == nil {
-        request = NewDescribePolicyRequest()
-    }
-    response = NewDescribePolicyResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribePrivilegeEventsRequest() (request *DescribePrivilegeEventsRequest) {
     request = &DescribePrivilegeEventsRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1639,31 +1264,6 @@ func (c *Client) DescribeProVersionInfo(request *DescribeProVersionInfoRequest) 
         request = NewDescribeProVersionInfoRequest()
     }
     response = NewDescribeProVersionInfoResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeProVersionStatusRequest() (request *DescribeProVersionStatusRequest) {
-    request = &DescribeProVersionStatusRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeProVersionStatus")
-    return
-}
-
-func NewDescribeProVersionStatusResponse() (response *DescribeProVersionStatusResponse) {
-    response = &DescribeProVersionStatusResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口 (DescribeProVersionStatus) 用于获取单台主机或所有主机是否开通专业版状态。
-func (c *Client) DescribeProVersionStatus(request *DescribeProVersionStatusRequest) (response *DescribeProVersionStatusResponse, err error) {
-    if request == nil {
-        request = NewDescribeProVersionStatusRequest()
-    }
-    response = NewDescribeProVersionStatusResponse()
     err = c.Send(request, response)
     return
 }
@@ -1843,31 +1443,6 @@ func (c *Client) DescribeSecurityTrends(request *DescribeSecurityTrendsRequest) 
     return
 }
 
-func NewDescribeStatRequest() (request *DescribeStatRequest) {
-    request = &DescribeStatRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeStat")
-    return
-}
-
-func NewDescribeStatResponse() (response *DescribeStatResponse) {
-    response = &DescribeStatResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 包括在线主机数，专业版主机数，所有安全事件，病毒库，POC的更新时间等。
-func (c *Client) DescribeStat(request *DescribeStatRequest) (response *DescribeStatResponse, err error) {
-    if request == nil {
-        request = NewDescribeStatRequest()
-    }
-    response = NewDescribeStatResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeTagMachinesRequest() (request *DescribeTagMachinesRequest) {
     request = &DescribeTagMachinesRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1918,31 +1493,6 @@ func (c *Client) DescribeTags(request *DescribeTagsRequest) (response *DescribeT
     return
 }
 
-func NewDescribeUndoVulCountsRequest() (request *DescribeUndoVulCountsRequest) {
-    request = &DescribeUndoVulCountsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeUndoVulCounts")
-    return
-}
-
-func NewDescribeUndoVulCountsResponse() (response *DescribeUndoVulCountsResponse) {
-    response = &DescribeUndoVulCountsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 漏洞管理模块，获取指定类型的待处理漏洞数、主机数和非专业版主机数量
-func (c *Client) DescribeUndoVulCounts(request *DescribeUndoVulCountsRequest) (response *DescribeUndoVulCountsResponse, err error) {
-    if request == nil {
-        request = NewDescribeUndoVulCountsRequest()
-    }
-    response = NewDescribeUndoVulCountsResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeUsualLoginPlacesRequest() (request *DescribeUsualLoginPlacesRequest) {
     request = &DescribeUsualLoginPlacesRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1968,56 +1518,6 @@ func (c *Client) DescribeUsualLoginPlaces(request *DescribeUsualLoginPlacesReque
     return
 }
 
-func NewDescribeVersionStatisticsRequest() (request *DescribeVersionStatisticsRequest) {
-    request = &DescribeVersionStatisticsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeVersionStatistics")
-    return
-}
-
-func NewDescribeVersionStatisticsResponse() (response *DescribeVersionStatisticsResponse) {
-    response = &DescribeVersionStatisticsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口 (DescribeVersionStatistics) 用于统计专业版和基础版机器数。
-func (c *Client) DescribeVersionStatistics(request *DescribeVersionStatisticsRequest) (response *DescribeVersionStatisticsResponse, err error) {
-    if request == nil {
-        request = NewDescribeVersionStatisticsRequest()
-    }
-    response = NewDescribeVersionStatisticsResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeVulCountByDatesRequest() (request *DescribeVulCountByDatesRequest) {
-    request = &DescribeVulCountByDatesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeVulCountByDates")
-    return
-}
-
-func NewDescribeVulCountByDatesResponse() (response *DescribeVulCountByDatesResponse) {
-    response = &DescribeVulCountByDatesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 漏洞管理模块，批量获取近日指定类型的漏洞数量和主机数量
-func (c *Client) DescribeVulCountByDates(request *DescribeVulCountByDatesRequest) (response *DescribeVulCountByDatesResponse, err error) {
-    if request == nil {
-        request = NewDescribeVulCountByDatesRequest()
-    }
-    response = NewDescribeVulCountByDatesResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeVulInfoRequest() (request *DescribeVulInfoRequest) {
     request = &DescribeVulInfoRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -2039,31 +1539,6 @@ func (c *Client) DescribeVulInfo(request *DescribeVulInfoRequest) (response *Des
         request = NewDescribeVulInfoRequest()
     }
     response = NewDescribeVulInfoResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeVulListRequest() (request *DescribeVulListRequest) {
-    request = &DescribeVulListRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "DescribeVulList")
-    return
-}
-
-func NewDescribeVulListResponse() (response *DescribeVulListResponse) {
-    response = &DescribeVulListResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 漏洞管理模块，获取漏洞列表接口V2
-func (c *Client) DescribeVulList(request *DescribeVulListRequest) (response *DescribeVulListResponse, err error) {
-    if request == nil {
-        request = NewDescribeVulListRequest()
-    }
-    response = NewDescribeVulListResponse()
     err = c.Send(request, response)
     return
 }
@@ -2443,31 +1918,6 @@ func (c *Client) ExportBruteAttacks(request *ExportBruteAttacksRequest) (respons
     return
 }
 
-func NewExportEventlogRequest() (request *ExportEventlogRequest) {
-    request = &ExportEventlogRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "ExportEventlog")
-    return
-}
-
-func NewExportEventlogResponse() (response *ExportEventlogResponse) {
-    response = &ExportEventlogResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 导出安全事件列表
-func (c *Client) ExportEventlog(request *ExportEventlogRequest) (response *ExportEventlogResponse, err error) {
-    if request == nil {
-        request = NewExportEventlogRequest()
-    }
-    response = NewExportEventlogResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewExportMaliciousRequestsRequest() (request *ExportMaliciousRequestsRequest) {
     request = &ExportMaliciousRequestsRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -2718,106 +2168,6 @@ func (c *Client) ModifyAutoOpenProVersionConfig(request *ModifyAutoOpenProVersio
     return
 }
 
-func NewModifyBanRecordRequest() (request *ModifyBanRecordRequest) {
-    request = &ModifyBanRecordRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "ModifyBanRecord")
-    return
-}
-
-func NewModifyBanRecordResponse() (response *ModifyBanRecordResponse) {
-    response = &ModifyBanRecordResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 修改阻断白名单
-func (c *Client) ModifyBanRecord(request *ModifyBanRecordRequest) (response *ModifyBanRecordResponse, err error) {
-    if request == nil {
-        request = NewModifyBanRecordRequest()
-    }
-    response = NewModifyBanRecordResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewModifyBanStatusRequest() (request *ModifyBanStatusRequest) {
-    request = &ModifyBanStatusRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "ModifyBanStatus")
-    return
-}
-
-func NewModifyBanStatusResponse() (response *ModifyBanStatusResponse) {
-    response = &ModifyBanStatusResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 设置阻断开关状态
-func (c *Client) ModifyBanStatus(request *ModifyBanStatusRequest) (response *ModifyBanStatusResponse, err error) {
-    if request == nil {
-        request = NewModifyBanStatusRequest()
-    }
-    response = NewModifyBanStatusResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewModifyBanWhiteListRequest() (request *ModifyBanWhiteListRequest) {
-    request = &ModifyBanWhiteListRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "ModifyBanWhiteList")
-    return
-}
-
-func NewModifyBanWhiteListResponse() (response *ModifyBanWhiteListResponse) {
-    response = &ModifyBanWhiteListResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 修改阻断白名单列表
-func (c *Client) ModifyBanWhiteList(request *ModifyBanWhiteListRequest) (response *ModifyBanWhiteListResponse, err error) {
-    if request == nil {
-        request = NewModifyBanWhiteListRequest()
-    }
-    response = NewModifyBanWhiteListResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewModifyBlockStatusRequest() (request *ModifyBlockStatusRequest) {
-    request = &ModifyBlockStatusRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "ModifyBlockStatus")
-    return
-}
-
-func NewModifyBlockStatusResponse() (response *ModifyBlockStatusResponse) {
-    response = &ModifyBlockStatusResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 修改阻断状态
-func (c *Client) ModifyBlockStatus(request *ModifyBlockStatusRequest) (response *ModifyBlockStatusResponse, err error) {
-    if request == nil {
-        request = NewModifyBlockStatusRequest()
-    }
-    response = NewModifyBlockStatusResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewModifyLoginWhiteListRequest() (request *ModifyLoginWhiteListRequest) {
     request = &ModifyLoginWhiteListRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -2868,31 +2218,6 @@ func (c *Client) ModifyProVersionRenewFlag(request *ModifyProVersionRenewFlagReq
     return
 }
 
-func NewOpenProVerWithQuuidsRequest() (request *OpenProVerWithQuuidsRequest) {
-    request = &OpenProVerWithQuuidsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "OpenProVerWithQuuids")
-    return
-}
-
-func NewOpenProVerWithQuuidsResponse() (response *OpenProVerWithQuuidsResponse) {
-    response = &OpenProVerWithQuuidsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口 (OpenProVersion) 用于通过Quuid开通专业版。
-func (c *Client) OpenProVerWithQuuids(request *OpenProVerWithQuuidsRequest) (response *OpenProVerWithQuuidsResponse, err error) {
-    if request == nil {
-        request = NewOpenProVerWithQuuidsRequest()
-    }
-    response = NewOpenProVerWithQuuidsResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewOpenProVersionRequest() (request *OpenProVersionRequest) {
     request = &OpenProVersionRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -2939,31 +2264,6 @@ func (c *Client) OpenProVersionPrepaid(request *OpenProVersionPrepaidRequest) (r
         request = NewOpenProVersionPrepaidRequest()
     }
     response = NewOpenProVersionPrepaidResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewOpenProVersionQuickRequest() (request *OpenProVersionQuickRequest) {
-    request = &OpenProVersionQuickRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "OpenProVersionQuick")
-    return
-}
-
-func NewOpenProVersionQuickResponse() (response *OpenProVersionQuickResponse) {
-    response = &OpenProVersionQuickResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口 (OpenProVersionQuick) 用于快速开通所有主机为专业版。
-func (c *Client) OpenProVersionQuick(request *OpenProVersionQuickRequest) (response *OpenProVersionQuickResponse, err error) {
-    if request == nil {
-        request = NewOpenProVersionQuickRequest()
-    }
-    response = NewOpenProVersionQuickResponse()
     err = c.Send(request, response)
     return
 }
@@ -3064,31 +2364,6 @@ func (c *Client) SeparateMalwares(request *SeparateMalwaresRequest) (response *S
         request = NewSeparateMalwaresRequest()
     }
     response = NewSeparateMalwaresResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewSetAutoQuaraStatusRequest() (request *SetAutoQuaraStatusRequest) {
-    request = &SetAutoQuaraStatusRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "SetAutoQuaraStatus")
-    return
-}
-
-func NewSetAutoQuaraStatusResponse() (response *SetAutoQuaraStatusResponse) {
-    response = &SetAutoQuaraStatusResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 设置自动隔离状态
-func (c *Client) SetAutoQuaraStatus(request *SetAutoQuaraStatusRequest) (response *SetAutoQuaraStatusResponse, err error) {
-    if request == nil {
-        request = NewSetAutoQuaraStatusRequest()
-    }
-    response = NewSetAutoQuaraStatusResponse()
     err = c.Send(request, response)
     return
 }
@@ -3239,31 +2514,6 @@ func (c *Client) UntrustMalwares(request *UntrustMalwaresRequest) (response *Unt
         request = NewUntrustMalwaresRequest()
     }
     response = NewUntrustMalwaresResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewUpdatePolicyRequest() (request *UpdatePolicyRequest) {
-    request = &UpdatePolicyRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("yunjing", APIVersion, "UpdatePolicy")
-    return
-}
-
-func NewUpdatePolicyResponse() (response *UpdatePolicyResponse) {
-    response = &UpdatePolicyResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 更新自定义策略
-func (c *Client) UpdatePolicy(request *UpdatePolicyRequest) (response *UpdatePolicyResponse, err error) {
-    if request == nil {
-        request = NewUpdatePolicyRequest()
-    }
-    response = NewUpdatePolicyResponse()
     err = c.Send(request, response)
     return
 }

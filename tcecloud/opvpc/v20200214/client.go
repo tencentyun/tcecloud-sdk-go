@@ -168,27 +168,27 @@ func (c *Client) DescribeLbLimit(request *DescribeLbLimitRequest) (response *Des
     return
 }
 
-func NewDescribeNatGatewayRequest() (request *DescribeNatGatewayRequest) {
-    request = &DescribeNatGatewayRequest{
+func NewDescribeNatGatewaysRequest() (request *DescribeNatGatewaysRequest) {
+    request = &DescribeNatGatewaysRequest{
         BaseRequest: &tchttp.BaseRequest{},
     }
-    request.Init().WithApiInfo("opvpc", APIVersion, "DescribeNatGateway")
+    request.Init().WithApiInfo("opvpc", APIVersion, "DescribeNatGateways")
     return
 }
 
-func NewDescribeNatGatewayResponse() (response *DescribeNatGatewayResponse) {
-    response = &DescribeNatGatewayResponse{
+func NewDescribeNatGatewaysResponse() (response *DescribeNatGatewaysResponse) {
+    response = &DescribeNatGatewaysResponse{
         BaseResponse: &tchttp.BaseResponse{},
     }
     return
 }
 
 // 获取nat 网关列表
-func (c *Client) DescribeNatGateway(request *DescribeNatGatewayRequest) (response *DescribeNatGatewayResponse, err error) {
+func (c *Client) DescribeNatGateways(request *DescribeNatGatewaysRequest) (response *DescribeNatGatewaysResponse, err error) {
     if request == nil {
-        request = NewDescribeNatGatewayRequest()
+        request = NewDescribeNatGatewaysRequest()
     }
-    response = NewDescribeNatGatewayResponse()
+    response = NewDescribeNatGatewaysResponse()
     err = c.Send(request, response)
     return
 }
@@ -268,27 +268,27 @@ func (c *Client) DescribeSecurityGroupPolicy(request *DescribeSecurityGroupPolic
     return
 }
 
-func NewDescribeSubnetExRequest() (request *DescribeSubnetExRequest) {
-    request = &DescribeSubnetExRequest{
+func NewDescribeSubnetsExRequest() (request *DescribeSubnetsExRequest) {
+    request = &DescribeSubnetsExRequest{
         BaseRequest: &tchttp.BaseRequest{},
     }
-    request.Init().WithApiInfo("opvpc", APIVersion, "DescribeSubnetEx")
+    request.Init().WithApiInfo("opvpc", APIVersion, "DescribeSubnetsEx")
     return
 }
 
-func NewDescribeSubnetExResponse() (response *DescribeSubnetExResponse) {
-    response = &DescribeSubnetExResponse{
+func NewDescribeSubnetsExResponse() (response *DescribeSubnetsExResponse) {
+    response = &DescribeSubnetsExResponse{
         BaseResponse: &tchttp.BaseResponse{},
     }
     return
 }
 
 // 获取子网列表
-func (c *Client) DescribeSubnetEx(request *DescribeSubnetExRequest) (response *DescribeSubnetExResponse, err error) {
+func (c *Client) DescribeSubnetsEx(request *DescribeSubnetsExRequest) (response *DescribeSubnetsExResponse, err error) {
     if request == nil {
-        request = NewDescribeSubnetExRequest()
+        request = NewDescribeSubnetsExRequest()
     }
-    response = NewDescribeSubnetExResponse()
+    response = NewDescribeSubnetsExResponse()
     err = c.Send(request, response)
     return
 }

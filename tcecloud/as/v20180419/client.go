@@ -15,9 +15,9 @@
 package v20180419
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2018-04-19"
@@ -238,31 +238,6 @@ func (c *Client) CreatePaiInstance(request *CreatePaiInstanceRequest) (response 
         request = NewCreatePaiInstanceRequest()
     }
     response = NewCreatePaiInstanceResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreatePaiInstanceConfigRequest() (request *CreatePaiInstanceConfigRequest) {
-    request = &CreatePaiInstanceConfigRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("as", APIVersion, "CreatePaiInstanceConfig")
-    return
-}
-
-func NewCreatePaiInstanceConfigResponse() (response *CreatePaiInstanceConfigResponse) {
-    response = &CreatePaiInstanceConfigResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口 (CreatePaiInstanceConfig) 用于创建一个指定域名的PAI实例配置。
-func (c *Client) CreatePaiInstanceConfig(request *CreatePaiInstanceConfigRequest) (response *CreatePaiInstanceConfigResponse, err error) {
-    if request == nil {
-        request = NewCreatePaiInstanceConfigRequest()
-    }
-    response = NewCreatePaiInstanceConfigResponse()
     err = c.Send(request, response)
     return
 }

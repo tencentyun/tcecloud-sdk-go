@@ -15,9 +15,9 @@
 package v20190923
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2019-09-23"
@@ -42,31 +42,6 @@ func NewClient(credential *common.Credential, region string, clientProfile *prof
     return
 }
 
-
-func NewBuyServiceRequest() (request *BuyServiceRequest) {
-    request = &BuyServiceRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("ssm", APIVersion, "BuyService")
-    return
-}
-
-func NewBuyServiceResponse() (response *BuyServiceResponse) {
-    response = &BuyServiceResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 购买开通SSM服务
-func (c *Client) BuyService(request *BuyServiceRequest) (response *BuyServiceResponse, err error) {
-    if request == nil {
-        request = NewBuyServiceRequest()
-    }
-    response = NewBuyServiceResponse()
-    err = c.Send(request, response)
-    return
-}
 
 func NewCreateSecretRequest() (request *CreateSecretRequest) {
     request = &CreateSecretRequest{

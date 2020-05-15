@@ -17,7 +17,7 @@ package v20180930
 import (
     "encoding/json"
 
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
 )
 
 type CreateModuleNewVersionCreatePkgRequest struct {
@@ -207,46 +207,6 @@ func (r *DescribeModulesResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type DescribeNodesRequest struct {
-	*tchttp.BaseRequest
-
-	// 页码
-	Offset *int64 `json:"Offset,omitempty" name:"Offset"`
-
-	// 每页条数
-	Limit *int64 `json:"Limit,omitempty" name:"Limit"`
-
-	// 筛选条件
-	Filters []*Filter `json:"Filters,omitempty" name:"Filters" list`
-}
-
-func (r *DescribeNodesRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DescribeNodesRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type DescribeNodesResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *DescribeNodesResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DescribeNodesResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
 type Filter struct {
 
 	// 参数名
@@ -374,71 +334,6 @@ type ModuleList struct {
 
 	// 版本号
 	VersionId *string `json:"VersionId,omitempty" name:"VersionId"`
-}
-
-type SampleRequest struct {
-	*tchttp.BaseRequest
-}
-
-func (r *SampleRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *SampleRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type SampleResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *SampleResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *SampleResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type UninstallMainAgentRequest struct {
-	*tchttp.BaseRequest
-
-	// Sn列表
-	Sn []*string `json:"Sn,omitempty" name:"Sn" list`
-}
-
-func (r *UninstallMainAgentRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *UninstallMainAgentRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type UninstallMainAgentResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *UninstallMainAgentResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *UninstallMainAgentResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
 }
 
 type UninstallModulesRequest struct {

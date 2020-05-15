@@ -15,9 +15,9 @@
 package v20180930
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2018-09-30"
@@ -64,31 +64,6 @@ func (c *Client) Approval(request *ApprovalRequest) (response *ApprovalResponse,
         request = NewApprovalRequest()
     }
     response = NewApprovalResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewGetServerDeliveryDataRequest() (request *GetServerDeliveryDataRequest) {
-    request = &GetServerDeliveryDataRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("opresdelivery", APIVersion, "GetServerDeliveryData")
-    return
-}
-
-func NewGetServerDeliveryDataResponse() (response *GetServerDeliveryDataResponse) {
-    response = &GetServerDeliveryDataResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 接口支持按照天，周(周日至周六)，月度三个时间维度及地域、业务两个产品维度拉取资源交付历史
-func (c *Client) GetServerDeliveryData(request *GetServerDeliveryDataRequest) (response *GetServerDeliveryDataResponse, err error) {
-    if request == nil {
-        request = NewGetServerDeliveryDataRequest()
-    }
-    response = NewGetServerDeliveryDataResponse()
     err = c.Send(request, response)
     return
 }
@@ -239,31 +214,6 @@ func (c *Client) QueryResDetail(request *QueryResDetailRequest) (response *Query
         request = NewQueryResDetailRequest()
     }
     response = NewQueryResDetailResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewQuerySetRequest() (request *QuerySetRequest) {
-    request = &QuerySetRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("opresdelivery", APIVersion, "QuerySet")
-    return
-}
-
-func NewQuerySetResponse() (response *QuerySetResponse) {
-    response = &QuerySetResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询蓝鲸CMDB集群
-func (c *Client) QuerySet(request *QuerySetRequest) (response *QuerySetResponse, err error) {
-    if request == nil {
-        request = NewQuerySetRequest()
-    }
-    response = NewQuerySetResponse()
     err = c.Send(request, response)
     return
 }

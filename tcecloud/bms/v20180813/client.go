@@ -15,9 +15,9 @@
 package v20180813
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2018-08-13"
@@ -148,31 +148,6 @@ func (c *Client) ModifyInstancesAttribute(request *ModifyInstancesAttributeReque
         request = NewModifyInstancesAttributeRequest()
     }
     response = NewModifyInstancesAttributeResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewQueryTaskRequest() (request *QueryTaskRequest) {
-    request = &QueryTaskRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("bms", APIVersion, "QueryTask")
-    return
-}
-
-func NewQueryTaskResponse() (response *QueryTaskResponse) {
-    response = &QueryTaskResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询异步任务执行结果
-func (c *Client) QueryTask(request *QueryTaskRequest) (response *QueryTaskResponse, err error) {
-    if request == nil {
-        request = NewQueryTaskRequest()
-    }
-    response = NewQueryTaskResponse()
     err = c.Send(request, response)
     return
 }

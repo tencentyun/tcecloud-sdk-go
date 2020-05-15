@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-        "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/errors"
+        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/errors"
 
 )
 

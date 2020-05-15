@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-        "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-        "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/errors"
-        "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
-        cvm "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/cvm/v20170312"
+        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/errors"
+        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
+        cvm "github.com/tencentyun/tcecloud-sdk-go/tcecloud/cvm/v20170312"
 
 )
 

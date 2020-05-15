@@ -17,7 +17,7 @@ package v20180412
 import (
     "encoding/json"
 
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
 )
 
 type Account struct {
@@ -2121,58 +2121,6 @@ type InstanceEnumParam struct {
 
 	// 参数状态, 1: 修改中， 2：修改完成
 	Status *int64 `json:"Status,omitempty" name:"Status"`
-}
-
-type InstanceGreyStrategyData struct {
-
-	// 代理
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	Proxy *int64 `json:"Proxy,omitempty" name:"Proxy"`
-
-	// 客户端列表
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	Clientlist *int64 `json:"Clientlist,omitempty" name:"Clientlist"`
-
-	// 切换
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	Switch *int64 `json:"Switch,omitempty" name:"Switch"`
-}
-
-type InstanceGreyStrategyRequest struct {
-	*tchttp.BaseRequest
-
-	// 实例ID
-	InstanceId *string `json:"InstanceId,omitempty" name:"InstanceId"`
-}
-
-func (r *InstanceGreyStrategyRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *InstanceGreyStrategyRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type InstanceGreyStrategyResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 实例灰度信息
-		Data *InstanceGreyStrategyData `json:"Data,omitempty" name:"Data"`
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *InstanceGreyStrategyResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *InstanceGreyStrategyResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
 }
 
 type InstanceIntegerParam struct {

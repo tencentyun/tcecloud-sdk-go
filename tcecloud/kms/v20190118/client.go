@@ -15,9 +15,9 @@
 package v20190118
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2019-01-18"
@@ -42,31 +42,6 @@ func NewClient(credential *common.Credential, region string, clientProfile *prof
     return
 }
 
-
-func NewBuyServiceRequest() (request *BuyServiceRequest) {
-    request = &BuyServiceRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("kms", APIVersion, "BuyService")
-    return
-}
-
-func NewBuyServiceResponse() (response *BuyServiceResponse) {
-    response = &BuyServiceResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 购买开通KMS服务
-func (c *Client) BuyService(request *BuyServiceRequest) (response *BuyServiceResponse, err error) {
-    if request == nil {
-        request = NewBuyServiceRequest()
-    }
-    response = NewBuyServiceResponse()
-    err = c.Send(request, response)
-    return
-}
 
 func NewCancelKeyDeletionRequest() (request *CancelKeyDeletionRequest) {
     request = &CancelKeyDeletionRequest{
@@ -393,31 +368,6 @@ func (c *Client) GenerateDataKey(request *GenerateDataKeyRequest) (response *Gen
     return
 }
 
-func NewGetBaradSubModulesRequest() (request *GetBaradSubModulesRequest) {
-    request = &GetBaradSubModulesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("kms", APIVersion, "GetBaradSubModules")
-    return
-}
-
-func NewGetBaradSubModulesResponse() (response *GetBaradSubModulesResponse) {
-    response = &GetBaradSubModulesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取 Barad 子模块供告警列表用
-func (c *Client) GetBaradSubModules(request *GetBaradSubModulesRequest) (response *GetBaradSubModulesResponse, err error) {
-    if request == nil {
-        request = NewGetBaradSubModulesRequest()
-    }
-    response = NewGetBaradSubModulesResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewGetKeyRotationStatusRequest() (request *GetKeyRotationStatusRequest) {
     request = &GetKeyRotationStatusRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -439,31 +389,6 @@ func (c *Client) GetKeyRotationStatus(request *GetKeyRotationStatusRequest) (res
         request = NewGetKeyRotationStatusRequest()
     }
     response = NewGetKeyRotationStatusResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewGetRegionsRequest() (request *GetRegionsRequest) {
-    request = &GetRegionsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("kms", APIVersion, "GetRegions")
-    return
-}
-
-func NewGetRegionsResponse() (response *GetRegionsResponse) {
-    response = &GetRegionsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取支持的地域列表
-func (c *Client) GetRegions(request *GetRegionsRequest) (response *GetRegionsResponse, err error) {
-    if request == nil {
-        request = NewGetRegionsRequest()
-    }
-    response = NewGetRegionsResponse()
     err = c.Send(request, response)
     return
 }

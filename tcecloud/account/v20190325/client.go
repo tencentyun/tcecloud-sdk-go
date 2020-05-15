@@ -15,9 +15,9 @@
 package v20190325
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2019-03-25"
@@ -43,81 +43,6 @@ func NewClient(credential *common.Credential, region string, clientProfile *prof
 }
 
 
-func NewAddSubAccountRequest() (request *AddSubAccountRequest) {
-    request = &AddSubAccountRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("account", APIVersion, "AddSubAccount")
-    return
-}
-
-func NewAddSubAccountResponse() (response *AddSubAccountResponse) {
-    response = &AddSubAccountResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 增加子账号
-func (c *Client) AddSubAccount(request *AddSubAccountRequest) (response *AddSubAccountResponse, err error) {
-    if request == nil {
-        request = NewAddSubAccountRequest()
-    }
-    response = NewAddSubAccountResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewChangeMailPasswordRequest() (request *ChangeMailPasswordRequest) {
-    request = &ChangeMailPasswordRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("account", APIVersion, "ChangeMailPassword")
-    return
-}
-
-func NewChangeMailPasswordResponse() (response *ChangeMailPasswordResponse) {
-    response = &ChangeMailPasswordResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 修改邮箱账号密码
-func (c *Client) ChangeMailPassword(request *ChangeMailPasswordRequest) (response *ChangeMailPasswordResponse, err error) {
-    if request == nil {
-        request = NewChangeMailPasswordRequest()
-    }
-    response = NewChangeMailPasswordResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewChangeSubAccountPasswordRequest() (request *ChangeSubAccountPasswordRequest) {
-    request = &ChangeSubAccountPasswordRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("account", APIVersion, "ChangeSubAccountPassword")
-    return
-}
-
-func NewChangeSubAccountPasswordResponse() (response *ChangeSubAccountPasswordResponse) {
-    response = &ChangeSubAccountPasswordResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 修改子账号密码
-func (c *Client) ChangeSubAccountPassword(request *ChangeSubAccountPasswordRequest) (response *ChangeSubAccountPasswordResponse, err error) {
-    if request == nil {
-        request = NewChangeSubAccountPasswordRequest()
-    }
-    response = NewChangeSubAccountPasswordResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewGetMultiFactorParasRequest() (request *GetMultiFactorParasRequest) {
     request = &GetMultiFactorParasRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -139,31 +64,6 @@ func (c *Client) GetMultiFactorParas(request *GetMultiFactorParasRequest) (respo
         request = NewGetMultiFactorParasRequest()
     }
     response = NewGetMultiFactorParasResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewGetUserInfoRequest() (request *GetUserInfoRequest) {
-    request = &GetUserInfoRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("account", APIVersion, "GetUserInfo")
-    return
-}
-
-func NewGetUserInfoResponse() (response *GetUserInfoResponse) {
-    response = &GetUserInfoResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取用户信息
-func (c *Client) GetUserInfo(request *GetUserInfoRequest) (response *GetUserInfoResponse, err error) {
-    if request == nil {
-        request = NewGetUserInfoRequest()
-    }
-    response = NewGetUserInfoResponse()
     err = c.Send(request, response)
     return
 }

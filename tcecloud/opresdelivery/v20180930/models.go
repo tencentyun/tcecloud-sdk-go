@@ -17,7 +17,7 @@ package v20180930
 import (
     "encoding/json"
 
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
 )
 
 type ApprovalRequest struct {
@@ -67,52 +67,6 @@ type Filter struct {
 
 	// 参数值
 	Values []*string `json:"Values,omitempty" name:"Values" list`
-}
-
-type GetServerDeliveryDataRequest struct {
-	*tchttp.BaseRequest
-
-	// 产品维度名称
-	MetricName *string `json:"MetricName,omitempty" name:"MetricName"`
-
-	// 统计维度，目前统一为sum
-	Statistics *string `json:"Statistics,omitempty" name:"Statistics"`
-
-	// 交付开始时间
-	StartTime *string `json:"StartTime,omitempty" name:"StartTime"`
-
-	// 交付结束时间
-	EndTime *string `json:"EndTime,omitempty" name:"EndTime"`
-
-	// 时间维度
-	Period *string `json:"Period,omitempty" name:"Period"`
-}
-
-func (r *GetServerDeliveryDataRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *GetServerDeliveryDataRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type GetServerDeliveryDataResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *GetServerDeliveryDataResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *GetServerDeliveryDataResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
 }
 
 type HostInfo struct {
@@ -376,40 +330,6 @@ func (r *QueryResDetailResponse) ToJsonString() string {
 }
 
 func (r *QueryResDetailResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type QuerySetRequest struct {
-	*tchttp.BaseRequest
-
-	// 无
-	Filters []*Filter `json:"Filters,omitempty" name:"Filters" list`
-}
-
-func (r *QuerySetRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *QuerySetRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type QuerySetResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *QuerySetResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *QuerySetResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 

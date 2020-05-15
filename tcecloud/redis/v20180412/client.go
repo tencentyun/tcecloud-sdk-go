@@ -15,9 +15,9 @@
 package v20180412
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2018-04-12"
@@ -1039,31 +1039,6 @@ func (c *Client) InquiryPriceUpgradeInstance(request *InquiryPriceUpgradeInstanc
         request = NewInquiryPriceUpgradeInstanceRequest()
     }
     response = NewInquiryPriceUpgradeInstanceResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInstanceGreyStrategyRequest() (request *InstanceGreyStrategyRequest) {
-    request = &InstanceGreyStrategyRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("redis", APIVersion, "InstanceGreyStrategy")
-    return
-}
-
-func NewInstanceGreyStrategyResponse() (response *InstanceGreyStrategyResponse) {
-    response = &InstanceGreyStrategyResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 实例灰度策略
-func (c *Client) InstanceGreyStrategy(request *InstanceGreyStrategyRequest) (response *InstanceGreyStrategyResponse, err error) {
-    if request == nil {
-        request = NewInstanceGreyStrategyRequest()
-    }
-    response = NewInstanceGreyStrategyResponse()
     err = c.Send(request, response)
     return
 }

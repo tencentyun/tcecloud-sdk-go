@@ -17,7 +17,7 @@ package v20180419
 import (
     "encoding/json"
 
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
 )
 
 type Activity struct {
@@ -551,46 +551,6 @@ func (r *CreateNotificationConfigurationResponse) ToJsonString() string {
 }
 
 func (r *CreateNotificationConfigurationResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type CreatePaiInstanceConfigRequest struct {
-	*tchttp.BaseRequest
-
-	// PAI实例的域名。
-	DomainName *string `json:"DomainName,omitempty" name:"DomainName"`
-
-	// 启动脚本的base64编码字符串。
-	InitScript *string `json:"InitScript,omitempty" name:"InitScript"`
-}
-
-func (r *CreatePaiInstanceConfigRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *CreatePaiInstanceConfigRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type CreatePaiInstanceConfigResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// PAI实例配置的详细信息
-		PaiInstanceConfig *PaiInstanceConfig `json:"PaiInstanceConfig,omitempty" name:"PaiInstanceConfig"`
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *CreatePaiInstanceConfigResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *CreatePaiInstanceConfigResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
@@ -2380,21 +2340,6 @@ type PaiInstance struct {
 
 	// 实例域名
 	DomainName *string `json:"DomainName,omitempty" name:"DomainName"`
-}
-
-type PaiInstanceConfig struct {
-
-	// PAI实例配置的域名
-	DomainName *string `json:"DomainName,omitempty" name:"DomainName"`
-
-	// PAI实例配置的用户自定义数据
-	UserData *string `json:"UserData,omitempty" name:"UserData"`
-
-	// PAI实例配置的镜像ID
-	ImageId *string `json:"ImageId,omitempty" name:"ImageId"`
-
-	// PAI实例配置的ID
-	PaiInstanceConfigId *string `json:"PaiInstanceConfigId,omitempty" name:"PaiInstanceConfigId"`
 }
 
 type PreviewPaiDomainNameRequest struct {

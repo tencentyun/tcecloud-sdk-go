@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
-        "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-        "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/errors"
-        "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
-        vpc "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/vpc/v20170312"
+        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/errors"
+        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
+        vpc "github.com/tencentyun/tcecloud-sdk-go/tcecloud/vpc/v20170312"
 
 )
 

@@ -17,42 +17,8 @@ package v20190923
 import (
     "encoding/json"
 
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
 )
-
-type BuyServiceRequest struct {
-	*tchttp.BaseRequest
-
-	// 开通服务类型，默认为0，当前只支持0，表示基础版。
-	Type *int64 `json:"Type,omitempty" name:"Type"`
-}
-
-func (r *BuyServiceRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *BuyServiceRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type BuyServiceResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *BuyServiceResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *BuyServiceResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
 
 type CreateSecretRequest struct {
 	*tchttp.BaseRequest

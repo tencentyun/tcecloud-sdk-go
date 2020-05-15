@@ -15,9 +15,9 @@
 package v20170312
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2017-03-12"
@@ -659,31 +659,6 @@ func (c *Client) DetachDisks(request *DetachDisksRequest) (response *DetachDisks
     return
 }
 
-func NewGetSnapOverviewRequest() (request *GetSnapOverviewRequest) {
-    request = &GetSnapOverviewRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cbs", APIVersion, "GetSnapOverview")
-    return
-}
-
-func NewGetSnapOverviewResponse() (response *GetSnapOverviewResponse) {
-    response = &GetSnapOverviewResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取快照概览信息
-func (c *Client) GetSnapOverview(request *GetSnapOverviewRequest) (response *GetSnapOverviewResponse, err error) {
-    if request == nil {
-        request = NewGetSnapOverviewRequest()
-    }
-    response = NewGetSnapOverviewResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewInquiryPriceCreateDisksRequest() (request *InquiryPriceCreateDisksRequest) {
     request = &InquiryPriceCreateDisksRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1043,33 +1018,6 @@ func (c *Client) SwitchParameterCreateDisks(request *SwitchParameterCreateDisksR
         request = NewSwitchParameterCreateDisksRequest()
     }
     response = NewSwitchParameterCreateDisksResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewSwitchParameterModifyDiskAttributesRequest() (request *SwitchParameterModifyDiskAttributesRequest) {
-    request = &SwitchParameterModifyDiskAttributesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cbs", APIVersion, "SwitchParameterModifyDiskAttributes")
-    return
-}
-
-func NewSwitchParameterModifyDiskAttributesResponse() (response *SwitchParameterModifyDiskAttributesResponse) {
-    response = &SwitchParameterModifyDiskAttributesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（SwitchParameterModifyDiskAttributes）用于获取修改云盘类型的订单参数。
-// * 仅支持预付费弹性云盘；
-// * 当前仅支持一次传入一块云盘。
-func (c *Client) SwitchParameterModifyDiskAttributes(request *SwitchParameterModifyDiskAttributesRequest) (response *SwitchParameterModifyDiskAttributesResponse, err error) {
-    if request == nil {
-        request = NewSwitchParameterModifyDiskAttributesRequest()
-    }
-    response = NewSwitchParameterModifyDiskAttributesResponse()
     err = c.Send(request, response)
     return
 }

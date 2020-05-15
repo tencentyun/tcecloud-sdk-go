@@ -17,7 +17,7 @@ package v20190304
 import (
     "encoding/json"
 
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
 )
 
 type ClearQueueRequest struct {
@@ -517,55 +517,6 @@ func (r *DescribeQueueDetailResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type DescribeQueuesRequest struct {
-	*tchttp.BaseRequest
-
-	// 分页时本页获取队列列表的起始位置。如果填写了该值，必须也要填写 limit 。该值缺省时，后台取默认值 0
-	Offset *int64 `json:"Offset,omitempty" name:"Offset"`
-
-	// 分页时本页获取队列的个数，如果不传递该参数，则该参数默认为20，最大值为50。
-	Limit *int64 `json:"Limit,omitempty" name:"Limit"`
-
-	// 目前只支持过滤QueueName ， 且只能填一个过滤值
-	Filters []*Filter `json:"Filters,omitempty" name:"Filters" list`
-
-	// TagKey
-	TagKey *string `json:"TagKey,omitempty" name:"TagKey"`
-}
-
-func (r *DescribeQueuesRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DescribeQueuesRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type DescribeQueuesResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// TotalCount
-		TotalCount *uint64 `json:"TotalCount,omitempty" name:"TotalCount"`
-
-		// QueueList
-		QueueList []*QueueList `json:"QueueList,omitempty" name:"QueueList" list`
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *DescribeQueuesResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DescribeQueuesResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
 type DescribeSubscriptionDetailRequest struct {
 	*tchttp.BaseRequest
 
@@ -664,55 +615,6 @@ func (r *DescribeTopicDetailResponse) ToJsonString() string {
 }
 
 func (r *DescribeTopicDetailResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type DescribeTopicsRequest struct {
-	*tchttp.BaseRequest
-
-	// Offset
-	Offset *uint64 `json:"Offset,omitempty" name:"Offset"`
-
-	// Limit
-	Limit *uint64 `json:"Limit,omitempty" name:"Limit"`
-
-	// Filters
-	Filters []*Filter `json:"Filters,omitempty" name:"Filters" list`
-
-	// TagKey
-	TagKey *string `json:"TagKey,omitempty" name:"TagKey"`
-}
-
-func (r *DescribeTopicsRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DescribeTopicsRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type DescribeTopicsResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 主题列表
-		TopicList []*TopicList `json:"TopicList,omitempty" name:"TopicList" list`
-
-		// 全量主题数量
-		TotalCount *uint64 `json:"TotalCount,omitempty" name:"TotalCount"`
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *DescribeTopicsResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DescribeTopicsResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
@@ -890,106 +792,6 @@ func (r *ModifyTopicAttributeResponse) ToJsonString() string {
 
 func (r *ModifyTopicAttributeResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
-}
-
-type QueueList struct {
-
-	// AppId
-	AppId *string `json:"AppId,omitempty" name:"AppId"`
-
-	// QueueId
-	QueueId *string `json:"QueueId,omitempty" name:"QueueId"`
-
-	// QueueName
-	QueueName *string `json:"QueueName,omitempty" name:"QueueName"`
-
-	// Qps
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	Qps *uint64 `json:"Qps,omitempty" name:"Qps"`
-
-	// Bps
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	Bps *uint64 `json:"Bps,omitempty" name:"Bps"`
-
-	// MaxDelaySeconds
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	MaxDelaySeconds *uint64 `json:"MaxDelaySeconds,omitempty" name:"MaxDelaySeconds"`
-
-	// MaxMsgHeapNum
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	MaxMsgHeapNum *uint64 `json:"MaxMsgHeapNum,omitempty" name:"MaxMsgHeapNum"`
-
-	// PollingWaitSeconds
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	PollingWaitSeconds *uint64 `json:"PollingWaitSeconds,omitempty" name:"PollingWaitSeconds"`
-
-	// MsgRetentionSeconds
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	MsgRetentionSeconds *uint64 `json:"MsgRetentionSeconds,omitempty" name:"MsgRetentionSeconds"`
-
-	// VisibilityTimeout
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	VisibilityTimeout *uint64 `json:"VisibilityTimeout,omitempty" name:"VisibilityTimeout"`
-
-	// MaxMsgSize
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	MaxMsgSize *uint64 `json:"MaxMsgSize,omitempty" name:"MaxMsgSize"`
-
-	// RewindSeconds
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	RewindSeconds *uint64 `json:"RewindSeconds,omitempty" name:"RewindSeconds"`
-
-	// CreateTime
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	CreateTime *uint64 `json:"CreateTime,omitempty" name:"CreateTime"`
-
-	// LastModifyTime
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	LastModifyTime *uint64 `json:"LastModifyTime,omitempty" name:"LastModifyTime"`
-
-	// ActiveMsgNum
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	ActiveMsgNum *uint64 `json:"ActiveMsgNum,omitempty" name:"ActiveMsgNum"`
-
-	// InactiveMsgNum
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	InactiveMsgNum *uint64 `json:"InactiveMsgNum,omitempty" name:"InactiveMsgNum"`
-
-	// DelayMsgNum
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	DelayMsgNum *uint64 `json:"DelayMsgNum,omitempty" name:"DelayMsgNum"`
-
-	// RewindMsgNum
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	RewindMsgNum *uint64 `json:"RewindMsgNum,omitempty" name:"RewindMsgNum"`
-
-	// MinMsgTime
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	MinMsgTime *uint64 `json:"MinMsgTime,omitempty" name:"MinMsgTime"`
-
-	// Transaction
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	Transaction *bool `json:"Transaction,omitempty" name:"Transaction"`
-
-	// DeadLetterSource
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	DeadLetterSource []*DeadLetterSource `json:"DeadLetterSource,omitempty" name:"DeadLetterSource" list`
-
-	// DeadLetterPolicy
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	DeadLetterPolicy []*DeadLetterPolicy `json:"DeadLetterPolicy,omitempty" name:"DeadLetterPolicy" list`
-
-	// TransactionPolicy
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	TransactionPolicy []*TransactionPolicy `json:"TransactionPolicy,omitempty" name:"TransactionPolicy" list`
-
-	// CreateUin
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	CreateUin *uint64 `json:"CreateUin,omitempty" name:"CreateUin"`
-
-	// 标签
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	Tags []*Tag `json:"Tags,omitempty" name:"Tags" list`
 }
 
 type QueueSet struct {
@@ -1190,57 +992,6 @@ type Tag struct {
 	// 标签值
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	TagValue *string `json:"TagValue,omitempty" name:"TagValue"`
-}
-
-type TopicList struct {
-
-	// AppId
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	AppId *string `json:"AppId,omitempty" name:"AppId"`
-
-	// TopicIdsId
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	TopicId *string `json:"TopicId,omitempty" name:"TopicId"`
-
-	// TopicName
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	TopicName *string `json:"TopicName,omitempty" name:"TopicName"`
-
-	// MsgRetentionSeconds
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	MsgRetentionSeconds *uint64 `json:"MsgRetentionSeconds,omitempty" name:"MsgRetentionSeconds"`
-
-	// MaxMsgSize
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	MaxMsgSize *uint64 `json:"MaxMsgSize,omitempty" name:"MaxMsgSize"`
-
-	// Qps
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	Qps *uint64 `json:"Qps,omitempty" name:"Qps"`
-
-	// FilterType
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	FilterType *uint64 `json:"FilterType,omitempty" name:"FilterType"`
-
-	// CreateTime
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	CreateTime *uint64 `json:"CreateTime,omitempty" name:"CreateTime"`
-
-	// LastModifyTime
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	LastModifyTime *uint64 `json:"LastModifyTime,omitempty" name:"LastModifyTime"`
-
-	// MsgCount
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	MsgCount *uint64 `json:"MsgCount,omitempty" name:"MsgCount"`
-
-	// CreateUin
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	CreateUin *uint64 `json:"CreateUin,omitempty" name:"CreateUin"`
-
-	// 标签
-	// 注意：此字段可能返回 null，表示取不到有效值。
-	Tags []*Tag `json:"Tags,omitempty" name:"Tags" list`
 }
 
 type TopicSet struct {

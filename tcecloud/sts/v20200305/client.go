@@ -15,9 +15,9 @@
 package v20200305
 
 import (
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
-    tchttp "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/http"
-    "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+    tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+    "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 const APIVersion = "2020-03-05"
@@ -42,31 +42,6 @@ func NewClient(credential *common.Credential, region string, clientProfile *prof
     return
 }
 
-
-func NewGetConsoleSessionTokenRequest() (request *GetConsoleSessionTokenRequest) {
-    request = &GetConsoleSessionTokenRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("sts", APIVersion, "GetConsoleSessionToken")
-    return
-}
-
-func NewGetConsoleSessionTokenResponse() (response *GetConsoleSessionTokenResponse) {
-    response = &GetConsoleSessionTokenResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取控制台临时证书
-func (c *Client) GetConsoleSessionToken(request *GetConsoleSessionTokenRequest) (response *GetConsoleSessionTokenResponse, err error) {
-    if request == nil {
-        request = NewGetConsoleSessionTokenRequest()
-    }
-    response = NewGetConsoleSessionTokenResponse()
-    err = c.Send(request, response)
-    return
-}
 
 func NewGetFederationTokenRequest() (request *GetFederationTokenRequest) {
     request = &GetFederationTokenRequest{

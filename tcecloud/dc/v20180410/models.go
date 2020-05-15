@@ -124,15 +124,6 @@ type CreateDirectConnectRequest struct {
 	// 物理专线接入接口带宽，单位为Mbps，默认值为1000，取值范围为 [2, 10240]。
 	Bandwidth *int64 `json:"Bandwidth,omitempty" name:"Bandwidth"`
 
-	// 物理专线接入IDC侧端口类型,取值：100Base-T：百兆电口,1000Base-T（默认值）：千兆电口,1000Base-LX：千兆单模光口（10千米）,10GBase-T：万兆电口10GBase-LR：万兆单模光口（10千米），默认值，千兆单模光口（10千米）。
-	IdcPortType *string `json:"IdcPortType,omitempty" name:"IdcPortType"`
-
-	// 本地数据中心所在城市
-	IdcCity *string `json:"IdcCity,omitempty" name:"IdcCity"`
-
-	// 冗余物理专线的ID。
-	RedundantDirectConnectId *string `json:"RedundantDirectConnectId,omitempty" name:"RedundantDirectConnectId"`
-
 	// 物理专线申请者姓名。默认从账户体系获取。
 	CustomerName *string `json:"CustomerName,omitempty" name:"CustomerName"`
 
@@ -141,6 +132,15 @@ type CreateDirectConnectRequest struct {
 
 	// 物理专线申请者联系号码。默认从账户体系获取。
 	CustomerContactNumber *string `json:"CustomerContactNumber,omitempty" name:"CustomerContactNumber"`
+
+	// 物理专线接入IDC侧端口类型,取值：100Base-T：百兆电口,1000Base-T（默认值）：千兆电口,1000Base-LX：千兆单模光口（10千米）,10GBase-T：万兆电口10GBase-LR：万兆单模光口（10千米），默认值，千兆单模光口（10千米）。
+	IdcPortType *string `json:"IdcPortType,omitempty" name:"IdcPortType"`
+
+	// 本地数据中心所在城市
+	IdcCity *string `json:"IdcCity,omitempty" name:"IdcCity"`
+
+	// 冗余物理专线的ID。
+	RedundantDirectConnectId *string `json:"RedundantDirectConnectId,omitempty" name:"RedundantDirectConnectId"`
 }
 
 func (r *CreateDirectConnectRequest) ToJsonString() string {

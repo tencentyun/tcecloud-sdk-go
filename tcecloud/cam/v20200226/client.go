@@ -43,6 +43,56 @@ func NewClient(credential *common.Credential, region string, clientProfile *prof
 }
 
 
+func NewAttachRolePoliciesRequest() (request *AttachRolePoliciesRequest) {
+    request = &AttachRolePoliciesRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("cam", APIVersion, "AttachRolePolicies")
+    return
+}
+
+func NewAttachRolePoliciesResponse() (response *AttachRolePoliciesResponse) {
+    response = &AttachRolePoliciesResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 绑定多个策略到角色 
+func (c *Client) AttachRolePolicies(request *AttachRolePoliciesRequest) (response *AttachRolePoliciesResponse, err error) {
+    if request == nil {
+        request = NewAttachRolePoliciesRequest()
+    }
+    response = NewAttachRolePoliciesResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewAttachRolePolicyRequest() (request *AttachRolePolicyRequest) {
+    request = &AttachRolePolicyRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("cam", APIVersion, "AttachRolePolicy")
+    return
+}
+
+func NewAttachRolePolicyResponse() (response *AttachRolePolicyResponse) {
+    response = &AttachRolePolicyResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（AttachRolePolicy）用于绑定策略到角色。
+func (c *Client) AttachRolePolicy(request *AttachRolePolicyRequest) (response *AttachRolePolicyResponse, err error) {
+    if request == nil {
+        request = NewAttachRolePolicyRequest()
+    }
+    response = NewAttachRolePolicyResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewCreateCASProviderRequest() (request *CreateCASProviderRequest) {
     request = &CreateCASProviderRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -68,6 +118,31 @@ func (c *Client) CreateCASProvider(request *CreateCASProviderRequest) (response 
     return
 }
 
+func NewCreateRoleRequest() (request *CreateRoleRequest) {
+    request = &CreateRoleRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("cam", APIVersion, "CreateRole")
+    return
+}
+
+func NewCreateRoleResponse() (response *CreateRoleResponse) {
+    response = &CreateRoleResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（CreateRole）用于创建角色。
+func (c *Client) CreateRole(request *CreateRoleRequest) (response *CreateRoleResponse, err error) {
+    if request == nil {
+        request = NewCreateRoleRequest()
+    }
+    response = NewCreateRoleResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewDescribeCasProviderRequest() (request *DescribeCasProviderRequest) {
     request = &DescribeCasProviderRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -89,6 +164,56 @@ func (c *Client) DescribeCasProvider(request *DescribeCasProviderRequest) (respo
         request = NewDescribeCasProviderRequest()
     }
     response = NewDescribeCasProviderResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewGetRoleRequest() (request *GetRoleRequest) {
+    request = &GetRoleRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("cam", APIVersion, "GetRole")
+    return
+}
+
+func NewGetRoleResponse() (response *GetRoleResponse) {
+    response = &GetRoleResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（GetRole）用于获取指定角色的详细信息。
+func (c *Client) GetRole(request *GetRoleRequest) (response *GetRoleResponse, err error) {
+    if request == nil {
+        request = NewGetRoleRequest()
+    }
+    response = NewGetRoleResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewListAttachedRolePoliciesRequest() (request *ListAttachedRolePoliciesRequest) {
+    request = &ListAttachedRolePoliciesRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("cam", APIVersion, "ListAttachedRolePolicies")
+    return
+}
+
+func NewListAttachedRolePoliciesResponse() (response *ListAttachedRolePoliciesResponse) {
+    response = &ListAttachedRolePoliciesResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（ListAttachedRolePolicies）用于获取角色绑定的策略列表。
+func (c *Client) ListAttachedRolePolicies(request *ListAttachedRolePoliciesRequest) (response *ListAttachedRolePoliciesResponse, err error) {
+    if request == nil {
+        request = NewListAttachedRolePoliciesRequest()
+    }
+    response = NewListAttachedRolePoliciesResponse()
     err = c.Send(request, response)
     return
 }

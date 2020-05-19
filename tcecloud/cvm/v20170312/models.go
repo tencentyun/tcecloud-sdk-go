@@ -1128,6 +1128,15 @@ func (r *ImportImageResponse) FromJsonString(s string) error {
 
 type ImportKeyPairRequest struct {
 	*tchttp.BaseRequest
+
+	// 密钥对名称，可由数字，字母和下划线组成，长度不超过25个字符。
+	KeyName *string `json:"KeyName,omitempty" name:"KeyName"`
+
+	// 密钥对创建后所属的项目ID。<br><br>可以通过以下方式获取项目ID：<br><li>通过项目列表查询项目ID。<br><li>通过调用接口 DescribeProject，取返回信息中的 `projectId ` 获取项目ID。
+	ProjectId *int64 `json:"ProjectId,omitempty" name:"ProjectId"`
+
+	// 密钥对的公钥内容，`OpenSSH RSA` 格式。
+	PublicKey *string `json:"PublicKey,omitempty" name:"PublicKey"`
 }
 
 func (r *ImportKeyPairRequest) ToJsonString() string {
@@ -1922,6 +1931,12 @@ type ModifyInstancesAttributeRequest struct {
 
 	// 实例显示名称。可任意命名，但不得超过60个字符。
 	InstanceName *string `json:"InstanceName,omitempty" name:"InstanceName"`
+
+	// 内部参数，用户数据。
+	UserData *string `json:"UserData,omitempty" name:"UserData"`
+
+	// 内部参数，安全组Id列表。
+	SecurityGroups []*string `json:"SecurityGroups,omitempty" name:"SecurityGroups" list`
 }
 
 func (r *ModifyInstancesAttributeRequest) ToJsonString() string {
@@ -2029,7 +2044,7 @@ type ModifyInstancesVpcAttributeRequest struct {
 	*tchttp.BaseRequest
 
 	// 待操作的实例ID数组。可通过`DescribeInstances`接口返回值中的`InstanceId`获取。
-	InstanceIds *string `json:"InstanceIds,omitempty" name:"InstanceIds"`
+	InstanceIds []*string `json:"InstanceIds,omitempty" name:"InstanceIds" list`
 
 	// 私有网络相关信息配置，通过该参数指定私有网络的ID，子网ID，私有网络ip等信息。<br><li>当指定私有网络ID和子网ID（子网必须在实例所在的可用区）与指定实例所在私有网络不一致时，会将实例迁移至指定的私有网络的子网下。<br><li>可通过`PrivateIpAddresses`指定私有网络子网IP，若需指定则所有已指定的实例均需要指定子网IP，此时`InstanceIds`与`PrivateIpAddresses`一一对应。<br><li>不指定`PrivateIpAddresses`时随机分配私有网络子网IP。
 	VirtualPrivateCloud *VirtualPrivateCloud `json:"VirtualPrivateCloud,omitempty" name:"VirtualPrivateCloud"`

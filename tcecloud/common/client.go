@@ -6,20 +6,21 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"net/http/httputil"
 	"strconv"
 	"strings"
 	"time"
 
-        tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
-        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
-
-
+	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/errors"
+	tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
+	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
 type Client struct {
 	region          string
 	httpClient      *http.Client
 	httpProfile     *profile.HttpProfile
+	profile         *profile.ClientProfile
 	credential      *Credential
 	signMethod      string
 	unsignedPayload bool
@@ -27,10 +28,18 @@ type Client struct {
 }
 
 func (c *Client) Send(request tchttp.Request, response tchttp.Response) (err error) {
+	if request.GetScheme() == "" {
+		request.SetScheme(c.httpProfile.Scheme)
+	}
+
+	if request.GetRootDomain() == "" {
+		request.SetRootDomain(c.httpProfile.RootDomain)
+	}
+
 	if request.GetDomain() == "" {
 		domain := c.httpProfile.Endpoint
 		if domain == "" {
-			domain = tchttp.GetServiceDomain(request.GetService())
+			domain = request.GetServiceDomain(request.GetService())
 		}
 		request.SetDomain(domain)
 	}
@@ -49,6 +58,8 @@ func (c *Client) Send(request tchttp.Request, response tchttp.Response) (err err
 }
 
 func (c *Client) sendWithSignatureV1(request tchttp.Request, response tchttp.Response) (err error) {
+	// TODO: not an elegant way, it should be done in common params, but finally it need to refactor
+	request.GetParams()["Language"] = c.profile.Language
 	err = tchttp.ConstructParams(request)
 	if err != nil {
 		return err
@@ -62,12 +73,20 @@ func (c *Client) sendWithSignatureV1(request tchttp.Request, response tchttp.Res
 		return err
 	}
 	if request.GetHttpMethod() == "POST" {
-		httpRequest.Header["Content-Type"] = []string{"application/x-www-form-urlencoded"}
+		httpRequest.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	}
-	//log.Printf("[DEBUG] http request=%v", httpRequest)
+	if c.debug {
+		outbytes, err := httputil.DumpRequest(httpRequest, true)
+		if err != nil {
+			log.Printf("[ERROR] dump request failed because %s", err)
+			return err
+		}
+		log.Printf("[DEBUG] http request = %s", outbytes)
+	}
 	httpResponse, err := c.httpClient.Do(httpRequest)
 	if err != nil {
-		return err
+		msg := fmt.Sprintf("Fail to get response because %s", err)
+		return errors.NewTceCloudSDKError("ClientError.NetworkError", msg, "")
 	}
 	err = tchttp.ParseFromHttpResponse(httpResponse, response)
 	return err
@@ -80,6 +99,7 @@ func (c *Client) sendWithSignatureV3(request tchttp.Request, response tchttp.Res
 		"X-TC-Version":       request.GetVersion(),
 		"X-TC-Timestamp":     request.GetParams()["Timestamp"],
 		"X-TC-RequestClient": request.GetParams()["RequestClient"],
+		"X-TC-Language":      c.profile.Language,
 	}
 	if c.region != "" {
 		headers["X-TC-Region"] = c.region
@@ -104,7 +124,17 @@ func (c *Client) sendWithSignatureV3(request tchttp.Request, response tchttp.Res
 		if err != nil {
 			return err
 		}
-		canonicalQueryString = tchttp.GetUrlQueriesEncoded(request.GetParams())
+		params := make(map[string]string)
+		for key, value := range request.GetParams() {
+			params[key] = value
+		}
+		delete(params, "Action")
+		delete(params, "Version")
+		delete(params, "Nonce")
+		delete(params, "Region")
+		delete(params, "RequestClient")
+		delete(params, "Timestamp")
+		canonicalQueryString = tchttp.GetUrlQueriesEncoded(params)
 	}
 	canonicalHeaders := fmt.Sprintf("content-type:%s\nhost:%s\n", headers["Content-Type"], headers["Host"])
 	signedHeaders := "content-type;host"
@@ -165,17 +195,29 @@ func (c *Client) sendWithSignatureV3(request tchttp.Request, response tchttp.Res
 	//log.Println("authorization", authorization)
 
 	headers["Authorization"] = authorization
-	httpRequest, err := http.NewRequest(httpRequestMethod, request.GetUrl(), strings.NewReader(requestPayload))
+	url := request.GetScheme() + "://" + request.GetDomain() + request.GetPath()
+	if canonicalQueryString != "" {
+		url = url + "?" + canonicalQueryString
+	}
+	httpRequest, err := http.NewRequest(httpRequestMethod, url, strings.NewReader(requestPayload))
 	if err != nil {
 		return err
 	}
 	for k, v := range headers {
 		httpRequest.Header[k] = []string{v}
 	}
-	//log.Printf("[DEBUG] http request=%v", httpRequest)
+	if c.debug {
+		outbytes, err := httputil.DumpRequest(httpRequest, true)
+		if err != nil {
+			log.Printf("[ERROR] dump request failed because %s", err)
+			return err
+		}
+		log.Printf("[DEBUG] http request = %s", outbytes)
+	}
 	httpResponse, err := c.httpClient.Do(httpRequest)
 	if err != nil {
-		return err
+		msg := fmt.Sprintf("Fail to get response because %s", err)
+		return errors.NewTceCloudSDKError("ClientError.NetworkError", msg, "")
 	}
 	err = tchttp.ParseFromHttpResponse(httpResponse, response)
 	return err
@@ -188,7 +230,7 @@ func (c *Client) GetRegion() string {
 func (c *Client) Init(region string) *Client {
 	c.httpClient = &http.Client{}
 	c.region = region
-	c.signMethod = "HmacSHA256"
+	c.signMethod = "TC3-HMAC-SHA256"
 	c.debug = false
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	return c
@@ -205,15 +247,27 @@ func (c *Client) WithCredential(cred *Credential) *Client {
 }
 
 func (c *Client) WithProfile(clientProfile *profile.ClientProfile) *Client {
+	c.profile = clientProfile
 	c.signMethod = clientProfile.SignMethod
 	c.unsignedPayload = clientProfile.UnsignedPayload
 	c.httpProfile = clientProfile.HttpProfile
+	c.debug = clientProfile.Debug
 	c.httpClient.Timeout = time.Duration(c.httpProfile.ReqTimeout) * time.Second
 	return c
 }
 
 func (c *Client) WithSignatureMethod(method string) *Client {
 	c.signMethod = method
+	return c
+}
+
+func (c *Client) WithHttpTransport(transport http.RoundTripper) *Client {
+	c.httpClient.Transport = transport
+	return c
+}
+
+func (c *Client) WithDebug(flag bool) *Client {
+	c.debug = flag
 	return c
 }
 

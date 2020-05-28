@@ -1,3 +1,4 @@
+// Copyright (c) 2018 Tencent Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,8 +12,45 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// package regions
+package regions
 
-// 地域（Region）是指物理的数据中心的地理区域。YF-1交付验证不同地域之间完全隔离，保证不同地域间最大程度的稳定性和容错性。为了降低访问时延、提高下载速度，建议您选择最靠近您客户的地域。
-
-// 您可以通过 API接口 **查询地域列表** 查看完成的地域列表。
+const (
+	// 曼谷
+	Bangkok = "ap-bangkok"
+	// 北京
+	Beijing = "ap-beijing"
+	// 成都
+	Chengdu = "ap-chengdu"
+	// 重庆
+	Chongqing = "ap-chongqing"
+	// 广州
+	Guangzhou = "ap-guangzhou"
+	// 广州Open
+	GuangzhouOpen = "ap-guangzhou-open"
+	// 中国香港
+	HongKong = "ap-hongkong"
+	// 孟买
+	Mumbai = "ap-mumbai"
+	// 首尔
+	Seoul = "ap-seoul"
+	// 上海
+	Shanghai = "ap-shanghai"
+	// 上海金融
+	ShanghaiFSI = "ap-shanghai-fsi"
+	// 深圳金融
+	ShenzhenFSI = "ap-shenzhen-fsi"
+	// 新加坡
+	Singapore = "ap-singapore"
+	// 东京
+	Tokyo = "ap-tokyo"
+	// 法兰克福
+	Frankfurt = "eu-frankfurt"
+	// 莫斯科
+	Moscow = "eu-moscow"
+	// 阿什本
+	Ashburn = "na-ashburn"
+	// 硅谷
+	SiliconValley = "na-siliconvalley"
+	// 多伦多
+	Toronto = "na-toronto"
+)

@@ -168,6 +168,81 @@ func (c *Client) DescribeCasProvider(request *DescribeCasProviderRequest) (respo
     return
 }
 
+func NewDetachGroupsPolicyRequest() (request *DetachGroupsPolicyRequest) {
+    request = &DetachGroupsPolicyRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("cam", APIVersion, "DetachGroupsPolicy")
+    return
+}
+
+func NewDetachGroupsPolicyResponse() (response *DetachGroupsPolicyResponse) {
+    response = &DetachGroupsPolicyResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 解除绑定策略到多个用户组
+func (c *Client) DetachGroupsPolicy(request *DetachGroupsPolicyRequest) (response *DetachGroupsPolicyResponse, err error) {
+    if request == nil {
+        request = NewDetachGroupsPolicyRequest()
+    }
+    response = NewDetachGroupsPolicyResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewDetachUsersPolicyRequest() (request *DetachUsersPolicyRequest) {
+    request = &DetachUsersPolicyRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("cam", APIVersion, "DetachUsersPolicy")
+    return
+}
+
+func NewDetachUsersPolicyResponse() (response *DetachUsersPolicyResponse) {
+    response = &DetachUsersPolicyResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 解除绑定策略到多个用户 
+func (c *Client) DetachUsersPolicy(request *DetachUsersPolicyRequest) (response *DetachUsersPolicyResponse, err error) {
+    if request == nil {
+        request = NewDetachUsersPolicyRequest()
+    }
+    response = NewDetachUsersPolicyResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewGetPolicyRequest() (request *GetPolicyRequest) {
+    request = &GetPolicyRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("cam", APIVersion, "GetPolicy")
+    return
+}
+
+func NewGetPolicyResponse() (response *GetPolicyResponse) {
+    response = &GetPolicyResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（GetPolicy）可用于查询查看策略详情。
+func (c *Client) GetPolicy(request *GetPolicyRequest) (response *GetPolicyResponse, err error) {
+    if request == nil {
+        request = NewGetPolicyRequest()
+    }
+    response = NewGetPolicyResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewGetRoleRequest() (request *GetRoleRequest) {
     request = &GetRoleRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -193,6 +268,31 @@ func (c *Client) GetRole(request *GetRoleRequest) (response *GetRoleResponse, er
     return
 }
 
+func NewGetServiceApiListRequest() (request *GetServiceApiListRequest) {
+    request = &GetServiceApiListRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("cam", APIVersion, "GetServiceApiList")
+    return
+}
+
+func NewGetServiceApiListResponse() (response *GetServiceApiListResponse) {
+    response = &GetServiceApiListResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 获取服务及其API列表 
+func (c *Client) GetServiceApiList(request *GetServiceApiListRequest) (response *GetServiceApiListResponse, err error) {
+    if request == nil {
+        request = NewGetServiceApiListRequest()
+    }
+    response = NewGetServiceApiListResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewListAttachedRolePoliciesRequest() (request *ListAttachedRolePoliciesRequest) {
     request = &ListAttachedRolePoliciesRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -214,6 +314,56 @@ func (c *Client) ListAttachedRolePolicies(request *ListAttachedRolePoliciesReque
         request = NewListAttachedRolePoliciesRequest()
     }
     response = NewListAttachedRolePoliciesResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewListEntitiesForPolicyRequest() (request *ListEntitiesForPolicyRequest) {
+    request = &ListEntitiesForPolicyRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("cam", APIVersion, "ListEntitiesForPolicy")
+    return
+}
+
+func NewListEntitiesForPolicyResponse() (response *ListEntitiesForPolicyResponse) {
+    response = &ListEntitiesForPolicyResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（ListEntitiesForPolicy）可用于查询策略关联的实体列表。
+func (c *Client) ListEntitiesForPolicy(request *ListEntitiesForPolicyRequest) (response *ListEntitiesForPolicyResponse, err error) {
+    if request == nil {
+        request = NewListEntitiesForPolicyRequest()
+    }
+    response = NewListEntitiesForPolicyResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewListPoliciesRequest() (request *ListPoliciesRequest) {
+    request = &ListPoliciesRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("cam", APIVersion, "ListPolicies")
+    return
+}
+
+func NewListPoliciesResponse() (response *ListPoliciesResponse) {
+    response = &ListPoliciesResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（ListPolicies）可用于查询策略列表。
+func (c *Client) ListPolicies(request *ListPoliciesRequest) (response *ListPoliciesResponse, err error) {
+    if request == nil {
+        request = NewListPoliciesRequest()
+    }
+    response = NewListPoliciesResponse()
     err = c.Send(request, response)
     return
 }

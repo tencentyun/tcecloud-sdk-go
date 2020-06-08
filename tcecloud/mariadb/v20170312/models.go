@@ -1532,6 +1532,9 @@ type DescribePriceRequest struct {
 
 	// 欲购买的数量，默认查询购买1个实例的价格。
 	Count *int64 `json:"Count,omitempty" name:"Count"`
+
+	// 付费类型。postpaid：按量付费   prepaid：预付费
+	Paymode *string `json:"Paymode,omitempty" name:"Paymode"`
 }
 
 func (r *DescribePriceRequest) ToJsonString() string {

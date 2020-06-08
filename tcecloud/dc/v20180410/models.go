@@ -20,40 +20,6 @@ import (
     tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
 )
 
-type AcceptDirectConnectTunnelRequest struct {
-	*tchttp.BaseRequest
-
-	// 物理专线拥有者接受共享专用通道申请
-	DirectConnectTunnelId *string `json:"DirectConnectTunnelId,omitempty" name:"DirectConnectTunnelId"`
-}
-
-func (r *AcceptDirectConnectTunnelRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *AcceptDirectConnectTunnelRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type AcceptDirectConnectTunnelResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *AcceptDirectConnectTunnelResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *AcceptDirectConnectTunnelResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
 type AccessPoint struct {
 
 	// 接入点的名称。
@@ -91,6 +57,49 @@ type AccessPoint struct {
 
 	// 物理专线IDC侧接入端口类型,取值：100Base-T：百兆电口,1000Base-T（默认值）：千兆电口,1000Base-LX：千兆单模光口（10千米）,10GBase-T：万兆电口10GBase-LR：万兆单模光口（10千米），默认值，千兆单模光口（10千米）。
 	IdcPortType []*string `json:"IdcPortType,omitempty" name:"IdcPortType" list`
+}
+
+type ApproveDirectConnectTunnelRequest struct {
+	*tchttp.BaseRequest
+
+	// 专线通道ID
+	DirectConnectTunnelId *string `json:"DirectConnectTunnelId,omitempty" name:"DirectConnectTunnelId"`
+
+	// 专线通道名称
+	DirectConnectTunnelName *string `json:"DirectConnectTunnelName,omitempty" name:"DirectConnectTunnelName"`
+
+	// 审批结果, True: 同意， False: 不同意
+	Approved *bool `json:"Approved,omitempty" name:"Approved"`
+
+	// 备注
+	Comments *string `json:"Comments,omitempty" name:"Comments"`
+}
+
+func (r *ApproveDirectConnectTunnelRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *ApproveDirectConnectTunnelRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type ApproveDirectConnectTunnelResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *ApproveDirectConnectTunnelResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *ApproveDirectConnectTunnelResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
 }
 
 type BgpPeer struct {
@@ -182,21 +191,33 @@ type CreateDirectConnectTunnelRequest struct {
 	// 专用通道名称
 	DirectConnectTunnelName *string `json:"DirectConnectTunnelName,omitempty" name:"DirectConnectTunnelName"`
 
+	// 私有网络统一 ID 或者黑石网络统一 ID
+	VpcName *string `json:"VpcName,omitempty" name:"VpcName"`
+
+	// 静态路由，用户IDC的网段地址
+	IdcRoutes *string `json:"IdcRoutes,omitempty" name:"IdcRoutes"`
+
+	// 通道负载均衡模式：
+	// None 非冗余模式
+	// LoadBalance：负载均衡
+	// MasterSlave：主备
+	LoadMode *string `json:"LoadMode,omitempty" name:"LoadMode"`
+
+	// vpc数字ID
+	VpcId *int64 `json:"VpcId,omitempty" name:"VpcId"`
+
+	// 是否开启BFD
+	EnableBfd *bool `json:"EnableBfd,omitempty" name:"EnableBfd"`
+
+	// 互联地址掩码
+	ConnectSubnetMask *uint64 `json:"ConnectSubnetMask,omitempty" name:"ConnectSubnetMask"`
+
+	// vpc所在地域
+	NetworkRegion *string `json:"NetworkRegion,omitempty" name:"NetworkRegion"`
+
 	// 物理专线 owner，缺省为当前客户（物理专线 owner）
 	// 共享专线时这里需要填写共享专线的开发商账号 ID
 	DirectConnectOwnerAccount *string `json:"DirectConnectOwnerAccount,omitempty" name:"DirectConnectOwnerAccount"`
-
-	// 网络类型，分别为VPC、BMVPC，CCN，默认是VPC
-	// VPC：私有网络
-	// BMVPC：黑石网络
-	// CCN：云联网
-	NetworkType *string `json:"NetworkType,omitempty" name:"NetworkType"`
-
-	// 网络地域
-	NetworkRegion *string `json:"NetworkRegion,omitempty" name:"NetworkRegion"`
-
-	// 私有网络统一 ID 或者黑石网络统一 ID
-	VpcId *string `json:"VpcId,omitempty" name:"VpcId"`
 
 	// 专线网关 ID，例如 dcg-d545ddf
 	DirectConnectGatewayId *string `json:"DirectConnectGatewayId,omitempty" name:"DirectConnectGatewayId"`
@@ -213,19 +234,22 @@ type CreateDirectConnectTunnelRequest struct {
 	// BgpPeer，用户侧bgp信息，包括Asn和AuthKey
 	BgpPeer *BgpPeer `json:"BgpPeer,omitempty" name:"BgpPeer"`
 
-	// 静态路由，用户IDC的网段地址
-	RouteFilterPrefixes []*RouteFilterPrefix `json:"RouteFilterPrefixes,omitempty" name:"RouteFilterPrefixes" list`
-
 	// vlan，范围：0 ~ 3000
 	// 0：不开启子接口
 	// 默认值是非0
 	Vlan *int64 `json:"Vlan,omitempty" name:"Vlan"`
 
 	// TencentAddress，腾讯侧互联 IP
-	TencentAddress *string `json:"TencentAddress,omitempty" name:"TencentAddress"`
+	CloudAddress *string `json:"CloudAddress,omitempty" name:"CloudAddress"`
 
 	// CustomerAddress，用户侧互联 IP
 	CustomerAddress *string `json:"CustomerAddress,omitempty" name:"CustomerAddress"`
+
+	// 关联的冗余通道ID
+	RelatedDirectConnectTunnelId *string `json:"RelatedDirectConnectTunnelId,omitempty" name:"RelatedDirectConnectTunnelId"`
+
+	// BFD协议interval配置
+	BfdInterval *int64 `json:"BfdInterval,omitempty" name:"BfdInterval"`
 }
 
 func (r *CreateDirectConnectTunnelRequest) ToJsonString() string {
@@ -506,7 +530,7 @@ type DirectConnectTunnel struct {
 
 	// 通道负载均衡模式：
 	// 0：None 1: LoadBalance 2: MasterSlave
-	LoadMode []*string `json:"LoadMode,omitempty" name:"LoadMode" list`
+	LoadMode *string `json:"LoadMode,omitempty" name:"LoadMode"`
 
 	// 互联地址掩码
 	ConnectSubnetMask *uint64 `json:"ConnectSubnetMask,omitempty" name:"ConnectSubnetMask"`
@@ -520,6 +544,10 @@ type DirectConnectTunnel struct {
 	// 关联的通道ID
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	RelatedDirectConnectTunnelId *string `json:"RelatedDirectConnectTunnelId,omitempty" name:"RelatedDirectConnectTunnelId"`
+
+	// 通道备注
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Comments *string `json:"Comments,omitempty" name:"Comments"`
 }
 
 type ModifyDirectConnectTunnelAttributeRequest struct {
@@ -531,20 +559,26 @@ type ModifyDirectConnectTunnelAttributeRequest struct {
 	// 专用通道名称
 	DirectConnectTunnelName *string `json:"DirectConnectTunnelName,omitempty" name:"DirectConnectTunnelName"`
 
-	// 用户侧BGP，包括Asn，AuthKey
-	BgpPeer *BgpPeer `json:"BgpPeer,omitempty" name:"BgpPeer"`
-
 	// 用户侧网段地址
-	RouteFilterPrefixes []*RouteFilterPrefix `json:"RouteFilterPrefixes,omitempty" name:"RouteFilterPrefixes" list`
-
-	// 腾讯侧互联IP
-	TencentAddress *string `json:"TencentAddress,omitempty" name:"TencentAddress"`
-
-	// 用户侧互联IP
-	CustomerAddress *string `json:"CustomerAddress,omitempty" name:"CustomerAddress"`
+	IdcRoutes *string `json:"IdcRoutes,omitempty" name:"IdcRoutes"`
 
 	// 专用通道带宽值，单位为M。
 	Bandwidth *int64 `json:"Bandwidth,omitempty" name:"Bandwidth"`
+
+	// 通道备注
+	Comments *string `json:"Comments,omitempty" name:"Comments"`
+
+	// 是否开启BFD
+	EnableBfd *bool `json:"EnableBfd,omitempty" name:"EnableBfd"`
+
+	// BFD报文interval时间
+	BfdInterval *int64 `json:"BfdInterval,omitempty" name:"BfdInterval"`
+
+	// 是否开启组播
+	EnableMulticast *bool `json:"EnableMulticast,omitempty" name:"EnableMulticast"`
+
+	// 通道组播组地址
+	MulticastGroups *string `json:"MulticastGroups,omitempty" name:"MulticastGroups"`
 }
 
 func (r *ModifyDirectConnectTunnelAttributeRequest) ToJsonString() string {
@@ -574,23 +608,32 @@ func (r *ModifyDirectConnectTunnelAttributeResponse) FromJsonString(s string) er
     return json.Unmarshal([]byte(s), &r)
 }
 
-type RejectDirectConnectTunnelRequest struct {
+type UpdateVifAssociatedRequest struct {
 	*tchttp.BaseRequest
 
-	// 无
+	// 专线通道ID, 比如dcx-nsurd338
 	DirectConnectTunnelId *string `json:"DirectConnectTunnelId,omitempty" name:"DirectConnectTunnelId"`
+
+	// 通道负载均衡模式：
+	// None 非冗余模式
+	// LoadBalance：负载均衡
+	// MasterSlave：主备
+	LoadMode *string `json:"LoadMode,omitempty" name:"LoadMode"`
+
+	// 关联专线通道ID，比如dcx-nsurd338
+	RelatedDirectConnectTunnelId *string `json:"RelatedDirectConnectTunnelId,omitempty" name:"RelatedDirectConnectTunnelId"`
 }
 
-func (r *RejectDirectConnectTunnelRequest) ToJsonString() string {
+func (r *UpdateVifAssociatedRequest) ToJsonString() string {
     b, _ := json.Marshal(r)
     return string(b)
 }
 
-func (r *RejectDirectConnectTunnelRequest) FromJsonString(s string) error {
+func (r *UpdateVifAssociatedRequest) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type RejectDirectConnectTunnelResponse struct {
+type UpdateVifAssociatedResponse struct {
 	*tchttp.BaseResponse
 	Response *struct {
 
@@ -599,17 +642,11 @@ type RejectDirectConnectTunnelResponse struct {
 	} `json:"Response"`
 }
 
-func (r *RejectDirectConnectTunnelResponse) ToJsonString() string {
+func (r *UpdateVifAssociatedResponse) ToJsonString() string {
     b, _ := json.Marshal(r)
     return string(b)
 }
 
-func (r *RejectDirectConnectTunnelResponse) FromJsonString(s string) error {
+func (r *UpdateVifAssociatedResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
-}
-
-type RouteFilterPrefix struct {
-
-	// 用户侧网段地址
-	Cidr *string `json:"Cidr,omitempty" name:"Cidr"`
 }

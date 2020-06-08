@@ -38,7 +38,7 @@ type DescribeInstancesResponse struct {
 	Response *struct {
 
 		// 实例列表
-		InstanceList []*string `json:"InstanceList,omitempty" name:"InstanceList" list`
+		InstanceSet []*string `json:"InstanceSet,omitempty" name:"InstanceSet" list`
 
 		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
 		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`

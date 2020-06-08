@@ -20,6 +20,61 @@ import (
     tchttp "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/http"
 )
 
+type AddClusterInstancesRequest struct {
+	*tchttp.BaseRequest
+
+	// 集群 ID，请填写 查询集群列表 接口中返回的 clusterId 字段
+	ClusterId *string `json:"ClusterId,omitempty" name:"ClusterId"`
+
+	// cvm创建透传参数，json化字符串格式
+	CvmRunInstances *string `json:"CvmRunInstances,omitempty" name:"CvmRunInstances"`
+
+	// 数据盘挂载点, 默认不挂载数据盘. 已格式化的 ext3，ext4，xfs 文件系统的数据盘将直接挂载，其他文件系统或未格式化的数据盘将自动格式化为ext4 并挂载，请注意备份数据! 无数据盘或有多块数据盘的云主机此设置不生效。
+	MountTarget []*string `json:"MountTarget,omitempty" name:"MountTarget" list`
+
+	// dockerd --graph 指定值, 默认为 /var/lib/docker
+	DockerGraphPath []*string `json:"DockerGraphPath,omitempty" name:"DockerGraphPath" list`
+
+	// base64 编码的用户脚本, 此脚本会在 k8s 组件运行后执行, 需要用户保证脚本的可重入及重试逻辑, 脚本及其生成的日志文件可在节点的 /data/ccs_userscript/ 路径查看, 如果要求节点需要在进行初始化完成后才可加入调度, 可配合 unschedulable 参数使用, 在 userScript 最后初始化完成后, 添加 kubectl uncordon nodename --kubeconfig=/root/.kube/config 命令使节点加入调度
+	UserScript []*string `json:"UserScript,omitempty" name:"UserScript" list`
+
+	// 系统名。centos7.2x86_64 或者 ubuntu16.04.1 LTSx86_64，仅当新建集群为空集群, 第一次向空集群添加节点时需要指定. 当集群系统确定后, 后续添加的节点都是集群系统
+	OsName *string `json:"OsName,omitempty" name:"OsName"`
+
+	// 设置加入的节点是否参与调度，默认值为0，表示参与调度；非0表示不参与调度, 待节点初始化完成之后, 可执行kubectl uncordon nodename使node加入调度.
+	Unschedulable *int64 `json:"Unschedulable,omitempty" name:"Unschedulable"`
+}
+
+func (r *AddClusterInstancesRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *AddClusterInstancesRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type AddClusterInstancesResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 节点实例id
+		InstanceIdSet []*string `json:"InstanceIdSet,omitempty" name:"InstanceIdSet" list`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *AddClusterInstancesResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *AddClusterInstancesResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
 type AddExistedInstancesRequest struct {
 	*tchttp.BaseRequest
 
@@ -90,6 +145,54 @@ type AutoScalingGroupRange struct {
 	MaxSize *int64 `json:"MaxSize,omitempty" name:"MaxSize"`
 }
 
+type CheckClusterCIDRRequest struct {
+	*tchttp.BaseRequest
+
+	// 集群的vpc-id
+	VpcId *string `json:"VpcId,omitempty" name:"VpcId"`
+
+	// 集群的CIDR
+	ClusterCIDR *string `json:"ClusterCIDR,omitempty" name:"ClusterCIDR"`
+}
+
+func (r *CheckClusterCIDRRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *CheckClusterCIDRRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type CheckClusterCIDRResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 是否存在CIDR冲突。
+		IsConflict *bool `json:"IsConflict,omitempty" name:"IsConflict"`
+
+		// CIDR冲突的类型("CIDR_CONFLICT_WITH_OTHER_CLUSTER" 同VPC其他集群CIDR存在冲突
+	// "CIDR_CONFLICT_WITH_VPC_CIDR" 与VPC的CIDR存在冲突
+	// "CIDR_CONFLICT_WITH_VPC_GLOBAL_ROUTE" 与同VPC的全局路由存在冲突)。
+		ConflictType *string `json:"ConflictType,omitempty" name:"ConflictType"`
+
+		// CIDR冲突描述信息。
+		ConflictMsg *string `json:"ConflictMsg,omitempty" name:"ConflictMsg"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *CheckClusterCIDRResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *CheckClusterCIDRResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
 type Cluster struct {
 
 	// 集群ID
@@ -148,6 +251,30 @@ type Cluster struct {
 	// 创建时间
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	CreatedTime *string `json:"CreatedTime,omitempty" name:"CreatedTime"`
+}
+
+type ClusterAdvancedSettings struct {
+
+	// 是否启用IPVS
+	IPVS *bool `json:"IPVS,omitempty" name:"IPVS"`
+
+	// 是否启用集群节点自动扩缩容(创建集群流程不支持开启此功能)
+	AsEnabled *bool `json:"AsEnabled,omitempty" name:"AsEnabled"`
+
+	// 集群使用的runtime类型，包括"docker"和"containerd"两种类型，默认为"docker"
+	ContainerRuntime *string `json:"ContainerRuntime,omitempty" name:"ContainerRuntime"`
+
+	// 集群中节点NodeName类型（包括 hostname,lan-ip两种形式，默认为lan-ip。如果开启了hostname模式，创建节点时需要设置HostName参数，并且InstanceName需要和HostName一致）
+	NodeNameType *string `json:"NodeNameType,omitempty" name:"NodeNameType"`
+
+	// 集群自定义参数
+	ExtraArgs *ClusterExtraArgs `json:"ExtraArgs,omitempty" name:"ExtraArgs"`
+
+	// 集群网络类型（包括GR(全局路由)和VPC-CNI两种模式，默认为GR。
+	NetworkType *string `json:"NetworkType,omitempty" name:"NetworkType"`
+
+	// 集群VPC-CNI模式是否为非固定IP，默认: FALSE 固定IP。
+	IsNonStaticIpMode *bool `json:"IsNonStaticIpMode,omitempty" name:"IsNonStaticIpMode"`
 }
 
 type ClusterAsGroup struct {
@@ -216,6 +343,75 @@ type ClusterAsGroupOption struct {
 	// 计算资源使用量时是否默认忽略DaemonSet的实例(默认值: False，不忽略)
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	IgnoreDaemonSetsUtilization *bool `json:"IgnoreDaemonSetsUtilization,omitempty" name:"IgnoreDaemonSetsUtilization"`
+}
+
+type ClusterBasicSettings struct {
+
+	// 集群系统。centos7.2x86_64 或者 ubuntu16.04.1 LTSx86_64，默认取值为ubuntu16.04.1 LTSx86_64
+	ClusterOs *string `json:"ClusterOs,omitempty" name:"ClusterOs"`
+
+	// 集群版本,默认值为1.10.5
+	ClusterVersion *string `json:"ClusterVersion,omitempty" name:"ClusterVersion"`
+
+	// 集群名称
+	ClusterName *string `json:"ClusterName,omitempty" name:"ClusterName"`
+
+	// 集群描述
+	ClusterDescription *string `json:"ClusterDescription,omitempty" name:"ClusterDescription"`
+
+	// 私有网络ID，形如vpc-xxx。创建托管空集群时必传。
+	VpcId *string `json:"VpcId,omitempty" name:"VpcId"`
+
+	// 集群内新增资源所属项目ID。
+	ProjectId *int64 `json:"ProjectId,omitempty" name:"ProjectId"`
+
+	// 标签描述列表。通过指定该参数可以同时绑定标签到相应的资源实例，当前仅支持绑定标签到集群实例。
+	TagSpecification []*TagSpecification `json:"TagSpecification,omitempty" name:"TagSpecification" list`
+
+	// 容器的镜像版本，"DOCKER_CUSTOMIZE"(容器定制版),"GENERAL"(普通版本，默认值)
+	OsCustomizeType *string `json:"OsCustomizeType,omitempty" name:"OsCustomizeType"`
+
+	// 是否开启节点的默认安全组(默认: 否，Aphla特性)
+	NeedWorkSecurityGroup *bool `json:"NeedWorkSecurityGroup,omitempty" name:"NeedWorkSecurityGroup"`
+}
+
+type ClusterCIDRSettings struct {
+
+	// 用于分配集群容器和服务 IP 的 CIDR，不得与 VPC CIDR 冲突，也不得与同 VPC 内其他集群 CIDR 冲突。且网段范围必须在内网网段内，例如:10.1.0.0/14, 192.168.0.1/18,172.16.0.0/16。
+	ClusterCIDR *string `json:"ClusterCIDR,omitempty" name:"ClusterCIDR"`
+
+	// 是否忽略 ClusterCIDR 冲突错误, 默认不忽略
+	IgnoreClusterCIDRConflict *bool `json:"IgnoreClusterCIDRConflict,omitempty" name:"IgnoreClusterCIDRConflict"`
+
+	// 集群中每个Node上最大的Pod数量。取值范围4～256。不为2的幂值时会向上取最接近的2的幂值。
+	MaxNodePodNum *uint64 `json:"MaxNodePodNum,omitempty" name:"MaxNodePodNum"`
+
+	// 集群最大的service数量。取值范围32～32768，不为2的幂值时会向上取最接近的2的幂值。
+	MaxClusterServiceNum *uint64 `json:"MaxClusterServiceNum,omitempty" name:"MaxClusterServiceNum"`
+
+	// 用于分配集群服务 IP 的 CIDR，不得与 VPC CIDR 冲突，也不得与同 VPC 内其他集群 CIDR 冲突。且网段范围必须在内网网段内，例如:10.1.0.0/14, 192.168.0.1/18,172.16.0.0/16。
+	ServiceCIDR *string `json:"ServiceCIDR,omitempty" name:"ServiceCIDR"`
+
+	// VPC-CNI网络模式下，弹性网卡的子网Id。
+	EniSubnetIds []*string `json:"EniSubnetIds,omitempty" name:"EniSubnetIds" list`
+
+	// VPC-CNI网络模式下，弹性网卡IP的回收时间，取值范围[300,15768000)
+	ClaimExpiredSeconds *int64 `json:"ClaimExpiredSeconds,omitempty" name:"ClaimExpiredSeconds"`
+}
+
+type ClusterExtraArgs struct {
+
+	// kube-apiserver自定义参数
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	KubeAPIServer []*string `json:"KubeAPIServer,omitempty" name:"KubeAPIServer" list`
+
+	// kube-controller-manager自定义参数
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	KubeControllerManager []*string `json:"KubeControllerManager,omitempty" name:"KubeControllerManager" list`
+
+	// kube-scheduler自定义参数
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	KubeScheduler []*string `json:"KubeScheduler,omitempty" name:"KubeScheduler" list`
 }
 
 type ClusterNetworkSettings struct {
@@ -294,86 +490,6 @@ func (r *CreateClusterAsGroupResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type CreateClusterEndpointRequest struct {
-	*tchttp.BaseRequest
-
-	// 集群ID
-	ClusterId *string `json:"ClusterId,omitempty" name:"ClusterId"`
-
-	// 集群端口所在的子网ID  (仅在开启非外网访问时需要填，必须为集群所在VPC内的子网)
-	SubnetId *string `json:"SubnetId,omitempty" name:"SubnetId"`
-
-	// 是否为外网访问（TRUE 外网访问 FALSE 内网访问，默认值： FALSE）
-	IsExtranet *bool `json:"IsExtranet,omitempty" name:"IsExtranet"`
-}
-
-func (r *CreateClusterEndpointRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *CreateClusterEndpointRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type CreateClusterEndpointResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *CreateClusterEndpointResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *CreateClusterEndpointResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type CreateClusterEndpointVipRequest struct {
-	*tchttp.BaseRequest
-
-	// 集群ID
-	ClusterId *string `json:"ClusterId,omitempty" name:"ClusterId"`
-
-	// 安全策略放通单个IP或CIDR(例如: "192.168.1.0/24",默认为拒绝所有)
-	SecurityPolicies []*string `json:"SecurityPolicies,omitempty" name:"SecurityPolicies" list`
-}
-
-func (r *CreateClusterEndpointVipRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *CreateClusterEndpointVipRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type CreateClusterEndpointVipResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 请求任务的FlowId
-		RequestFlowId *int64 `json:"RequestFlowId,omitempty" name:"RequestFlowId"`
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *CreateClusterEndpointVipResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *CreateClusterEndpointVipResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
 type CreateClusterInstancesRequest struct {
 	*tchttp.BaseRequest
 
@@ -414,6 +530,64 @@ func (r *CreateClusterInstancesResponse) ToJsonString() string {
 }
 
 func (r *CreateClusterInstancesResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type CreateClusterRequest struct {
+	*tchttp.BaseRequest
+
+	// 集群容器网络配置信息
+	ClusterCIDRSettings *ClusterCIDRSettings `json:"ClusterCIDRSettings,omitempty" name:"ClusterCIDRSettings"`
+
+	// 集群类型，托管集群：MANAGED_CLUSTER，独立集群：INDEPENDENT_CLUSTER。
+	ClusterType *string `json:"ClusterType,omitempty" name:"ClusterType"`
+
+	// CVM创建透传参数，json化字符串格式，详见CVM创建实例接口。总机型(包括地域)数量不超过10个，相同机型(地域)购买多台机器可以通过设置参数中RunInstances中InstanceCount来实现。
+	RunInstancesForNode []*RunInstancesForNode `json:"RunInstancesForNode,omitempty" name:"RunInstancesForNode" list`
+
+	// 集群的基本配置信息
+	ClusterBasicSettings *ClusterBasicSettings `json:"ClusterBasicSettings,omitempty" name:"ClusterBasicSettings"`
+
+	// 集群高级配置信息
+	ClusterAdvancedSettings *ClusterAdvancedSettings `json:"ClusterAdvancedSettings,omitempty" name:"ClusterAdvancedSettings"`
+
+	// 节点高级配置信息
+	InstanceAdvancedSettings *InstanceAdvancedSettings `json:"InstanceAdvancedSettings,omitempty" name:"InstanceAdvancedSettings"`
+
+	// 已存在实例的配置信息。所有实例必须在同一个VPC中，最大数量不超过100。
+	ExistedInstancesForNode []*ExistedInstancesForNode `json:"ExistedInstancesForNode,omitempty" name:"ExistedInstancesForNode" list`
+
+	// CVM类型和其对应的数据盘挂载配置信息
+	InstanceDataDiskMountSettings []*InstanceDataDiskMountSetting `json:"InstanceDataDiskMountSettings,omitempty" name:"InstanceDataDiskMountSettings" list`
+}
+
+func (r *CreateClusterRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *CreateClusterRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type CreateClusterResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 集群ID
+		ClusterId *string `json:"ClusterId,omitempty" name:"ClusterId"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *CreateClusterResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *CreateClusterResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
@@ -472,77 +646,6 @@ func (r *DeleteClusterAsGroupsResponse) ToJsonString() string {
 }
 
 func (r *DeleteClusterAsGroupsResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type DeleteClusterEndpointRequest struct {
-	*tchttp.BaseRequest
-
-	// 集群ID
-	ClusterId *string `json:"ClusterId,omitempty" name:"ClusterId"`
-
-	// 是否为外网访问（TRUE 外网访问 FALSE 内网访问，默认值： FALSE）
-	IsExtranet *bool `json:"IsExtranet,omitempty" name:"IsExtranet"`
-}
-
-func (r *DeleteClusterEndpointRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DeleteClusterEndpointRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type DeleteClusterEndpointResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *DeleteClusterEndpointResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DeleteClusterEndpointResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type DeleteClusterEndpointVipRequest struct {
-	*tchttp.BaseRequest
-
-	// 集群ID
-	ClusterId *string `json:"ClusterId,omitempty" name:"ClusterId"`
-}
-
-func (r *DeleteClusterEndpointVipRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DeleteClusterEndpointVipRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type DeleteClusterEndpointVipResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *DeleteClusterEndpointVipResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DeleteClusterEndpointVipResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
@@ -712,83 +815,58 @@ func (r *DescribeClusterAsGroupsResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type DescribeClusterEndpointStatusRequest struct {
+type DescribeClusterInstanceIdsRequest struct {
 	*tchttp.BaseRequest
 
 	// 集群ID
 	ClusterId *string `json:"ClusterId,omitempty" name:"ClusterId"`
 
-	// 是否为外网访问（TRUE 外网访问 FALSE 内网访问，默认值： FALSE）
-	IsExtranet *bool `json:"IsExtranet,omitempty" name:"IsExtranet"`
+	// 节点角色, MASTER, WORKER, ETCD, MASTER_ETCD,ALL, 默认为WORKER。默认为WORKER类型。
+	InstanceRole *string `json:"InstanceRole,omitempty" name:"InstanceRole"`
+
+	// 偏移量，默认为0。关于Offset的更进一步介绍请参考 API 简介中的相关小节。
+	Offset *int64 `json:"Offset,omitempty" name:"Offset"`
+
+	// 返回数量，默认为20，最大值为100。关于Limit的更进一步介绍请参考 API 简介中的相关小节。
+	Limit *int64 `json:"Limit,omitempty" name:"Limit"`
+
+	// 根据节点的IP地址进行搜索，同时搜索内网IP和外网IP
+	VagueIpAddress *string `json:"VagueIpAddress,omitempty" name:"VagueIpAddress"`
+
+	// 根据节点的名称进行模糊搜索
+	VagueInstanceName *string `json:"VagueInstanceName,omitempty" name:"VagueInstanceName"`
+
+	// 根据节点的状态进行筛选
+	InstanceStates []*string `json:"InstanceStates,omitempty" name:"InstanceStates" list`
 }
 
-func (r *DescribeClusterEndpointStatusRequest) ToJsonString() string {
+func (r *DescribeClusterInstanceIdsRequest) ToJsonString() string {
     b, _ := json.Marshal(r)
     return string(b)
 }
 
-func (r *DescribeClusterEndpointStatusRequest) FromJsonString(s string) error {
+func (r *DescribeClusterInstanceIdsRequest) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type DescribeClusterEndpointStatusResponse struct {
+type DescribeClusterInstanceIdsResponse struct {
 	*tchttp.BaseResponse
 	Response *struct {
 
-		// 查询集群访问端口状态（Created 开启成功，Creating 开启中中，NotFound 未开启）
-		Status *string `json:"Status,omitempty" name:"Status"`
+		// 节点ID列表
+		InstanceIdSet []*string `json:"InstanceIdSet,omitempty" name:"InstanceIdSet" list`
 
 		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
 		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
 	} `json:"Response"`
 }
 
-func (r *DescribeClusterEndpointStatusResponse) ToJsonString() string {
+func (r *DescribeClusterInstanceIdsResponse) ToJsonString() string {
     b, _ := json.Marshal(r)
     return string(b)
 }
 
-func (r *DescribeClusterEndpointStatusResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type DescribeClusterEndpointVipStatusRequest struct {
-	*tchttp.BaseRequest
-
-	// 集群ID
-	ClusterId *string `json:"ClusterId,omitempty" name:"ClusterId"`
-}
-
-func (r *DescribeClusterEndpointVipStatusRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DescribeClusterEndpointVipStatusRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type DescribeClusterEndpointVipStatusResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 端口操作状态 (Creating 创建中  CreateFailed 创建失败 Created 创建完成 Deleting 删除中 DeletedFailed 删除失败 Deleted 已删除 NotFound 未发现操作 )
-		Status *string `json:"Status,omitempty" name:"Status"`
-
-		// 操作失败的原因
-		ErrorMsg *string `json:"ErrorMsg,omitempty" name:"ErrorMsg"`
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *DescribeClusterEndpointVipStatusResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DescribeClusterEndpointVipStatusResponse) FromJsonString(s string) error {
+func (r *DescribeClusterInstanceIdsResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
@@ -896,6 +974,52 @@ func (r *DescribeClusterSecurityResponse) ToJsonString() string {
 }
 
 func (r *DescribeClusterSecurityResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeClusterServicesRequest struct {
+	*tchttp.BaseRequest
+
+	// 集群ID
+	ClusterId *string `json:"ClusterId,omitempty" name:"ClusterId"`
+
+	// 命名空间
+	Namespace *string `json:"Namespace,omitempty" name:"Namespace"`
+
+	// 是否使用所有命名空间
+	AllNamespace *uint64 `json:"AllNamespace,omitempty" name:"AllNamespace"`
+}
+
+func (r *DescribeClusterServicesRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeClusterServicesRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeClusterServicesResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 返回的Service总数
+		TotalCount *int64 `json:"TotalCount,omitempty" name:"TotalCount"`
+
+		// Service详细信息
+		Services []*SummaryService `json:"Services,omitempty" name:"Services" list`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *DescribeClusterServicesResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeClusterServicesResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
@@ -1007,6 +1131,191 @@ func (r *DescribeExistedInstancesResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
+type DescribeImagesRequest struct {
+	*tchttp.BaseRequest
+}
+
+func (r *DescribeImagesRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeImagesRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeImagesResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 镜像数量
+		TotalCount *uint64 `json:"TotalCount,omitempty" name:"TotalCount"`
+
+		// 镜像信息列表
+		ImageInstanceSet []*ImageInstance `json:"ImageInstanceSet,omitempty" name:"ImageInstanceSet" list`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *DescribeImagesResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeImagesResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeQuotaRequest struct {
+	*tchttp.BaseRequest
+}
+
+func (r *DescribeQuotaRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeQuotaRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeQuotaResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 该账号当前地域支持的最大集群数量
+		MaxClustersNum *uint64 `json:"MaxClustersNum,omitempty" name:"MaxClustersNum"`
+
+		// 该账号当前地域单集群支持的最大节点数量
+		MaxNodesNum *uint64 `json:"MaxNodesNum,omitempty" name:"MaxNodesNum"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *DescribeQuotaResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeQuotaResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeRegionsRequest struct {
+	*tchttp.BaseRequest
+}
+
+func (r *DescribeRegionsRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeRegionsRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeRegionsResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 地域的数量
+		TotalCount *uint64 `json:"TotalCount,omitempty" name:"TotalCount"`
+
+		// 地域列表
+		RegionInstanceSet []*RegionInstance `json:"RegionInstanceSet,omitempty" name:"RegionInstanceSet" list`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *DescribeRegionsResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeRegionsResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeVersionsRequest struct {
+	*tchttp.BaseRequest
+}
+
+func (r *DescribeVersionsRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeVersionsRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeVersionsResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 版本数量
+		TotalCount *uint64 `json:"TotalCount,omitempty" name:"TotalCount"`
+
+		// 版本列表
+		VersionInstanceSet []*VersionInstance `json:"VersionInstanceSet,omitempty" name:"VersionInstanceSet" list`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *DescribeVersionsResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeVersionsResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DrainClusterNodeRequest struct {
+	*tchttp.BaseRequest
+
+	// 集群ID
+	ClusterId *string `json:"ClusterId,omitempty" name:"ClusterId"`
+
+	// 实例ID
+	InstanceId *string `json:"InstanceId,omitempty" name:"InstanceId"`
+}
+
+func (r *DrainClusterNodeRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DrainClusterNodeRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DrainClusterNodeResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *DrainClusterNodeResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DrainClusterNodeResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
 type EnhancedService struct {
 
 	// 开启云安全服务。若不指定该参数，则默认开启云安全服务。
@@ -1074,6 +1383,39 @@ type ExistedInstance struct {
 	InstanceType *string `json:"InstanceType,omitempty" name:"InstanceType"`
 }
 
+type ExistedInstancesForNode struct {
+
+	// 节点角色，取值:MASTER_ETCD, WORKER。MASTER_ETCD只有在创建 INDEPENDENT_CLUSTER 独立集群时需要指定。MASTER_ETCD节点数量为3～7，建议为奇数。MASTER_ETCD最小配置为4C8G。
+	NodeRole *string `json:"NodeRole,omitempty" name:"NodeRole"`
+
+	// 已存在实例的重装参数
+	ExistedInstancesPara *ExistedInstancesPara `json:"ExistedInstancesPara,omitempty" name:"ExistedInstancesPara"`
+
+	// 节点高级设置，会覆盖集群级别设置的InstanceAdvancedSettings（当前只对节点自定义参数ExtraArgs生效）
+	InstanceAdvancedSettingsOverride *InstanceAdvancedSettings `json:"InstanceAdvancedSettingsOverride,omitempty" name:"InstanceAdvancedSettingsOverride"`
+}
+
+type ExistedInstancesPara struct {
+
+	// 集群ID
+	InstanceIds []*string `json:"InstanceIds,omitempty" name:"InstanceIds" list`
+
+	// 实例额外需要设置参数信息
+	InstanceAdvancedSettings *InstanceAdvancedSettings `json:"InstanceAdvancedSettings,omitempty" name:"InstanceAdvancedSettings"`
+
+	// 增强服务。通过该参数可以指定是否开启云安全、云监控等服务。若不指定该参数，则默认开启云监控、云安全服务。
+	EnhancedService *string `json:"EnhancedService,omitempty" name:"EnhancedService"`
+
+	// 节点登录信息（目前仅支持使用Password或者单个KeyIds）
+	LoginSettings *string `json:"LoginSettings,omitempty" name:"LoginSettings"`
+
+	// 实例所属安全组。该参数可以通过调用 DescribeSecurityGroups 的返回值中的sgId字段来获取。若不指定该参数，则绑定默认安全组。
+	SecurityGroupIds []*string `json:"SecurityGroupIds,omitempty" name:"SecurityGroupIds" list`
+
+	// 重装系统时，可以指定修改实例的HostName(集群为HostName模式时，此参数必传，规则名称除不支持大写字符外与CVM创建实例接口HostName一致)
+	HostName *string `json:"HostName,omitempty" name:"HostName"`
+}
+
 type Filter struct {
 
 	// 属性名称, 若存在多个Filter时，Filter间的关系为逻辑与（AND）关系。
@@ -1081,6 +1423,80 @@ type Filter struct {
 
 	// 属性值, 若同一个Filter存在多个Values，同一Filter下Values间的关系为逻辑或（OR）关系。
 	Values []*string `json:"Values,omitempty" name:"Values" list`
+}
+
+type ForwardRequestRequest struct {
+	*tchttp.BaseRequest
+
+	// 请求tke-apiserver http请求对应的方法
+	Method *string `json:"Method,omitempty" name:"Method"`
+
+	// 请求tke-apiserver  http请求访问路径
+	Path *string `json:"Path,omitempty" name:"Path"`
+
+	// 请求tke-apiserver http头中Accept参数
+	Accept *string `json:"Accept,omitempty" name:"Accept"`
+
+	// 请求tke-apiserver http头中ContentType参数
+	ContentType *string `json:"ContentType,omitempty" name:"ContentType"`
+
+	// 请求tke-apiserver http请求body信息
+	RequestBody *string `json:"RequestBody,omitempty" name:"RequestBody"`
+
+	// 请求tke-apiserver http头中X-TKE-ClusterName参数
+	ClusterName *string `json:"ClusterName,omitempty" name:"ClusterName"`
+
+	// 是否编码请求body信息
+	EncodedBody *bool `json:"EncodedBody,omitempty" name:"EncodedBody"`
+}
+
+func (r *ForwardRequestRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *ForwardRequestRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type ForwardRequestResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 请求tke-apiserver http请求返回的body信息
+		ResponseBody *string `json:"ResponseBody,omitempty" name:"ResponseBody"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *ForwardRequestResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *ForwardRequestResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type ImageInstance struct {
+
+	// 镜像别名
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Alias *string `json:"Alias,omitempty" name:"Alias"`
+
+	// 操作系统名称
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	OsName *string `json:"OsName,omitempty" name:"OsName"`
+
+	// 镜像ID
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ImageId *string `json:"ImageId,omitempty" name:"ImageId"`
+
+	// 容器的镜像版本，"DOCKER_CUSTOMIZE"(容器定制版),"GENERAL"(普通版本，默认值)
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	OsCustomizeType *string `json:"OsCustomizeType,omitempty" name:"OsCustomizeType"`
 }
 
 type Instance struct {
@@ -1131,6 +1547,18 @@ type InstanceAdvancedSettings struct {
 
 	// 节点相关的自定义参数信息
 	ExtraArgs *InstanceExtraArgs `json:"ExtraArgs,omitempty" name:"ExtraArgs"`
+}
+
+type InstanceDataDiskMountSetting struct {
+
+	// CVM实例类型
+	InstanceType *string `json:"InstanceType,omitempty" name:"InstanceType"`
+
+	// 数据盘挂载信息
+	DataDisks []*DataDisk `json:"DataDisks,omitempty" name:"DataDisks" list`
+
+	// CVM实例所属可用区
+	Zone *string `json:"Zone,omitempty" name:"Zone"`
 }
 
 type InstanceExtraArgs struct {
@@ -1198,26 +1626,26 @@ func (r *ModifyClusterAsGroupAttributeResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type ModifyClusterEndpointSPRequest struct {
+type ModifyClusterAsGroupOptionAttributeRequest struct {
 	*tchttp.BaseRequest
 
 	// 集群ID
 	ClusterId *string `json:"ClusterId,omitempty" name:"ClusterId"`
 
-	// 安全策略放通单个IP或CIDR(例如: "192.168.1.0/24",默认为拒绝所有)
-	SecurityPolicies []*string `json:"SecurityPolicies,omitempty" name:"SecurityPolicies" list`
+	// 集群弹性伸缩属性
+	ClusterAsGroupOption *ClusterAsGroupOption `json:"ClusterAsGroupOption,omitempty" name:"ClusterAsGroupOption"`
 }
 
-func (r *ModifyClusterEndpointSPRequest) ToJsonString() string {
+func (r *ModifyClusterAsGroupOptionAttributeRequest) ToJsonString() string {
     b, _ := json.Marshal(r)
     return string(b)
 }
 
-func (r *ModifyClusterEndpointSPRequest) FromJsonString(s string) error {
+func (r *ModifyClusterAsGroupOptionAttributeRequest) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type ModifyClusterEndpointSPResponse struct {
+type ModifyClusterAsGroupOptionAttributeResponse struct {
 	*tchttp.BaseResponse
 	Response *struct {
 
@@ -1226,13 +1654,104 @@ type ModifyClusterEndpointSPResponse struct {
 	} `json:"Response"`
 }
 
-func (r *ModifyClusterEndpointSPResponse) ToJsonString() string {
+func (r *ModifyClusterAsGroupOptionAttributeResponse) ToJsonString() string {
     b, _ := json.Marshal(r)
     return string(b)
 }
 
-func (r *ModifyClusterEndpointSPResponse) FromJsonString(s string) error {
+func (r *ModifyClusterAsGroupOptionAttributeResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
+}
+
+type ModifyClusterAttributeRequest struct {
+	*tchttp.BaseRequest
+
+	// 集群ID
+	ClusterId *string `json:"ClusterId,omitempty" name:"ClusterId"`
+
+	// 集群所属项目
+	ProjectId *int64 `json:"ProjectId,omitempty" name:"ProjectId"`
+
+	// 集群名称
+	ClusterName *string `json:"ClusterName,omitempty" name:"ClusterName"`
+
+	// 集群描述
+	ClusterDesc *string `json:"ClusterDesc,omitempty" name:"ClusterDesc"`
+}
+
+func (r *ModifyClusterAttributeRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *ModifyClusterAttributeRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type ModifyClusterAttributeResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 集群所属项目
+		ProjectId *int64 `json:"ProjectId,omitempty" name:"ProjectId"`
+
+		// 集群名称
+		ClusterName *string `json:"ClusterName,omitempty" name:"ClusterName"`
+
+		// 集群描述
+		ClusterDesc *string `json:"ClusterDesc,omitempty" name:"ClusterDesc"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *ModifyClusterAttributeResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *ModifyClusterAttributeResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type RegionInstance struct {
+
+	// 地域名称
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	RegionName *string `json:"RegionName,omitempty" name:"RegionName"`
+
+	// 地域ID
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	RegionId *int64 `json:"RegionId,omitempty" name:"RegionId"`
+
+	// 地域状态
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Status *string `json:"Status,omitempty" name:"Status"`
+
+	// 地域特性开关(按照JSON的形式返回所有属性)
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	FeatureGates *string `json:"FeatureGates,omitempty" name:"FeatureGates"`
+
+	// 地域简称
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Alias *string `json:"Alias,omitempty" name:"Alias"`
+
+	// 地域白名单
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Remark *string `json:"Remark,omitempty" name:"Remark"`
+}
+
+type RunInstancesForNode struct {
+
+	// 节点角色，取值:MASTER_ETCD, WORKER。MASTER_ETCD只有在创建 INDEPENDENT_CLUSTER 独立集群时需要指定。MASTER_ETCD节点数量为3～7，建议为奇数。MASTER_ETCD节点最小配置为4C8G。
+	NodeRole *string `json:"NodeRole,omitempty" name:"NodeRole"`
+
+	// CVM创建透传参数，json化字符串格式，详见CVM创建实例接口，传入公共参数外的其他参数即可，其中ImageId会替换为TKE集群OS对应的镜像。
+	RunInstancesPara []*string `json:"RunInstancesPara,omitempty" name:"RunInstancesPara" list`
+
+	// 节点高级设置，该参数会覆盖集群级别设置的InstanceAdvancedSettings，和上边的RunInstancesPara按照顺序一一对应（当前只对节点自定义参数ExtraArgs生效）。
+	InstanceAdvancedSettingsOverrides []*InstanceAdvancedSettings `json:"InstanceAdvancedSettingsOverrides,omitempty" name:"InstanceAdvancedSettingsOverrides" list`
 }
 
 type RunMonitorServiceEnabled struct {
@@ -1245,6 +1764,102 @@ type RunSecurityServiceEnabled struct {
 
 	// 是否开启云安全服务。取值范围：<br><li>TRUE：表示开启云安全服务<br><li>FALSE：表示不开启云安全服务<br><br>默认取值：TRUE。
 	Enabled *bool `json:"Enabled,omitempty" name:"Enabled"`
+}
+
+type ServiceMeshForwardRequestRequest struct {
+	*tchttp.BaseRequest
+
+	// method
+	Method *string `json:"Method,omitempty" name:"Method"`
+
+	// path
+	Path *string `json:"Path,omitempty" name:"Path"`
+
+	// accept
+	Accept *string `json:"Accept,omitempty" name:"Accept"`
+
+	// ContentType
+	ContentType *string `json:"ContentType,omitempty" name:"ContentType"`
+
+	// RequestBody
+	RequestBody *string `json:"RequestBody,omitempty" name:"RequestBody"`
+}
+
+func (r *ServiceMeshForwardRequestRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *ServiceMeshForwardRequestRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type ServiceMeshForwardRequestResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 返回的内容
+		ResponseBody *string `json:"ResponseBody,omitempty" name:"ResponseBody"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *ServiceMeshForwardRequestResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *ServiceMeshForwardRequestResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type SummaryService struct {
+
+	// Service名称
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Name *string `json:"Name,omitempty" name:"Name"`
+
+	// Service状态
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Status *string `json:"Status,omitempty" name:"Status"`
+
+	// Service IP
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ServiceIp *string `json:"ServiceIp,omitempty" name:"ServiceIp"`
+
+	// 外网IP
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ExternalIp *string `json:"ExternalIp,omitempty" name:"ExternalIp"`
+
+	// 负载均衡ID
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	LbId *string `json:"LbId,omitempty" name:"LbId"`
+
+	// 负载均衡状态
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	LbStatus *string `json:"LbStatus,omitempty" name:"LbStatus"`
+
+	// Service访问类型
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	AccessType *string `json:"AccessType,omitempty" name:"AccessType"`
+
+	// 期望副本数
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	DesiredReplicas *int64 `json:"DesiredReplicas,omitempty" name:"DesiredReplicas"`
+
+	// 当前副本数
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	CurrentReplicas *int64 `json:"CurrentReplicas,omitempty" name:"CurrentReplicas"`
+
+	// 创建时间
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	CreatedAt *string `json:"CreatedAt,omitempty" name:"CreatedAt"`
+
+	// 命名空间
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Namespace *string `json:"Namespace,omitempty" name:"Namespace"`
 }
 
 type Tag struct {
@@ -1265,4 +1880,19 @@ type TagSpecification struct {
 	// 标签对列表
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	Tags []*Tag `json:"Tags,omitempty" name:"Tags" list`
+}
+
+type VersionInstance struct {
+
+	// 版本名称
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Name *string `json:"Name,omitempty" name:"Name"`
+
+	// 版本信息
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Version *string `json:"Version,omitempty" name:"Version"`
+
+	// Remark
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Remark *string `json:"Remark,omitempty" name:"Remark"`
 }

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package v20200305
+package v20180813
 
 import (
     "encoding/json"
@@ -47,7 +47,7 @@ type AssumeRoleRequest struct {
 	Policy *string `json:"Policy,omitempty" name:"Policy"`
 
 	// 操作子账户Uin，携带至token中，cam-auth鉴权时会返回
-	OperatorUin *uint64 `json:"OperatorUin,omitempty" name:"OperatorUin"`
+	AssumeUin *uint64 `json:"AssumeUin,omitempty" name:"AssumeUin"`
 }
 
 func (r *AssumeRoleRequest) ToJsonString() string {
@@ -67,7 +67,7 @@ type AssumeRoleResponse struct {
 		Credentials *Credentials `json:"Credentials,omitempty" name:"Credentials"`
 
 		// 证书无效的时间，返回 Unix 时间戳，精确到秒
-		ExpiredTime *int64 `json:"ExpiredTime,omitempty" name:"ExpiredTime"`
+		ExpiredTime *uint64 `json:"ExpiredTime,omitempty" name:"ExpiredTime"`
 
 		// 证书无效的时间，以 iso8601 格式的 UTC 时间表示
 		Expiration *string `json:"Expiration,omitempty" name:"Expiration"`

@@ -43,27 +43,27 @@ func NewClient(credential *common.Credential, region string, clientProfile *prof
 }
 
 
-func NewAcceptDirectConnectTunnelRequest() (request *AcceptDirectConnectTunnelRequest) {
-    request = &AcceptDirectConnectTunnelRequest{
+func NewApproveDirectConnectTunnelRequest() (request *ApproveDirectConnectTunnelRequest) {
+    request = &ApproveDirectConnectTunnelRequest{
         BaseRequest: &tchttp.BaseRequest{},
     }
-    request.Init().WithApiInfo("dc", APIVersion, "AcceptDirectConnectTunnel")
+    request.Init().WithApiInfo("dc", APIVersion, "ApproveDirectConnectTunnel")
     return
 }
 
-func NewAcceptDirectConnectTunnelResponse() (response *AcceptDirectConnectTunnelResponse) {
-    response = &AcceptDirectConnectTunnelResponse{
+func NewApproveDirectConnectTunnelResponse() (response *ApproveDirectConnectTunnelResponse) {
+    response = &ApproveDirectConnectTunnelResponse{
         BaseResponse: &tchttp.BaseResponse{},
     }
     return
 }
 
-// 接受专用通道申请
-func (c *Client) AcceptDirectConnectTunnel(request *AcceptDirectConnectTunnelRequest) (response *AcceptDirectConnectTunnelResponse, err error) {
+// 专线所有者审批共享通道申请
+func (c *Client) ApproveDirectConnectTunnel(request *ApproveDirectConnectTunnelRequest) (response *ApproveDirectConnectTunnelResponse, err error) {
     if request == nil {
-        request = NewAcceptDirectConnectTunnelRequest()
+        request = NewApproveDirectConnectTunnelRequest()
     }
-    response = NewAcceptDirectConnectTunnelResponse()
+    response = NewApproveDirectConnectTunnelResponse()
     err = c.Send(request, response)
     return
 }
@@ -247,27 +247,27 @@ func (c *Client) ModifyDirectConnectTunnelAttribute(request *ModifyDirectConnect
     return
 }
 
-func NewRejectDirectConnectTunnelRequest() (request *RejectDirectConnectTunnelRequest) {
-    request = &RejectDirectConnectTunnelRequest{
+func NewUpdateVifAssociatedRequest() (request *UpdateVifAssociatedRequest) {
+    request = &UpdateVifAssociatedRequest{
         BaseRequest: &tchttp.BaseRequest{},
     }
-    request.Init().WithApiInfo("dc", APIVersion, "RejectDirectConnectTunnel")
+    request.Init().WithApiInfo("dc", APIVersion, "UpdateVifAssociated")
     return
 }
 
-func NewRejectDirectConnectTunnelResponse() (response *RejectDirectConnectTunnelResponse) {
-    response = &RejectDirectConnectTunnelResponse{
+func NewUpdateVifAssociatedResponse() (response *UpdateVifAssociatedResponse) {
+    response = &UpdateVifAssociatedResponse{
         BaseResponse: &tchttp.BaseResponse{},
     }
     return
 }
 
-// 拒绝专用通道申请
-func (c *Client) RejectDirectConnectTunnel(request *RejectDirectConnectTunnelRequest) (response *RejectDirectConnectTunnelResponse, err error) {
+// 更新通道冗余模式
+func (c *Client) UpdateVifAssociated(request *UpdateVifAssociatedRequest) (response *UpdateVifAssociatedResponse, err error) {
     if request == nil {
-        request = NewRejectDirectConnectTunnelRequest()
+        request = NewUpdateVifAssociatedRequest()
     }
-    response = NewRejectDirectConnectTunnelResponse()
+    response = NewUpdateVifAssociatedResponse()
     err = c.Send(request, response)
     return
 }

@@ -3,17 +3,17 @@ package main
 import (
 	"fmt"
 	"os"
-        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
-        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/errors"
-        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
-        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/regions"
-        cvm "github.com/tencentyun/tcecloud-sdk-go/tcecloud/cvm/v20170312"
 
+	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/errors"
+	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
+	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/regions"
+	cvm "github.com/tencentyun/tcecloud-sdk-go/tcecloud/cvm/v20170312"
 )
 
 func main() {
 	// 必要步骤：
-	// 实例化一个认证对象，入参需要传入Tce账户密钥对secretId，secretKey。
+	// 实例化一个认证对象，入参需要传入TCE账户密钥对secretId，secretKey。
 	// 这里采用的是从环境变量读取的方式，需要在环境变量中先设置这两个值。
 	// 你也可以直接在代码中写死密钥对，但是小心不要将代码复制、上传或者分享给他人，
 	// 以免泄露密钥对危及你的财产安全。
@@ -33,15 +33,14 @@ func main() {
 	cpf.HttpProfile.ReqTimeout = 10
 	// SDK会自动指定域名。通常是不需要特地指定域名的，但是如果你访问的是金融区的服务，
 	// 则必须手动指定域名，例如云服务器的上海金融区域名： cvm.ap-shanghai-fsi.api3.{{conf.main_domain}}  
-        // TODO: product是接入TCE的产品名，api3是调用版本， {{conf.main_domain}}是主域名，ap-guangzhou.api3是地域名。
+    // TODO: product是接入TCE的产品名，api3是调用版本， {{conf.main_domain}}是主域名。
 	cpf.HttpProfile.Endpoint = "product.api3.{{conf.main_domain}}"
-	// SDK默认用HmacSHA256进行签名，它更安全但是会轻微降低性能。
+	// SDK默认用TC3-HMAC-SHA256进行签名
 	// 非必要请不要修改这个字段。
 	cpf.SignMethod = "HmacSHA1"
 
 	// 实例化要请求产品(以cvm为例)的client对象
 	// 第二个参数是地域信息，可以直接填写字符串ap-guangzhou，或者引用预设的常量
-        // TODO: 您可以通过 API 接口 查询地域列表 查看完整的地域列表，并选择其中的一个地域发起请求。
 	client, _ := cvm.NewClient(credential, regions.Guangzhou, cpf)
 	// 实例化一个请求对象，根据调用的接口和实际情况，可以进一步设置请求参数
 	// 你可以直接查询SDK源码确定DescribeInstancesRequest有哪些属性可以设置，
@@ -71,7 +70,7 @@ func main() {
 	// 使用json字符串设置一个request，注意这里实际是更新request，即Limit=1将会被保留，
 	// 而过滤条件的zone将会变为ap-guangzhou-2。
 	// 如果需要一个全新的request，则需要用cvm.NewDescribeInstancesRequest()创建。
-	err := request.FromJsonString(`{"Filters":[{"Name":"zone","Values":["ap-guangzhou-2"]}]}`)
+	err := request.FromJsonString(`{"Filters":[{"Name":"zone","Values":["ap-guangzhou-1","ap-guangzhou-2"]}]}`)
 	if err != nil {
 		panic(err)
 	}

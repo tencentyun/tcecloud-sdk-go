@@ -4,11 +4,10 @@ import (
 	"fmt"
 	"os"
 
-        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
-        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/errors"
-        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
-        vpc "github.com/tencentyun/tcecloud-sdk-go/tcecloud/vpc/v20170312"
-
+	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/errors"
+	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
+	vpc "github.com/tencentyun/tcecloud-sdk-go/tcecloud/vpc/v20170312"
 )
 
 func main() {

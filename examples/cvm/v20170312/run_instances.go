@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
-        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/errors"
-        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
-        cvm "github.com/tencentyun/tcecloud-sdk-go/tcecloud/cvm/v20170312"
 
+	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/errors"
+	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
+	cvm "github.com/tencentyun/tcecloud-sdk-go/tcecloud/cvm/v20170312"
 )
 
 func main() {
@@ -20,8 +20,7 @@ func main() {
 	cpf := profile.NewClientProfile()
 	cpf.HttpProfile.ReqMethod = "POST"
 	cpf.HttpProfile.ReqTimeout = 5
-        // TODO: product是接入TCE的产品名，api3是调用版本， {{conf.main_domain}}是主域名，ap-guangzhou.api3是地域名。
-	//cpf.HttpProfile.Endpoint = "cvm.ap-guangzhou.api3.{{conf.main_domain}}"
+	//cpf.HttpProfile.Endpoint = "cvm.ap-guangzhou.tcecloudapi.com"
 	cpf.SignMethod = "HmacSHA1"
 
 	client, _ := cvm.NewClient(credential, "ap-guangzhou", cpf)

@@ -1141,6 +1141,9 @@ type DescribeDCDBPriceRequest struct {
 
 	// 实例分片个数，可选范围2-8，可以通过升级实例进行新增分片到最多64个分片。
 	ShardCount *int64 `json:"ShardCount,omitempty" name:"ShardCount"`
+
+	// 付费类型。postpaid：按量付费   prepaid：预付费
+	Paymode *string `json:"Paymode,omitempty" name:"Paymode"`
 }
 
 func (r *DescribeDCDBPriceRequest) ToJsonString() string {

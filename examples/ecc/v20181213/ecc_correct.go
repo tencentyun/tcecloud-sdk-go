@@ -5,7 +5,7 @@ import (
 	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
 	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/errors"
-	soe "github.com/tencentyun/tcecloud-sdk-go/tcecloud/soe/v20180724"
+	ecc "github.com/tencentyun/tcecloud-sdk-go/tcecloud/ecc/v20181213"
 )
 
 func main() {
@@ -17,8 +17,8 @@ func main() {
 	credential := common.NewCredential(
 		// os.Getenv("TCECLOUD_SECRET_ID"),
 		// os.Getenv("TCECLOUD_SECRET_KEY"),
-		"...",
-		"...",
+		"",
+		"",
 	)
 
 	// 非必要步骤
@@ -37,25 +37,22 @@ func main() {
 
 	// 实例化要请求产品的client对象
 	// 第二个参数是地域信息
-	client, _ := soe.NewClient(credential, "ap-guangzhou", cpf)
+	client, _ := ecc.NewClient(credential, "ap-guangzhou", cpf)
 	// 实例化一个请求对象，根据调用的接口和实际情况，可以进一步设置请求参数
-	// 你可以直接查询SDK源码确定InitOralProcessRequest有哪些属性可以设置，
+	// 你可以直接查询SDK源码确定NewEnglishCompositionCorrectRequest有哪些属性可以设置，
 	// 属性可能是基本类型，也可能引用了另一个数据结构。
 	// 推荐使用IDE进行开发，可以方便的跳转查阅各个接口和数据结构的文档说明。
-	request := soe.NewInitOralProcessRequest()
+	request := ecc.NewECCRequest()
 
 	// 基本类型的设置。
 	// 此接口允许设置返回的实例数量。此处指定为只返回一个。
 	// SDK采用的是指针风格指定参数，即使对于基本类型你也需要用指针来对参数赋值。
 	// SDK提供对基本类型的指针引用封装函数
-	request.WorkMode = common.Int64Ptr(1)
-	request.EvalMode = common.Int64Ptr(0)
-	request.ScoreCoeff = common.Float64Ptr(2.0)
-	request.SessionId = common.StringPtr("1")
-	request.RefText = common.StringPtr("since")
-
+	content := "this composition content" 
+    request.Content = common.StringPtr(content)
+   
 	// 通过client对象调用想要访问的接口，需要传入请求对象
-	response, err := client.InitOralProcess(request)
+	response, err := client.ECC(request)
 	// 处理异常
 	fmt.Println(err)
 	if _, ok := err.(*errors.TceCloudSDKError); ok {

@@ -1,19 +1,17 @@
 package main
 
 import (
-        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
-        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
-        "fmt"
-        soe "github.com/tencentyun/tcecloud-sdk-go/tcecloud/soe/v20180724"
-        "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/errors"
-        "encoding/json"
-
+	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
+	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
+	"fmt"
+	soe "github.com/tencentyun/tcecloud-sdk-go/tcecloud/soe/v20180724"
+	"github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/errors"
+	"encoding/json"
 )
-
 
 func main() {
 	// 必要步骤：
-	// 实例化一个认证对象，入参需要传入Tce账户密钥对secretId，secretKey。
+	// 实例化一个认证对象，入参需要传入TCE账户密钥对secretId，secretKey。
 	// 这里采用的是从环境变量读取的方式，需要在环境变量中先设置这两个值。
 	// 你也可以直接在代码中写死密钥对，但是小心不要将代码复制、上传或者分享给他人，
 	// 以免泄露密钥对危及你的财产安全。
@@ -34,13 +32,13 @@ func main() {
 	// SDK有默认的超时时间，非必要请不要进行调整。
 	// 如有需要请在代码中查阅以获取最新的默认值。
 	cpf.HttpProfile.ReqTimeout = 60
-	// SDK会自动指定域名。通常是不需要特地指定域名的
-        // TODO: product是接入TCE的产品名，api3是调用版本， {{conf.main_domain}}是主域名，ap-guangzhou.api3是地域名。
-	cpf.HttpProfile.Endpoint = "soe.api3.{{conf.main_domain}}"
+	// SDK会自动指定域名。通常是不需要特地指定域名的，但是如果你访问的是金融区的服务，
+	// 则必须手动指定域名，例如云服务器的上海金融区域名： cvm.ap-shanghai-fsi.api3.{{conf.main_domain}}  
+    // TODO: product是接入TCE的产品名，api3是调用版本， {{conf.main_domain}}是主域名。
+	cpf.HttpProfile.Endpoint = "product.api3.{{conf.main_domain}}"
 
 	// 实例化要请求产品的client对象
 	// 第二个参数是地域信息
-        // TODO: 您可以通过 API 接口 查询地域列表 查看完整的地域列表，并选择其中的一个地域发起请求。
 	client, _ := soe.NewClient(credential, "ap-guangzhou", cpf)
 	// 实例化一个请求对象，根据调用的接口和实际情况，可以进一步设置请求参数
 	// 你可以直接查询SDK源码确定TransmitOralProcessRequest有哪些属性可以设置，

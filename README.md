@@ -63,7 +63,7 @@ func main() {
         cpf.HttpProfile.ReqTimeout = 10
         // SDK会自动指定域名。通常是不需要特地指定域名的，但是如果你访问的是金融区的服务，
         // 则必须手动指定域名，例如云服务器的上海金融区域名： cvm.ap-shanghai-fsi.{{conf.main_domain}}
-        // TODO: product是接入TCE的产品名，api3是调用版本， {{conf.main_domain}}是主域名，ap-guangzhou.api3是地域名。
+        // TODO: product是接入TCE的产品名，api3是调用版本， {{conf.main_domain}}是主域名。
         cpf.HttpProfile.Endpoint = "cvm.{{conf.main_domain}}"
         // SDK默认用HmacSHA256进行签名，它更安全但是会轻微降低性能。
         // 非必要请不要修改这个字段。

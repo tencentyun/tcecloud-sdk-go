@@ -398,31 +398,6 @@ func (c *Client) DescribeDiskConfigQuota(request *DescribeDiskConfigQuotaRequest
     return
 }
 
-func NewDescribeDiskStoragePoolGroupsRequest() (request *DescribeDiskStoragePoolGroupsRequest) {
-    request = &DescribeDiskStoragePoolGroupsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cbs", APIVersion, "DescribeDiskStoragePoolGroups")
-    return
-}
-
-func NewDescribeDiskStoragePoolGroupsResponse() (response *DescribeDiskStoragePoolGroupsResponse) {
-    response = &DescribeDiskStoragePoolGroupsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（DescribeDiskStoragePoolGroups）查询用户可用的云硬盘存储资源池组。
-func (c *Client) DescribeDiskStoragePoolGroups(request *DescribeDiskStoragePoolGroupsRequest) (response *DescribeDiskStoragePoolGroupsResponse, err error) {
-    if request == nil {
-        request = NewDescribeDiskStoragePoolGroupsRequest()
-    }
-    response = NewDescribeDiskStoragePoolGroupsResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeDiskSupportFeaturesRequest() (request *DescribeDiskSupportFeaturesRequest) {
     request = &DescribeDiskSupportFeaturesRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -499,31 +474,6 @@ func (c *Client) DescribeInstancesDiskNum(request *DescribeInstancesDiskNumReque
         request = NewDescribeInstancesDiskNumRequest()
     }
     response = NewDescribeInstancesDiskNumResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeSnapshotSharePermissionRequest() (request *DescribeSnapshotSharePermissionRequest) {
-    request = &DescribeSnapshotSharePermissionRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cbs", APIVersion, "DescribeSnapshotSharePermission")
-    return
-}
-
-func NewDescribeSnapshotSharePermissionResponse() (response *DescribeSnapshotSharePermissionResponse) {
-    response = &DescribeSnapshotSharePermissionResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（DescribeSnapshotSharePermission）用于查询快照的分享信息。
-func (c *Client) DescribeSnapshotSharePermission(request *DescribeSnapshotSharePermissionRequest) (response *DescribeSnapshotSharePermissionResponse, err error) {
-    if request == nil {
-        request = NewDescribeSnapshotSharePermissionRequest()
-    }
-    response = NewDescribeSnapshotSharePermissionResponse()
     err = c.Send(request, response)
     return
 }
@@ -648,8 +598,8 @@ func NewDetachDisksResponse() (response *DetachDisksResponse) {
 
 // 本接口（DetachDisks）用于解挂云硬盘。
 // 
-// * 支持批量操作，解挂挂载在同一主机上的多块云盘。如果多块云盘存在不允许解挂的云盘，则操作不执行，以返回特定的错误码返回。
-// * 本接口为异步接口，当请求成功返回时，云盘并未立即从主机解挂，可通过接口DescribeDisks来查询对应云盘的状态，如果云盘的状态由“ATTACHED”变为“UNATTACHED”，则为解挂成功。
+// * 支持批量操作，解挂挂载在同一主机上的多块云盘。如果多块云盘存在不允许解挂载的云盘，则操作不执行，以返回特定的错误码返回。
+// * 本接口为异步接口，当请求成功返回时，云盘并未立即从主机解挂载，可通过接口DescribeDisks来查询对应云盘的状态，如果云盘的状态由“ATTACHED”变为“UNATTACHED”，则为解挂载成功。
 func (c *Client) DetachDisks(request *DetachDisksRequest) (response *DetachDisksResponse, err error) {
     if request == nil {
         request = NewDetachDisksRequest()
@@ -708,37 +658,6 @@ func (c *Client) InquiryPriceCreateSnapshots(request *InquiryPriceCreateSnapshot
         request = NewInquiryPriceCreateSnapshotsRequest()
     }
     response = NewInquiryPriceCreateSnapshotsResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInquiryPriceModifyDiskAttributesRequest() (request *InquiryPriceModifyDiskAttributesRequest) {
-    request = &InquiryPriceModifyDiskAttributesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cbs", APIVersion, "InquiryPriceModifyDiskAttributes")
-    return
-}
-
-func NewInquiryPriceModifyDiskAttributesResponse() (response *InquiryPriceModifyDiskAttributesResponse) {
-    response = &InquiryPriceModifyDiskAttributesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（InquiryPriceModifyDiskAttributes）用于修改云盘类型询价。
-// 
-// * 当前仅支持弹性云盘修改类型（DescribeDisks接口的返回字段Portable为true表示弹性云盘）。
-// * 当前仅支持云盘类型升级，不支持降级，具体如下:
-//     * CLOUD_BASIC变更为CLOUD_PREMIUM；
-//     * CLOUD_BASIC变更为CLOUD_SSD；
-//     * CLOUD_PREMIUM变更为CLOUD_SSD。
-func (c *Client) InquiryPriceModifyDiskAttributes(request *InquiryPriceModifyDiskAttributesRequest) (response *InquiryPriceModifyDiskAttributesResponse, err error) {
-    if request == nil {
-        request = NewInquiryPriceModifyDiskAttributesRequest()
-    }
-    response = NewInquiryPriceModifyDiskAttributesResponse()
     err = c.Send(request, response)
     return
 }
@@ -905,37 +824,6 @@ func (c *Client) ModifySnapshotAttribute(request *ModifySnapshotAttributeRequest
         request = NewModifySnapshotAttributeRequest()
     }
     response = NewModifySnapshotAttributeResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewModifySnapshotsSharePermissionRequest() (request *ModifySnapshotsSharePermissionRequest) {
-    request = &ModifySnapshotsSharePermissionRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("cbs", APIVersion, "ModifySnapshotsSharePermission")
-    return
-}
-
-func NewModifySnapshotsSharePermissionResponse() (response *ModifySnapshotsSharePermissionResponse) {
-    response = &ModifySnapshotsSharePermissionResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（ModifySnapshotsSharePermission）用于修改快照分享信息。
-// 
-// 分享快照后，被分享账户可以通过该快照创建云硬盘。
-// * 每个快照最多可分享给50个账户。
-// * 分享快照无法更改名称，描述，仅可用于创建云硬盘。
-// * 只支持分享到对方账户相同地域。
-// * 仅支持分享数据盘快照。
-func (c *Client) ModifySnapshotsSharePermission(request *ModifySnapshotsSharePermissionRequest) (response *ModifySnapshotsSharePermissionResponse, err error) {
-    if request == nil {
-        request = NewModifySnapshotsSharePermissionRequest()
-    }
-    response = NewModifySnapshotsSharePermissionResponse()
     err = c.Send(request, response)
     return
 }

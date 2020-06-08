@@ -300,6 +300,9 @@ type CreateDisksRequest struct {
 
 	// 可选参数，默认为False。传入True时，云盘将创建为共享型云盘。
 	Shareable *bool `json:"Shareable,omitempty" name:"Shareable"`
+
+	// 存储资源池组
+	DiskStoragePoolGroup *string `json:"DiskStoragePoolGroup,omitempty" name:"DiskStoragePoolGroup"`
 }
 
 func (r *CreateDisksRequest) ToJsonString() string {
@@ -642,52 +645,6 @@ func (r *DescribeDiskConfigQuotaResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type DescribeDiskStoragePoolGroupsRequest struct {
-	*tchttp.BaseRequest
-
-	// 过滤参数
-	Filters []*Filter `json:"Filters,omitempty" name:"Filters" list`
-
-	// 偏移量，默认为0。关于Offset的更进一步介绍请参考 API 简介中的相关小节。
-	Offset *uint64 `json:"Offset,omitempty" name:"Offset"`
-
-	// 返回数量，默认为20，最大值为100。关于Limit的更进一步介绍请参考 API 简介中的相关小节。
-	Limit *uint64 `json:"Limit,omitempty" name:"Limit"`
-}
-
-func (r *DescribeDiskStoragePoolGroupsRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DescribeDiskStoragePoolGroupsRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type DescribeDiskStoragePoolGroupsResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 用户可使用的云硬盘资源池组总数量
-		TotalCount *uint64 `json:"TotalCount,omitempty" name:"TotalCount"`
-
-		// 云硬盘资源池组详情列表
-		DiskStoragePoolGroupSet []*DiskStoragePoolGroup `json:"DiskStoragePoolGroupSet,omitempty" name:"DiskStoragePoolGroupSet" list`
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *DescribeDiskStoragePoolGroupsResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DescribeDiskStoragePoolGroupsResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
 type DescribeDiskSupportFeaturesRequest struct {
 	*tchttp.BaseRequest
 }
@@ -817,40 +774,6 @@ func (r *DescribeInstancesDiskNumResponse) ToJsonString() string {
 }
 
 func (r *DescribeInstancesDiskNumResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type DescribeSnapshotSharePermissionRequest struct {
-	*tchttp.BaseRequest
-
-	// 要查询快照的ID。可通过DescribeSnapshots查询获取。
-	SnapshotId *string `json:"SnapshotId,omitempty" name:"SnapshotId"`
-}
-
-func (r *DescribeSnapshotSharePermissionRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DescribeSnapshotSharePermissionRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type DescribeSnapshotSharePermissionResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *DescribeSnapshotSharePermissionResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *DescribeSnapshotSharePermissionResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
@@ -1283,18 +1206,6 @@ type DiskOverview struct {
 	DiskNumberExpireIn7days *int64 `json:"DiskNumberExpireIn7days,omitempty" name:"DiskNumberExpireIn7days"`
 }
 
-type DiskStoragePoolGroup struct {
-
-	// 存储资源池组属性名
-	DiskStoragePoolGroupAttribute *string `json:"DiskStoragePoolGroupAttribute,omitempty" name:"DiskStoragePoolGroupAttribute"`
-
-	// 存储资源池组别名
-	DiskStoragePoolGroupName *string `json:"DiskStoragePoolGroupName,omitempty" name:"DiskStoragePoolGroupName"`
-
-	// 存储资源池组绑定类型
-	PoolBoundType *string `json:"PoolBoundType,omitempty" name:"PoolBoundType"`
-}
-
 type Filter struct {
 
 	// 过滤键的名称。
@@ -1423,49 +1334,6 @@ func (r *InquiryPriceCreateSnapshotsResponse) ToJsonString() string {
 }
 
 func (r *InquiryPriceCreateSnapshotsResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type InquiryPriceModifyDiskAttributesRequest struct {
-	*tchttp.BaseRequest
-
-	// 需迁移的云盘实例ID列表，**当前仅支持一次传入一块云盘**。
-	DiskIds []*string `json:"DiskIds,omitempty" name:"DiskIds" list`
-
-	// 云盘变更的目标类型，取值范围：<br><li>CLOUD_PREMIUM：表示高性能云硬盘<br><li>CLOUD_SSD：表示SSD云硬盘。<br>**当前不支持类型降级**
-	DiskType *string `json:"DiskType,omitempty" name:"DiskType"`
-
-	// 云盘所属项目ID。 如传入则仅用于鉴权。
-	ProjectId *uint64 `json:"ProjectId,omitempty" name:"ProjectId"`
-}
-
-func (r *InquiryPriceModifyDiskAttributesRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *InquiryPriceModifyDiskAttributesRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type InquiryPriceModifyDiskAttributesResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 描述了变更云盘类型的价格。
-		DiskPrice *Price `json:"DiskPrice,omitempty" name:"DiskPrice"`
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *InquiryPriceModifyDiskAttributesResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *InquiryPriceModifyDiskAttributesResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
@@ -1733,46 +1601,6 @@ func (r *ModifySnapshotAttributeResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
-type ModifySnapshotsSharePermissionRequest struct {
-	*tchttp.BaseRequest
-
-	// 接收分享快照的账号Id列表，array型参数的格式可以参考API简介。帐号ID不同于QQ号，查询用户帐号ID请查看帐号信息中的帐号ID栏。
-	AccountIds []*string `json:"AccountIds,omitempty" name:"AccountIds" list`
-
-	// 操作，包括 SHARE，CANCEL。其中SHARE代表分享操作，CANCEL代表取消分享操作。
-	Permission *string `json:"Permission,omitempty" name:"Permission"`
-
-	// 快照ID, 可通过DescribeSnapshots查询获取。
-	SnapshotIds []*string `json:"SnapshotIds,omitempty" name:"SnapshotIds" list`
-}
-
-func (r *ModifySnapshotsSharePermissionRequest) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *ModifySnapshotsSharePermissionRequest) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
-type ModifySnapshotsSharePermissionResponse struct {
-	*tchttp.BaseResponse
-	Response *struct {
-
-		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
-		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
-	} `json:"Response"`
-}
-
-func (r *ModifySnapshotsSharePermissionResponse) ToJsonString() string {
-    b, _ := json.Marshal(r)
-    return string(b)
-}
-
-func (r *ModifySnapshotsSharePermissionResponse) FromJsonString(s string) error {
-    return json.Unmarshal([]byte(s), &r)
-}
-
 type Placement struct {
 
 	// 实例所属的可用区ID。该参数也可以通过调用  DescribeZones 的返回值中的Zone字段来获取。
@@ -1852,7 +1680,7 @@ type ResizeDiskRequest struct {
 	// 云硬盘ID， 通过DescribeDisks接口查询。
 	DiskId *string `json:"DiskId,omitempty" name:"DiskId"`
 
-	// 云硬盘扩容后的大小，单位为GB，必须大于当前云硬盘大小。取值范围： 普通云硬盘:10GB ~ 16000G；高性能云硬盘:50GB ~ 16000GB；SSD云硬盘:100GB ~ 16000GB，步长均为10GB。
+	// 云硬盘扩容后的大小，单位为GB，必须大于当前云硬盘大小。取值范围： 普通云硬盘:10GB ~ 4000G；高性能云硬盘:50GB ~ 4000GB；SSD云硬盘:100GB ~ 4000GB，步长均为10GB。
 	DiskSize *uint64 `json:"DiskSize,omitempty" name:"DiskSize"`
 }
 
@@ -2012,7 +1840,7 @@ type SwitchParameterCreateDisksRequest struct {
 	// 可选参数，默认为False。传入True时，云盘将创建为共享型云盘。
 	Shareable *bool `json:"Shareable,omitempty" name:"Shareable"`
 
-	// 可选参数，云硬盘存储池组
+	// 资源池组
 	DiskStoragePoolGroup *string `json:"DiskStoragePoolGroup,omitempty" name:"DiskStoragePoolGroup"`
 }
 

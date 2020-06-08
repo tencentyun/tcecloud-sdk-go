@@ -323,6 +323,31 @@ func (c *Client) DescribeAutoSnapshotPolicies(request *DescribeAutoSnapshotPolic
     return
 }
 
+func NewDescribeBlockStoragesRequest() (request *DescribeBlockStoragesRequest) {
+    request = &DescribeBlockStoragesRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("cbs", APIVersion, "DescribeBlockStorages")
+    return
+}
+
+func NewDescribeBlockStoragesResponse() (response *DescribeBlockStoragesResponse) {
+    response = &DescribeBlockStoragesResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（DescribeBlockStorages）用于查询块存储列表。可以同时查询本地盘和云盘。
+func (c *Client) DescribeBlockStorages(request *DescribeBlockStoragesRequest) (response *DescribeBlockStoragesResponse, err error) {
+    if request == nil {
+        request = NewDescribeBlockStoragesRequest()
+    }
+    response = NewDescribeBlockStoragesResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewDescribeDiskAssociatedAutoSnapshotPolicyRequest() (request *DescribeDiskAssociatedAutoSnapshotPolicyRequest) {
     request = &DescribeDiskAssociatedAutoSnapshotPolicyRequest{
         BaseRequest: &tchttp.BaseRequest{},

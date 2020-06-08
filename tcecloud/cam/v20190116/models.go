@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package v20200226
+package v20190116
 
 import (
     "encoding/json"
@@ -246,6 +246,43 @@ func (r *CreateRoleResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
+type DeleteRoleRequest struct {
+	*tchttp.BaseRequest
+
+	// 角色ID，用于指定角色，入参 RoleId 与 RoleName 二选一
+	RoleId *string `json:"RoleId,omitempty" name:"RoleId"`
+
+	// 角色名称，用于指定角色，入参 RoleId 与 RoleName 二选一
+	RoleName *string `json:"RoleName,omitempty" name:"RoleName"`
+}
+
+func (r *DeleteRoleRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DeleteRoleRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DeleteRoleResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *DeleteRoleResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DeleteRoleResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
 type DescribeCasProviderRequest struct {
 	*tchttp.BaseRequest
 
@@ -289,6 +326,56 @@ func (r *DescribeCasProviderResponse) ToJsonString() string {
 }
 
 func (r *DescribeCasProviderResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeRoleListRequest struct {
+	*tchttp.BaseRequest
+
+	// 页码，从1开始
+	Page *uint64 `json:"Page,omitempty" name:"Page"`
+
+	// 每页行数，不能大于200
+	Rp *uint64 `json:"Rp,omitempty" name:"Rp"`
+
+	// 按角色的服务账号载体过滤
+	Service *string `json:"Service,omitempty" name:"Service"`
+
+	// 按角色名或角色描述过滤
+	Keyword []*string `json:"Keyword,omitempty" name:"Keyword" list`
+}
+
+func (r *DescribeRoleListRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeRoleListRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeRoleListResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 角色详情列表。
+	// 注意：此字段可能返回 null，表示取不到有效值。
+		List []*RoleInfo `json:"List,omitempty" name:"List" list`
+
+		// 角色总数
+		TotalNum *uint64 `json:"TotalNum,omitempty" name:"TotalNum"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *DescribeRoleListResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeRoleListResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
@@ -387,35 +474,27 @@ type GetPolicyResponse struct {
 	Response *struct {
 
 		// 策略名
-	// 注意：此字段可能返回 null，表示取不到有效值。
 		PolicyName *string `json:"PolicyName,omitempty" name:"PolicyName"`
 
 		// 策略描述
-	// 注意：此字段可能返回 null，表示取不到有效值。
 		Description *string `json:"Description,omitempty" name:"Description"`
 
 		// 1 表示自定义策略，2 表示预设策略
-	// 注意：此字段可能返回 null，表示取不到有效值。
 		Type *uint64 `json:"Type,omitempty" name:"Type"`
 
 		// 创建时间
-	// 注意：此字段可能返回 null，表示取不到有效值。
 		AddTime *string `json:"AddTime,omitempty" name:"AddTime"`
 
 		// 最近更新时间
-	// 注意：此字段可能返回 null，表示取不到有效值。
 		UpdateTime *string `json:"UpdateTime,omitempty" name:"UpdateTime"`
 
 		// 策略文档
-	// 注意：此字段可能返回 null，表示取不到有效值。
 		PolicyDocument *string `json:"PolicyDocument,omitempty" name:"PolicyDocument"`
 
 		// 备注
-	// 注意：此字段可能返回 null，表示取不到有效值。
 		PresetAlias *string `json:"PresetAlias,omitempty" name:"PresetAlias"`
 
 		// 是否服务相关策略
-	// 注意：此字段可能返回 null，表示取不到有效值。
 		IsServiceLinkedRolePolicy *uint64 `json:"IsServiceLinkedRolePolicy,omitempty" name:"IsServiceLinkedRolePolicy"`
 
 		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
@@ -591,11 +670,9 @@ type ListEntitiesForPolicyResponse struct {
 	Response *struct {
 
 		// 实体总数
-	// 注意：此字段可能返回 null，表示取不到有效值。
 		TotalNum *uint64 `json:"TotalNum,omitempty" name:"TotalNum"`
 
 		// 实体列表
-	// 注意：此字段可能返回 null，表示取不到有效值。
 		List []*AttachEntityOfPolicy `json:"List,omitempty" name:"List" list`
 
 		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
@@ -743,9 +820,6 @@ type RoleInfo struct {
 
 	// 有效时间
 	SessionDuration *uint64 `json:"SessionDuration,omitempty" name:"SessionDuration"`
-
-	// 服务相关角色删除TaskId
-	DeletionTaskId *string `json:"DeletionTaskId,omitempty" name:"DeletionTaskId"`
 }
 
 type ServiceApiInfo struct {

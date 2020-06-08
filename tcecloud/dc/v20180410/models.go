@@ -194,8 +194,31 @@ type CreateDirectConnectTunnelRequest struct {
 	// 私有网络统一 ID 或者黑石网络统一 ID
 	VpcName *string `json:"VpcName,omitempty" name:"VpcName"`
 
+	// 专线网关 ID，例如 dcg-d545ddf
+	DirectConnectGatewayId *string `json:"DirectConnectGatewayId,omitempty" name:"DirectConnectGatewayId"`
+
+	// 专线带宽，单位：Mbps
+	// 默认是物理专线带宽值
+	Bandwidth *int64 `json:"Bandwidth,omitempty" name:"Bandwidth"`
+
+	// BGP ：BGP路由
+	// STATIC：静态
+	// 默认为 BGP 路由
+	RouteType *string `json:"RouteType,omitempty" name:"RouteType"`
+
 	// 静态路由，用户IDC的网段地址
 	IdcRoutes *string `json:"IdcRoutes,omitempty" name:"IdcRoutes"`
+
+	// vlan，范围：0 ~ 3000
+	// 0：不开启子接口
+	// 默认值是非0
+	Vlan *int64 `json:"Vlan,omitempty" name:"Vlan"`
+
+	// TencentAddress，腾讯侧互联 IP
+	CloudAddress *string `json:"CloudAddress,omitempty" name:"CloudAddress"`
+
+	// CustomerAddress，用户侧互联 IP
+	CustomerAddress *string `json:"CustomerAddress,omitempty" name:"CustomerAddress"`
 
 	// 通道负载均衡模式：
 	// None 非冗余模式
@@ -219,31 +242,8 @@ type CreateDirectConnectTunnelRequest struct {
 	// 共享专线时这里需要填写共享专线的开发商账号 ID
 	DirectConnectOwnerAccount *string `json:"DirectConnectOwnerAccount,omitempty" name:"DirectConnectOwnerAccount"`
 
-	// 专线网关 ID，例如 dcg-d545ddf
-	DirectConnectGatewayId *string `json:"DirectConnectGatewayId,omitempty" name:"DirectConnectGatewayId"`
-
-	// 专线带宽，单位：Mbps
-	// 默认是物理专线带宽值
-	Bandwidth *int64 `json:"Bandwidth,omitempty" name:"Bandwidth"`
-
-	// BGP ：BGP路由
-	// STATIC：静态
-	// 默认为 BGP 路由
-	RouteType *string `json:"RouteType,omitempty" name:"RouteType"`
-
 	// BgpPeer，用户侧bgp信息，包括Asn和AuthKey
 	BgpPeer *BgpPeer `json:"BgpPeer,omitempty" name:"BgpPeer"`
-
-	// vlan，范围：0 ~ 3000
-	// 0：不开启子接口
-	// 默认值是非0
-	Vlan *int64 `json:"Vlan,omitempty" name:"Vlan"`
-
-	// TencentAddress，腾讯侧互联 IP
-	CloudAddress *string `json:"CloudAddress,omitempty" name:"CloudAddress"`
-
-	// CustomerAddress，用户侧互联 IP
-	CustomerAddress *string `json:"CustomerAddress,omitempty" name:"CustomerAddress"`
 
 	// 关联的冗余通道ID
 	RelatedDirectConnectTunnelId *string `json:"RelatedDirectConnectTunnelId,omitempty" name:"RelatedDirectConnectTunnelId"`

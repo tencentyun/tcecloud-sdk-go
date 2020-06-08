@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package v20200226
+package v20190116
 
 import (
     "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
@@ -20,7 +20,7 @@ import (
     "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
-const APIVersion = "2020-02-26"
+const APIVersion = "2019-01-16"
 
 type Client struct {
     common.Client
@@ -143,6 +143,31 @@ func (c *Client) CreateRole(request *CreateRoleRequest) (response *CreateRoleRes
     return
 }
 
+func NewDeleteRoleRequest() (request *DeleteRoleRequest) {
+    request = &DeleteRoleRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("cam", APIVersion, "DeleteRole")
+    return
+}
+
+func NewDeleteRoleResponse() (response *DeleteRoleResponse) {
+    response = &DeleteRoleResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（DeleteRole）用于删除指定角色。
+func (c *Client) DeleteRole(request *DeleteRoleRequest) (response *DeleteRoleResponse, err error) {
+    if request == nil {
+        request = NewDeleteRoleRequest()
+    }
+    response = NewDeleteRoleResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewDescribeCasProviderRequest() (request *DescribeCasProviderRequest) {
     request = &DescribeCasProviderRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -164,6 +189,31 @@ func (c *Client) DescribeCasProvider(request *DescribeCasProviderRequest) (respo
         request = NewDescribeCasProviderRequest()
     }
     response = NewDescribeCasProviderResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewDescribeRoleListRequest() (request *DescribeRoleListRequest) {
+    request = &DescribeRoleListRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("cam", APIVersion, "DescribeRoleList")
+    return
+}
+
+func NewDescribeRoleListResponse() (response *DescribeRoleListResponse) {
+    response = &DescribeRoleListResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（DescribeRoleList）用于获取账号下的角色列表。
+func (c *Client) DescribeRoleList(request *DescribeRoleListRequest) (response *DescribeRoleListResponse, err error) {
+    if request == nil {
+        request = NewDescribeRoleListRequest()
+    }
+    response = NewDescribeRoleListResponse()
     err = c.Send(request, response)
     return
 }

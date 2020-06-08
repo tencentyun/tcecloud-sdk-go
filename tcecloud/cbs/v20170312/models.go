@@ -167,6 +167,31 @@ func (r *BindAutoSnapshotPolicyResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
+type BlockStorage struct {
+
+	// 块存储ID。
+	DiskId *string `json:"DiskId,omitempty" name:"DiskId"`
+
+	// 块存储名称。
+	DiskName *string `json:"DiskName,omitempty" name:"DiskName"`
+
+	// 块存储大小，单位GB。
+	DiskSize *uint64 `json:"DiskSize,omitempty" name:"DiskSize"`
+
+	// 块存储介质类型。取值范围：<br><li>CLOUD_BASIC<br><li>CLOUD_PREMIUM<br><li>CLOUD_SSD<br><li>CLOUD_ENHANCEDSSD<br><li>LOCAL_BASIC<br><li>LOCAL_SSD
+	DiskType *string `json:"DiskType,omitempty" name:"DiskType"`
+
+	// 块存储类型。取值范围：<br><li>SYSTEM_DISK：系统盘<br><li>DATA_DISK：数据盘。
+	DiskUsage *string `json:"DiskUsage,omitempty" name:"DiskUsage"`
+
+	// 块存储挂载的实例ID。
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	InstanceId *string `json:"InstanceId,omitempty" name:"InstanceId"`
+
+	// 块存储挂载的实例名称。
+	InstanceName *string `json:"InstanceName,omitempty" name:"InstanceName"`
+}
+
 type CopySnapshotCrossRegionsRequest struct {
 	*tchttp.BaseRequest
 
@@ -495,6 +520,55 @@ func (r *DescribeAutoSnapshotPoliciesResponse) ToJsonString() string {
 }
 
 func (r *DescribeAutoSnapshotPoliciesResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeBlockStoragesRequest struct {
+	*tchttp.BaseRequest
+
+	// 返回数量，默认为100，最大值为1000。关于Limit的更进一步介绍请参考 API 简介中的相关小节。
+	Limit *uint64 `json:"Limit,omitempty" name:"Limit"`
+
+	// 偏移量，默认为0。关于Offset的更进一步介绍请参考 API 简介中的相关小节。
+	Offset *uint64 `json:"Offset,omitempty" name:"Offset"`
+
+	// 按照一个或者多个云硬盘ID查询。
+	DiskIds []*string `json:"DiskIds,omitempty" name:"DiskIds" list`
+
+	// 内部参数，用于支持搜索框搜索。
+	InnerSearch *string `json:"InnerSearch,omitempty" name:"InnerSearch"`
+}
+
+func (r *DescribeBlockStoragesRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeBlockStoragesRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeBlockStoragesResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 符合条件的块存储数量。
+		TotalCount *uint64 `json:"TotalCount,omitempty" name:"TotalCount"`
+
+		// 块存储详细信息列表。
+		DiskSet []*BlockStorage `json:"DiskSet,omitempty" name:"DiskSet" list`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *DescribeBlockStoragesResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeBlockStoragesResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 

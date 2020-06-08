@@ -730,6 +730,43 @@ func (r *DescribeInstanceTypeConfigsResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
+type DescribeInstanceVncUrlRequest struct {
+	*tchttp.BaseRequest
+
+	// 查询的实例id, 如ins-38dk3j
+	InstanceId *string `json:"InstanceId,omitempty" name:"InstanceId"`
+}
+
+func (r *DescribeInstanceVncUrlRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeInstanceVncUrlRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeInstanceVncUrlResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 用户的VNC连接串
+		InstanceVncUrl *string `json:"InstanceVncUrl,omitempty" name:"InstanceVncUrl"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *DescribeInstanceVncUrlResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeInstanceVncUrlResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
 type DescribeInstancesRequest struct {
 	*tchttp.BaseRequest
 
@@ -1632,6 +1669,10 @@ type Instance struct {
 	// 分散置放群组ID。
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	DisasterRecoverGroupId *string `json:"DisasterRecoverGroupId,omitempty" name:"DisasterRecoverGroupId"`
+
+	// 实例关联的标签列表。
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Tags []*Tag `json:"Tags,omitempty" name:"Tags" list`
 }
 
 type InstanceChargePrepaid struct {
@@ -2576,6 +2617,9 @@ type RunInstancesRequest struct {
 
 	// 置放群组id，仅支持指定一个。
 	DisasterRecoverGroupIds []*string `json:"DisasterRecoverGroupIds,omitempty" name:"DisasterRecoverGroupIds" list`
+
+	// 标签描述列表。通过指定该参数可以同时绑定标签到相应的资源实例，当前仅支持绑定标签到云服务器实例。
+	TagSpecification []*TagSpecification `json:"TagSpecification,omitempty" name:"TagSpecification" list`
 }
 
 func (r *RunInstancesRequest) ToJsonString() string {
@@ -2750,6 +2794,24 @@ type SystemDisk struct {
 
 	// 系统盘指定的存储池。
 	DiskStoragePoolGroup *string `json:"DiskStoragePoolGroup,omitempty" name:"DiskStoragePoolGroup"`
+}
+
+type Tag struct {
+
+	// 标签键
+	Key *string `json:"Key,omitempty" name:"Key"`
+
+	// 标签值
+	Value *string `json:"Value,omitempty" name:"Value"`
+}
+
+type TagSpecification struct {
+
+	// 标签绑定的资源类型
+	ResourceType *string `json:"ResourceType,omitempty" name:"ResourceType"`
+
+	// 标签对列表
+	Tags []*Tag `json:"Tags,omitempty" name:"Tags" list`
 }
 
 type TerminateInstancesRequest struct {

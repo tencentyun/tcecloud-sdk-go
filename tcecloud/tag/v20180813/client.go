@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package v20200518
+package v20180813
 
 import (
     "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common"
@@ -20,7 +20,7 @@ import (
     "github.com/tencentyun/tcecloud-sdk-go/tcecloud/common/profile"
 )
 
-const APIVersion = "2020-05-18"
+const APIVersion = "2018-08-13"
 
 type Client struct {
     common.Client

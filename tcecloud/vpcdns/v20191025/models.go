@@ -99,6 +99,9 @@ type CreateVpcDnsDomainRequest struct {
 
 	// 域名
 	Domain *string `json:"Domain,omitempty" name:"Domain"`
+
+	// 标签数组
+	Tags []*Tag `json:"Tags,omitempty" name:"Tags" list`
 }
 
 func (r *CreateVpcDnsDomainRequest) ToJsonString() string {
@@ -399,6 +402,15 @@ type RecordListFilters struct {
 
 	// 过滤值
 	Values []*string `json:"Values,omitempty" name:"Values" list`
+}
+
+type Tag struct {
+
+	// 标签键
+	Key *string `json:"Key,omitempty" name:"Key"`
+
+	// 标签值
+	Value *string `json:"Value,omitempty" name:"Value"`
 }
 
 type VpcInfos struct {

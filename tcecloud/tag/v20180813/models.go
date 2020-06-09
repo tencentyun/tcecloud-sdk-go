@@ -280,7 +280,6 @@ type DescribeResourceTagsResponse struct {
 		Offset *uint64 `json:"Offset,omitempty" name:"Offset"`
 
 		// 每页大小
-	// 注意：此字段可能返回 null，表示取不到有效值。
 		Limit *uint64 `json:"Limit,omitempty" name:"Limit"`
 
 		// 资源标签
@@ -320,6 +319,9 @@ type DescribeTagsRequest struct {
 
 	// 标签键数组,与标签值同时存在或同时不存在，不存在时表示查询该用户所有标签,当与TagKey同时传递时只会本值
 	TagKeys []*string `json:"TagKeys,omitempty" name:"TagKeys" list`
+
+	// 是否展现项目标签
+	ShowProject *uint64 `json:"ShowProject,omitempty" name:"ShowProject"`
 }
 
 func (r *DescribeTagsRequest) ToJsonString() string {

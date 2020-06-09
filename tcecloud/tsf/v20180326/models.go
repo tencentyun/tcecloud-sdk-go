@@ -207,6 +207,10 @@ type ApplicationForPage struct {
 	// 应用runtime类型
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	ApplicationRuntimeType *string `json:"ApplicationRuntimeType,omitempty" name:"ApplicationRuntimeType"`
+
+	// Apigateway的serviceId
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ApigatewayServiceId *string `json:"ApigatewayServiceId,omitempty" name:"ApigatewayServiceId"`
 }
 
 type Cluster struct {
@@ -310,6 +314,14 @@ type Cluster struct {
 	// 集群可用的服务实例数量
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	RunServiceInstanceCount *int64 `json:"RunServiceInstanceCount,omitempty" name:"RunServiceInstanceCount"`
+
+	// 集群所属子网ID
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	SubnetId *string `json:"SubnetId,omitempty" name:"SubnetId"`
+
+	// 返回给前端的控制信息
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	OperationInfo *OperationInfo `json:"OperationInfo,omitempty" name:"OperationInfo"`
 }
 
 type Config struct {
@@ -675,6 +687,22 @@ type ContainerGroupDetail struct {
 	// 初始分配的内存 MiB 数，对应 K8S request
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	MemRequest *string `json:"MemRequest,omitempty" name:"MemRequest"`
+
+	// 子网id
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	SubnetId *string `json:"SubnetId,omitempty" name:"SubnetId"`
+
+	// 部署组资源类型
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	GroupResourceType *string `json:"GroupResourceType,omitempty" name:"GroupResourceType"`
+
+	// 部署组实例个数
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	InstanceCount *uint64 `json:"InstanceCount,omitempty" name:"InstanceCount"`
+
+	// 部署组更新时间戳
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	UpdatedTime *int64 `json:"UpdatedTime,omitempty" name:"UpdatedTime"`
 }
 
 type CosCredentials struct {
@@ -841,10 +869,8 @@ type CreateClusterResponse struct {
 	*tchttp.BaseResponse
 	Response *struct {
 
-		// 创建集群操作是否成功。
-	// true：操作成功。
-	// false：操作失败。
-		Result *bool `json:"Result,omitempty" name:"Result"`
+		// 集群ID
+		Result *string `json:"Result,omitempty" name:"Result"`
 
 		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
 		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
@@ -880,6 +906,9 @@ type CreateConfigRequest struct {
 
 	// 配置项值类型
 	ConfigType *string `json:"ConfigType,omitempty" name:"ConfigType"`
+
+	// Base64编码的配置项
+	EncodeWithBase64 *bool `json:"EncodeWithBase64,omitempty" name:"EncodeWithBase64"`
 }
 
 func (r *CreateConfigRequest) ToJsonString() string {
@@ -956,6 +985,36 @@ type CreateContainGroupRequest struct {
 
 	// 初始分配的内存 MiB 数，对应 K8S request
 	MemRequest *string `json:"MemRequest,omitempty" name:"MemRequest"`
+
+	// 部署组资源类型
+	GroupResourceType *string `json:"GroupResourceType,omitempty" name:"GroupResourceType"`
+
+	// 子网ID
+	SubnetId *string `json:"SubnetId,omitempty" name:"SubnetId"`
+
+	// agent 容器分配的 CPU 核数，对应 K8S 的 request
+	AgentCpuRequest *string `json:"AgentCpuRequest,omitempty" name:"AgentCpuRequest"`
+
+	// agent 容器最大的 CPU 核数，对应 K8S 的 limit
+	AgentCpuLimit *string `json:"AgentCpuLimit,omitempty" name:"AgentCpuLimit"`
+
+	// agent 容器分配的内存 MiB 数，对应 K8S 的 request
+	AgentMemRequest *string `json:"AgentMemRequest,omitempty" name:"AgentMemRequest"`
+
+	// agent 容器最大的内存 MiB 数，对应 K8S 的 limit
+	AgentMemLimit *string `json:"AgentMemLimit,omitempty" name:"AgentMemLimit"`
+
+	// istioproxy 容器分配的 CPU 核数，对应 K8S 的 request
+	IstioCpuRequest *string `json:"IstioCpuRequest,omitempty" name:"IstioCpuRequest"`
+
+	// istioproxy 容器最大的 CPU 核数，对应 K8S 的 limit
+	IstioCpuLimit *string `json:"IstioCpuLimit,omitempty" name:"IstioCpuLimit"`
+
+	// istioproxy 容器分配的内存 MiB 数，对应 K8S 的 request
+	IstioMemRequest *string `json:"IstioMemRequest,omitempty" name:"IstioMemRequest"`
+
+	// istioproxy 容器最大的内存 MiB 数，对应 K8S 的 limit
+	IstioMemLimit *string `json:"IstioMemLimit,omitempty" name:"IstioMemLimit"`
 }
 
 func (r *CreateContainGroupRequest) ToJsonString() string {
@@ -1005,6 +1064,9 @@ type CreateGroupRequest struct {
 
 	// 部署组描述
 	GroupDesc *string `json:"GroupDesc,omitempty" name:"GroupDesc"`
+
+	// 部署组资源类型
+	GroupResourceType *string `json:"GroupResourceType,omitempty" name:"GroupResourceType"`
 }
 
 func (r *CreateGroupRequest) ToJsonString() string {
@@ -1034,6 +1096,98 @@ func (r *CreateGroupResponse) ToJsonString() string {
 }
 
 func (r *CreateGroupResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type CreateLaneRequest struct {
+	*tchttp.BaseRequest
+
+	// 泳道名称
+	LaneName *string `json:"LaneName,omitempty" name:"LaneName"`
+
+	// 泳道备注
+	Remark *string `json:"Remark,omitempty" name:"Remark"`
+
+	// 泳道部署组信息
+	LaneGroupList []*LaneGroup `json:"LaneGroupList,omitempty" name:"LaneGroupList" list`
+}
+
+func (r *CreateLaneRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *CreateLaneRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type CreateLaneResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 泳道ID
+		Result *string `json:"Result,omitempty" name:"Result"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *CreateLaneResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *CreateLaneResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type CreateLaneRuleRequest struct {
+	*tchttp.BaseRequest
+
+	// 泳道规则名称
+	RuleName *string `json:"RuleName,omitempty" name:"RuleName"`
+
+	// 泳道规则备注
+	Remark *string `json:"Remark,omitempty" name:"Remark"`
+
+	// 泳道规则标签列表
+	RuleTagList []*LaneRuleTag `json:"RuleTagList,omitempty" name:"RuleTagList" list`
+
+	// 泳道规则标签关系
+	RuleTagRelationship *string `json:"RuleTagRelationship,omitempty" name:"RuleTagRelationship"`
+
+	// 泳道Id
+	LaneId *string `json:"LaneId,omitempty" name:"LaneId"`
+}
+
+func (r *CreateLaneRuleRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *CreateLaneRuleRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type CreateLaneRuleResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 泳道规则Id
+		Result *string `json:"Result,omitempty" name:"Result"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *CreateLaneRuleResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *CreateLaneRuleResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
@@ -1151,6 +1305,9 @@ type CreatePublicConfigRequest struct {
 
 	// 配置项类型
 	ConfigType *string `json:"ConfigType,omitempty" name:"ConfigType"`
+
+	// Base64编码的配置项
+	EncodeWithBase64 *bool `json:"EncodeWithBase64,omitempty" name:"EncodeWithBase64"`
 }
 
 func (r *CreatePublicConfigRequest) ToJsonString() string {
@@ -1431,6 +1588,43 @@ func (r *DeleteImageTagsResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
+type DeleteLaneRequest struct {
+	*tchttp.BaseRequest
+
+	// 泳道Idl
+	LaneId *string `json:"LaneId,omitempty" name:"LaneId"`
+}
+
+func (r *DeleteLaneRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DeleteLaneRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DeleteLaneResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// true / false
+		Result *bool `json:"Result,omitempty" name:"Result"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *DeleteLaneResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DeleteLaneResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
 type DeleteMicroserviceRequest struct {
 	*tchttp.BaseRequest
 
@@ -1641,19 +1835,19 @@ type DeployContainerGroupRequest struct {
 	// 旧版镜像名，如/tsf/nginx
 	Reponame *string `json:"Reponame,omitempty" name:"Reponame"`
 
-	// 最大的 CPU 核数，对应 K8S 的 limit；不填时默认为 request 的 2 倍
+	// 业务容器最大的 CPU 核数，对应 K8S 的 limit；不填时默认为 request 的 2 倍
 	CpuLimit *string `json:"CpuLimit,omitempty" name:"CpuLimit"`
 
-	// 最大的内存 MiB 数，对应 K8S 的 limit；不填时默认为 request 的 2 倍
+	// 业务容器最大的内存 MiB 数，对应 K8S 的 limit；不填时默认为 request 的 2 倍
 	MemLimit *string `json:"MemLimit,omitempty" name:"MemLimit"`
 
 	// jvm参数
 	JvmOpts *string `json:"JvmOpts,omitempty" name:"JvmOpts"`
 
-	// 分配的 CPU 核数，对应 K8S 的 request
+	// 业务容器分配的 CPU 核数，对应 K8S 的 request
 	CpuRequest *string `json:"CpuRequest,omitempty" name:"CpuRequest"`
 
-	// 分配的内存 MiB 数，对应 K8S 的 request
+	// 业务容器分配的内存 MiB 数，对应 K8S 的 request
 	MemRequest *string `json:"MemRequest,omitempty" name:"MemRequest"`
 
 	// 是否不立即启动
@@ -1667,6 +1861,30 @@ type DeployContainerGroupRequest struct {
 
 	// 滚动更新必填，更新间隔
 	UpdateIvl *int64 `json:"UpdateIvl,omitempty" name:"UpdateIvl"`
+
+	// agent 容器分配的 CPU 核数，对应 K8S 的 request
+	AgentCpuRequest *string `json:"AgentCpuRequest,omitempty" name:"AgentCpuRequest"`
+
+	// agent 容器最大的 CPU 核数，对应 K8S 的 limit
+	AgentCpuLimit *string `json:"AgentCpuLimit,omitempty" name:"AgentCpuLimit"`
+
+	// agent 容器分配的内存 MiB 数，对应 K8S 的 request
+	AgentMemRequest *string `json:"AgentMemRequest,omitempty" name:"AgentMemRequest"`
+
+	// agent 容器最大的内存 MiB 数，对应 K8S 的 limit
+	AgentMemLimit *string `json:"AgentMemLimit,omitempty" name:"AgentMemLimit"`
+
+	// istioproxy 容器分配的 CPU 核数，对应 K8S 的 request
+	IstioCpuRequest *string `json:"IstioCpuRequest,omitempty" name:"IstioCpuRequest"`
+
+	// istioproxy 容器最大的 CPU 核数，对应 K8S 的 limit
+	IstioCpuLimit *string `json:"IstioCpuLimit,omitempty" name:"IstioCpuLimit"`
+
+	// istioproxy 容器分配的内存 MiB 数，对应 K8S 的 request
+	IstioMemRequest *string `json:"IstioMemRequest,omitempty" name:"IstioMemRequest"`
+
+	// istioproxy 容器最大的内存 MiB 数，对应 K8S 的 limit
+	IstioMemLimit *string `json:"IstioMemLimit,omitempty" name:"IstioMemLimit"`
 }
 
 func (r *DeployContainerGroupRequest) ToJsonString() string {
@@ -2190,6 +2408,9 @@ type DescribeConfigsRequest struct {
 
 	// 配置项名称，精确查询，不传入时查询全量
 	ConfigName *string `json:"ConfigName,omitempty" name:"ConfigName"`
+
+	// 配置项版本，精确查询，不传入时查询全量
+	ConfigVersion *string `json:"ConfigVersion,omitempty" name:"ConfigVersion"`
 }
 
 func (r *DescribeConfigsRequest) ToJsonString() string {
@@ -2521,6 +2742,9 @@ type DescribeImageTagsRequest struct {
 
 	// 不填和0:查询 1:不查询
 	QueryImageIdFlag *int64 `json:"QueryImageIdFlag,omitempty" name:"QueryImageIdFlag"`
+
+	// 可用于搜索的 tag 名字
+	SearchWord *string `json:"SearchWord,omitempty" name:"SearchWord"`
 }
 
 func (r *DescribeImageTagsRequest) ToJsonString() string {
@@ -2550,6 +2774,95 @@ func (r *DescribeImageTagsResponse) ToJsonString() string {
 }
 
 func (r *DescribeImageTagsResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeLaneRulesRequest struct {
+	*tchttp.BaseRequest
+
+	// 每页展示的条数
+	Limit *int64 `json:"Limit,omitempty" name:"Limit"`
+
+	// 翻页偏移量
+	Offset *int64 `json:"Offset,omitempty" name:"Offset"`
+
+	// 搜索关键词
+	SearchWord *string `json:"SearchWord,omitempty" name:"SearchWord"`
+
+	// 泳道规则ID（用于精确搜索）
+	RuleId *string `json:"RuleId,omitempty" name:"RuleId"`
+}
+
+func (r *DescribeLaneRulesRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeLaneRulesRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeLaneRulesResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 泳道规则列表
+		Result *LaneRules `json:"Result,omitempty" name:"Result"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *DescribeLaneRulesResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeLaneRulesResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeLanesRequest struct {
+	*tchttp.BaseRequest
+
+	// 每页展示的条数
+	Limit *int64 `json:"Limit,omitempty" name:"Limit"`
+
+	// 翻页偏移量
+	Offset *int64 `json:"Offset,omitempty" name:"Offset"`
+
+	// 搜索关键字
+	SearchWord *string `json:"SearchWord,omitempty" name:"SearchWord"`
+}
+
+func (r *DescribeLanesRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeLanesRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribeLanesResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 泳道列表
+		Result *LaneInfos `json:"Result,omitempty" name:"Result"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *DescribeLanesResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribeLanesResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
@@ -2697,6 +3010,49 @@ func (r *DescribePkgsResponse) ToJsonString() string {
 }
 
 func (r *DescribePkgsResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribePodInstancesRequest struct {
+	*tchttp.BaseRequest
+
+	// 实例所属groupId
+	GroupId *string `json:"GroupId,omitempty" name:"GroupId"`
+
+	// 偏移量，取值从0开始
+	Offset *int64 `json:"Offset,omitempty" name:"Offset"`
+
+	// 分页个数，默认为20， 取值应为1~50
+	Limit *int64 `json:"Limit,omitempty" name:"Limit"`
+}
+
+func (r *DescribePodInstancesRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribePodInstancesRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type DescribePodInstancesResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 查询的权限数据对象
+		Result *GroupPodResult `json:"Result,omitempty" name:"Result"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *DescribePodInstancesResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *DescribePodInstancesResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
@@ -2889,6 +3245,9 @@ type DescribePublicConfigsRequest struct {
 
 	// 配置项名称，精确查询，不传入时查询全量
 	ConfigName *string `json:"ConfigName,omitempty" name:"ConfigName"`
+
+	// 配置项版本，精确查询，不传入时查询全量
+	ConfigVersion *string `json:"ConfigVersion,omitempty" name:"ConfigVersion"`
 }
 
 func (r *DescribePublicConfigsRequest) ToJsonString() string {
@@ -3380,6 +3739,72 @@ func (r *ExpandGroupResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
+type GroupPod struct {
+
+	// 实例名称(对应到kubernetes的pod名称)
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	PodName *string `json:"PodName,omitempty" name:"PodName"`
+
+	// 实例ID(对应到kubernetes的pod id)
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	PodId *string `json:"PodId,omitempty" name:"PodId"`
+
+	// 实例状态，请参考后面的实例以及容器的状态定义
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Status *string `json:"Status,omitempty" name:"Status"`
+
+	// 实例处于当前状态的原因，例如容器下载镜像失败
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Reason *string `json:"Reason,omitempty" name:"Reason"`
+
+	// 主机IP
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	NodeIp *string `json:"NodeIp,omitempty" name:"NodeIp"`
+
+	// 实例IP
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Ip *string `json:"Ip,omitempty" name:"Ip"`
+
+	// 实例中容器的重启次数
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	RestartCount *int64 `json:"RestartCount,omitempty" name:"RestartCount"`
+
+	// 实例中已就绪容器的个数
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ReadyCount *int64 `json:"ReadyCount,omitempty" name:"ReadyCount"`
+
+	// 运行时长
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Runtime *string `json:"Runtime,omitempty" name:"Runtime"`
+
+	// 实例启动时间
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	CreatedAt *string `json:"CreatedAt,omitempty" name:"CreatedAt"`
+
+	// 服务实例状态
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ServiceInstanceStatus *string `json:"ServiceInstanceStatus,omitempty" name:"ServiceInstanceStatus"`
+
+	// 机器实例可使用状态
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	InstanceAvailableStatus *string `json:"InstanceAvailableStatus,omitempty" name:"InstanceAvailableStatus"`
+
+	// 机器实例状态
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	InstanceStatus *string `json:"InstanceStatus,omitempty" name:"InstanceStatus"`
+}
+
+type GroupPodResult struct {
+
+	// 总记录数
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	TotalCount *int64 `json:"TotalCount,omitempty" name:"TotalCount"`
+
+	// 列表信息
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Content []*GroupPod `json:"Content,omitempty" name:"Content" list`
+}
+
 type ImageTag struct {
 
 	// 仓库名
@@ -3413,6 +3838,7 @@ type ImageTag struct {
 	DockerVersion *string `json:"DockerVersion,omitempty" name:"DockerVersion"`
 
 	// 操作系统
+	// 注意：此字段可能返回 null，表示取不到有效值。
 	Os *string `json:"Os,omitempty" name:"Os"`
 
 	// push时间
@@ -3550,6 +3976,218 @@ type Instance struct {
 	// 实例执行状态
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	OperationState *int64 `json:"OperationState,omitempty" name:"OperationState"`
+
+	// NamespaceId
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	NamespaceId *string `json:"NamespaceId,omitempty" name:"NamespaceId"`
+
+	// InstanceZoneId
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	InstanceZoneId *string `json:"InstanceZoneId,omitempty" name:"InstanceZoneId"`
+
+	// InstanceImportMode
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	InstanceImportMode *string `json:"InstanceImportMode,omitempty" name:"InstanceImportMode"`
+
+	// ApplicationType
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ApplicationType *string `json:"ApplicationType,omitempty" name:"ApplicationType"`
+
+	// ApplicationResourceType
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ApplicationResourceType *string `json:"ApplicationResourceType,omitempty" name:"ApplicationResourceType"`
+
+	// ServiceSidecarStatus
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ServiceSidecarStatus *string `json:"ServiceSidecarStatus,omitempty" name:"ServiceSidecarStatus"`
+
+	// GroupName
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	GroupName *string `json:"GroupName,omitempty" name:"GroupName"`
+
+	// NamespaceName
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	NamespaceName *string `json:"NamespaceName,omitempty" name:"NamespaceName"`
+}
+
+type LaneGroup struct {
+
+	// 部署组ID
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	GroupId *string `json:"GroupId,omitempty" name:"GroupId"`
+
+	// 是否入口应用
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Entrance *bool `json:"Entrance,omitempty" name:"Entrance"`
+
+	// 泳道部署组ID
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	LaneGroupId *string `json:"LaneGroupId,omitempty" name:"LaneGroupId"`
+
+	// 泳道ID
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	LaneId *string `json:"LaneId,omitempty" name:"LaneId"`
+
+	// 部署组名
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	GroupName *string `json:"GroupName,omitempty" name:"GroupName"`
+
+	// 应用ID
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ApplicationId *string `json:"ApplicationId,omitempty" name:"ApplicationId"`
+
+	// 应用名
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ApplicationName *string `json:"ApplicationName,omitempty" name:"ApplicationName"`
+
+	// 命名空间ID
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	NamespaceId *string `json:"NamespaceId,omitempty" name:"NamespaceId"`
+
+	// 命名空间名称
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	NamespaceName *string `json:"NamespaceName,omitempty" name:"NamespaceName"`
+
+	// 创建时间
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	CreateTime *int64 `json:"CreateTime,omitempty" name:"CreateTime"`
+
+	// 更新时间
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	UpdateTime *int64 `json:"UpdateTime,omitempty" name:"UpdateTime"`
+
+	// 集群类型
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ClusterType *string `json:"ClusterType,omitempty" name:"ClusterType"`
+}
+
+type LaneInfo struct {
+
+	// 泳道ID
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	LaneId *string `json:"LaneId,omitempty" name:"LaneId"`
+
+	// 泳道名称
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	LaneName *string `json:"LaneName,omitempty" name:"LaneName"`
+
+	// 泳道备注
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Remark *string `json:"Remark,omitempty" name:"Remark"`
+
+	// 创建时间
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	CreateTime *int64 `json:"CreateTime,omitempty" name:"CreateTime"`
+
+	// 更新时间
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	UpdateTime *int64 `json:"UpdateTime,omitempty" name:"UpdateTime"`
+
+	// 泳道部署组
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	LaneGroupList []*LaneGroup `json:"LaneGroupList,omitempty" name:"LaneGroupList" list`
+
+	// 是否入口应用
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Entrance *bool `json:"Entrance,omitempty" name:"Entrance"`
+
+	// 泳道已经关联部署组的命名空间列表
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	NamespaceIdList []*string `json:"NamespaceIdList,omitempty" name:"NamespaceIdList" list`
+}
+
+type LaneInfos struct {
+
+	// 总数
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	TotalCount *int64 `json:"TotalCount,omitempty" name:"TotalCount"`
+
+	// 泳道信息列表
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Content []*LaneInfo `json:"Content,omitempty" name:"Content" list`
+}
+
+type LaneRule struct {
+
+	// 泳道规则ID
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	RuleId *string `json:"RuleId,omitempty" name:"RuleId"`
+
+	// 泳道规则名称
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	RuleName *string `json:"RuleName,omitempty" name:"RuleName"`
+
+	// 优先级
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Priority *int64 `json:"Priority,omitempty" name:"Priority"`
+
+	// 备注
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Remark *string `json:"Remark,omitempty" name:"Remark"`
+
+	// 泳道规则标签列表
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	RuleTagList []*LaneRuleTag `json:"RuleTagList,omitempty" name:"RuleTagList" list`
+
+	// 泳道规则标签关系
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	RuleTagRelationship *string `json:"RuleTagRelationship,omitempty" name:"RuleTagRelationship"`
+
+	// 泳道ID
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	LaneId *string `json:"LaneId,omitempty" name:"LaneId"`
+
+	// 开启状态
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Enable *bool `json:"Enable,omitempty" name:"Enable"`
+
+	// 创建时间
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	CreateTime *int64 `json:"CreateTime,omitempty" name:"CreateTime"`
+
+	// 更新时间
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	UpdateTime *int64 `json:"UpdateTime,omitempty" name:"UpdateTime"`
+}
+
+type LaneRuleTag struct {
+
+	// 标签ID
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	TagId *string `json:"TagId,omitempty" name:"TagId"`
+
+	// 标签名
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	TagName *string `json:"TagName,omitempty" name:"TagName"`
+
+	// 标签操作符
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	TagOperator *string `json:"TagOperator,omitempty" name:"TagOperator"`
+
+	// 标签值
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	TagValue *string `json:"TagValue,omitempty" name:"TagValue"`
+
+	// 泳道规则ID
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	LaneRuleId *string `json:"LaneRuleId,omitempty" name:"LaneRuleId"`
+
+	// 创建时间
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	CreateTime *int64 `json:"CreateTime,omitempty" name:"CreateTime"`
+
+	// 更新时间
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	UpdateTime *int64 `json:"UpdateTime,omitempty" name:"UpdateTime"`
+}
+
+type LaneRules struct {
+
+	// 总数
+	TotalCount *int64 `json:"TotalCount,omitempty" name:"TotalCount"`
+
+	// 泳道规则列表
+	Content []*LaneRule `json:"Content,omitempty" name:"Content" list`
 }
 
 type Microservice struct {
@@ -3671,6 +4309,104 @@ func (r *ModifyContainerReplicasResponse) ToJsonString() string {
 }
 
 func (r *ModifyContainerReplicasResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type ModifyLaneRequest struct {
+	*tchttp.BaseRequest
+
+	// 泳道ID
+	LaneId *string `json:"LaneId,omitempty" name:"LaneId"`
+
+	// 泳道名称
+	LaneName *string `json:"LaneName,omitempty" name:"LaneName"`
+
+	// 备注
+	Remark *string `json:"Remark,omitempty" name:"Remark"`
+}
+
+func (r *ModifyLaneRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *ModifyLaneRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type ModifyLaneResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 操作状态
+		Result *bool `json:"Result,omitempty" name:"Result"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *ModifyLaneResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *ModifyLaneResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type ModifyLaneRuleRequest struct {
+	*tchttp.BaseRequest
+
+	// 泳道规则ID
+	RuleId *string `json:"RuleId,omitempty" name:"RuleId"`
+
+	// 泳道规则名称
+	RuleName *string `json:"RuleName,omitempty" name:"RuleName"`
+
+	// 泳道规则备注
+	Remark *string `json:"Remark,omitempty" name:"Remark"`
+
+	// 泳道规则标签列表
+	RuleTagList []*LaneRuleTag `json:"RuleTagList,omitempty" name:"RuleTagList" list`
+
+	// 泳道规则标签关系
+	RuleTagRelationship *string `json:"RuleTagRelationship,omitempty" name:"RuleTagRelationship"`
+
+	// 泳道ID
+	LaneId *string `json:"LaneId,omitempty" name:"LaneId"`
+
+	// 开启状态
+	Enable *bool `json:"Enable,omitempty" name:"Enable"`
+}
+
+func (r *ModifyLaneRuleRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *ModifyLaneRuleRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type ModifyLaneRuleResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 操作状态
+		Result *bool `json:"Result,omitempty" name:"Result"`
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *ModifyLaneRuleResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *ModifyLaneRuleResponse) FromJsonString(s string) error {
     return json.Unmarshal([]byte(s), &r)
 }
 
@@ -3890,6 +4626,44 @@ type Namespace struct {
 	// 集群ID
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	ClusterId *string `json:"ClusterId,omitempty" name:"ClusterId"`
+
+	// 集群资源类型
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	NamespaceResourceType *string `json:"NamespaceResourceType,omitempty" name:"NamespaceResourceType"`
+
+	// 命名空间类型
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	NamespaceType *string `json:"NamespaceType,omitempty" name:"NamespaceType"`
+}
+
+type OperationInfo struct {
+
+	// 初始化按钮的控制信息
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Init *OperationInfoDetail `json:"Init,omitempty" name:"Init"`
+
+	// 添加实例按钮的控制信息
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	AddInstance *OperationInfoDetail `json:"AddInstance,omitempty" name:"AddInstance"`
+
+	// 销毁机器的控制信息
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Destroy *OperationInfoDetail `json:"Destroy,omitempty" name:"Destroy"`
+}
+
+type OperationInfoDetail struct {
+
+	// 不显示的原因
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	DisabledReason *string `json:"DisabledReason,omitempty" name:"DisabledReason"`
+
+	// 该按钮是否可点击
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Enabled *bool `json:"Enabled,omitempty" name:"Enabled"`
+
+	// 是否显示该按钮
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	Supported *bool `json:"Supported,omitempty" name:"Supported"`
 }
 
 type PkgInfo struct {
@@ -3947,6 +4721,10 @@ type ProtocolPort struct {
 
 	// 容器端口
 	TargetPort *int64 `json:"TargetPort,omitempty" name:"TargetPort"`
+
+	// 主机端口
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	NodePort *int64 `json:"NodePort,omitempty" name:"NodePort"`
 }
 
 type ReleaseConfigRequest struct {
@@ -4262,6 +5040,10 @@ type ServerlessGroup struct {
 	// 部署组实例数
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	InstanceCount *uint64 `json:"InstanceCount,omitempty" name:"InstanceCount"`
+
+	// 应用名称
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ApplicationName []*string `json:"ApplicationName,omitempty" name:"ApplicationName" list`
 }
 
 type ServerlessGroupPage struct {
@@ -4389,6 +5171,14 @@ type SimpleApplication struct {
 	// UpdateTime
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	UpdateTime *string `json:"UpdateTime,omitempty" name:"UpdateTime"`
+
+	// ApigatewayServiceId
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ApigatewayServiceId *string `json:"ApigatewayServiceId,omitempty" name:"ApigatewayServiceId"`
+
+	// ApplicationRuntimeType
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ApplicationRuntimeType *string `json:"ApplicationRuntimeType,omitempty" name:"ApplicationRuntimeType"`
 }
 
 type SimpleGroup struct {
@@ -4432,6 +5222,18 @@ type SimpleGroup struct {
 	// 命名空间名称
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	NamespaceName *string `json:"NamespaceName,omitempty" name:"NamespaceName"`
+
+	// 启动参数
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	StartupParameters *string `json:"StartupParameters,omitempty" name:"StartupParameters"`
+
+	// 部署组资源类型
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	GroupResourceType *string `json:"GroupResourceType,omitempty" name:"GroupResourceType"`
+
+	// 应用微服务类型
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	AppMicroServiceType *string `json:"AppMicroServiceType,omitempty" name:"AppMicroServiceType"`
 }
 
 type StartContainerGroupRequest struct {
@@ -4804,6 +5606,18 @@ type VmGroup struct {
 	// 微服务类型
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	MicroserviceType *string `json:"MicroserviceType,omitempty" name:"MicroserviceType"`
+
+	// 应用类型
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	ApplicationType *string `json:"ApplicationType,omitempty" name:"ApplicationType"`
+
+	// 部署组资源类型
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	GroupResourceType *string `json:"GroupResourceType,omitempty" name:"GroupResourceType"`
+
+	// 部署组更新时间戳
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	UpdatedTime *int64 `json:"UpdatedTime,omitempty" name:"UpdatedTime"`
 }
 
 type VmGroupSimple struct {
@@ -4863,4 +5677,12 @@ type VmGroupSimple struct {
 	// 应用微服务类型
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	MicroserviceType *string `json:"MicroserviceType,omitempty" name:"MicroserviceType"`
+
+	// 部署组资源类型
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	GroupResourceType *string `json:"GroupResourceType,omitempty" name:"GroupResourceType"`
+
+	// 部署组更新时间戳
+	// 注意：此字段可能返回 null，表示取不到有效值。
+	UpdatedTime *int64 `json:"UpdatedTime,omitempty" name:"UpdatedTime"`
 }

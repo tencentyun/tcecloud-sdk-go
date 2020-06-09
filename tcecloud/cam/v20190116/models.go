@@ -359,7 +359,6 @@ type DescribeRoleListResponse struct {
 	Response *struct {
 
 		// 角色详情列表。
-	// 注意：此字段可能返回 null，表示取不到有效值。
 		List []*RoleInfo `json:"List,omitempty" name:"List" list`
 
 		// 角色总数
@@ -814,12 +813,6 @@ type RoleInfo struct {
 
 	// 角色的最近一次时间
 	UpdateTime *string `json:"UpdateTime,omitempty" name:"UpdateTime"`
-
-	// 角色是否允许登录
-	ConsoleLogin *string `json:"ConsoleLogin,omitempty" name:"ConsoleLogin"`
-
-	// 有效时间
-	SessionDuration *uint64 `json:"SessionDuration,omitempty" name:"SessionDuration"`
 }
 
 type ServiceApiInfo struct {
@@ -867,4 +860,127 @@ type ServiceApiListInfo struct {
 	// 资源六段式范例
 	// 注意：此字段可能返回 null，表示取不到有效值。
 	ResourceExample *string `json:"ResourceExample,omitempty" name:"ResourceExample"`
+}
+
+type UpdateAssumeRolePolicyRequest struct {
+	*tchttp.BaseRequest
+
+	// 策略文档，示例：{"version":"2.0","statement":[{"action":"name/sts:AssumeRole","effect":"allow","principal":{"service":["cloudaudit.cloud.tencent.com","cls.cloud.tencent.com"]}}]}，principal用于指定角色的授权对象。获取该参数可参阅 获取角色详情（https://cloud.tencent.com/document/product/598/36221） 输出参数RoleInfo
+	PolicyDocument *string `json:"PolicyDocument,omitempty" name:"PolicyDocument"`
+
+	// 角色ID，用于指定角色，入参 RoleId 与 RoleName 二选一
+	RoleId *string `json:"RoleId,omitempty" name:"RoleId"`
+
+	// 角色名称，用于指定角色，入参 RoleId 与 RoleName 二选一
+	RoleName *string `json:"RoleName,omitempty" name:"RoleName"`
+}
+
+func (r *UpdateAssumeRolePolicyRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *UpdateAssumeRolePolicyRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type UpdateAssumeRolePolicyResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *UpdateAssumeRolePolicyResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *UpdateAssumeRolePolicyResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type UpdatePolicyRequest struct {
+	*tchttp.BaseRequest
+
+	// 策略ID
+	PolicyId *uint64 `json:"PolicyId,omitempty" name:"PolicyId"`
+
+	// 策略名
+	PolicyName *string `json:"PolicyName,omitempty" name:"PolicyName"`
+
+	// 策略描述
+	Description *string `json:"Description,omitempty" name:"Description"`
+
+	// 策略文档，示例：{"version":"2.0","statement":[{"action":"name/sts:AssumeRole","effect":"allow","principal":{"service":["cloudaudit.cloud.tencent.com","cls.cloud.tencent.com"]}}]}，principal用于指定角色的授权对象。获取该参数可参阅 获取角色详情（https://cloud.tencent.com/document/product/598/36221） 输出参数RoleInfo
+	PolicyDocument *string `json:"PolicyDocument,omitempty" name:"PolicyDocument"`
+}
+
+func (r *UpdatePolicyRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *UpdatePolicyRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type UpdatePolicyResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *UpdatePolicyResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *UpdatePolicyResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type UpdateRoleDescriptionRequest struct {
+	*tchttp.BaseRequest
+
+	// 角色描述
+	Description *string `json:"Description,omitempty" name:"Description"`
+
+	// 角色ID，用于指定角色，入参 RoleId 与 RoleName 二选一
+	RoleId *string `json:"RoleId,omitempty" name:"RoleId"`
+
+	// 角色名称，用于指定角色，入参 RoleId 与 RoleName 二选一
+	RoleName *string `json:"RoleName,omitempty" name:"RoleName"`
+}
+
+func (r *UpdateRoleDescriptionRequest) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *UpdateRoleDescriptionRequest) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
+}
+
+type UpdateRoleDescriptionResponse struct {
+	*tchttp.BaseResponse
+	Response *struct {
+
+		// 唯一请求 ID，每次请求都会返回。定位问题时需要提供该次请求的 RequestId。
+		RequestId *string `json:"RequestId,omitempty" name:"RequestId"`
+	} `json:"Response"`
+}
+
+func (r *UpdateRoleDescriptionResponse) ToJsonString() string {
+    b, _ := json.Marshal(r)
+    return string(b)
+}
+
+func (r *UpdateRoleDescriptionResponse) FromJsonString(s string) error {
+    return json.Unmarshal([]byte(s), &r)
 }

@@ -219,7 +219,7 @@ func NewAssignIpv6CidrBlockResponse() (response *AssignIpv6CidrBlockResponse) {
 }
 
 // 本接口（AssignIpv6CidrBlock）用于分配IPv6网段。
-// * 使用本接口前，你需要已有VPC实例，如果没有可通过接口CreateVpc创建。
+// * 使用本接口前，您需要已有VPC实例，如果没有可通过接口CreateVpc创建。
 // * 每个VPC只能申请一个IPv6网段
 func (c *Client) AssignIpv6CidrBlock(request *AssignIpv6CidrBlockRequest) (response *AssignIpv6CidrBlockResponse, err error) {
     if request == nil {
@@ -341,6 +341,56 @@ func (c *Client) AssociateNatGatewayAddress(request *AssociateNatGatewayAddressR
     return
 }
 
+func NewAssociateNetworkAclSubnetsRequest() (request *AssociateNetworkAclSubnetsRequest) {
+    request = &AssociateNetworkAclSubnetsRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "AssociateNetworkAclSubnets")
+    return
+}
+
+func NewAssociateNetworkAclSubnetsResponse() (response *AssociateNetworkAclSubnetsResponse) {
+    response = &AssociateNetworkAclSubnetsResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（AssociateNetworkAclSubnets）用于网络ACL关联vpc下的子网。
+func (c *Client) AssociateNetworkAclSubnets(request *AssociateNetworkAclSubnetsRequest) (response *AssociateNetworkAclSubnetsResponse, err error) {
+    if request == nil {
+        request = NewAssociateNetworkAclSubnetsRequest()
+    }
+    response = NewAssociateNetworkAclSubnetsResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewAssociateNetworkInterfaceSecurityGroupsRequest() (request *AssociateNetworkInterfaceSecurityGroupsRequest) {
+    request = &AssociateNetworkInterfaceSecurityGroupsRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "AssociateNetworkInterfaceSecurityGroups")
+    return
+}
+
+func NewAssociateNetworkInterfaceSecurityGroupsResponse() (response *AssociateNetworkInterfaceSecurityGroupsResponse) {
+    response = &AssociateNetworkInterfaceSecurityGroupsResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（AssociateNetworkInterfaceSecurityGroups）用于弹性网卡绑定安全组（SecurityGroup）。
+func (c *Client) AssociateNetworkInterfaceSecurityGroups(request *AssociateNetworkInterfaceSecurityGroupsRequest) (response *AssociateNetworkInterfaceSecurityGroupsResponse, err error) {
+    if request == nil {
+        request = NewAssociateNetworkInterfaceSecurityGroupsRequest()
+    }
+    response = NewAssociateNetworkInterfaceSecurityGroupsResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewAttachCcnInstancesRequest() (request *AttachCcnInstancesRequest) {
     request = &AttachCcnInstancesRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -423,31 +473,6 @@ func (c *Client) AttachNetworkInterface(request *AttachNetworkInterfaceRequest) 
     return
 }
 
-func NewBandwidthLimitForCcnAlarmOnlyRequest() (request *BandwidthLimitForCcnAlarmOnlyRequest) {
-    request = &BandwidthLimitForCcnAlarmOnlyRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "BandwidthLimitForCcnAlarmOnly")
-    return
-}
-
-func NewBandwidthLimitForCcnAlarmOnlyResponse() (response *BandwidthLimitForCcnAlarmOnlyResponse) {
-    response = &BandwidthLimitForCcnAlarmOnlyResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 云联网查看带宽上限监控告警接入专用
-func (c *Client) BandwidthLimitForCcnAlarmOnly(request *BandwidthLimitForCcnAlarmOnlyRequest) (response *BandwidthLimitForCcnAlarmOnlyResponse, err error) {
-    if request == nil {
-        request = NewBandwidthLimitForCcnAlarmOnlyRequest()
-    }
-    response = NewBandwidthLimitForCcnAlarmOnlyResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewCheckAssistantCidrRequest() (request *CheckAssistantCidrRequest) {
     request = &CheckAssistantCidrRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -463,7 +488,7 @@ func NewCheckAssistantCidrResponse() (response *CheckAssistantCidrResponse) {
     return
 }
 
-// 本接口(CheckAssistantCidr)用于检查辅助CIDR是否与存量路由、对等连接（对端VPC的CIDR）等资源存在冲突。如果存在重叠，则返回重叠的资源。
+// 本接口(CheckAssistantCidr)用于检查辅助CIDR是否与存量路由、对等连接（对端VPC的CIDR）等资源存在冲突。如果存在重叠，则返回重叠的资源。（接口灰度中，如需使用请提工单。）
 // * 检测辅助CIDR是否与当前VPC的主CIDR和辅助CIDR存在重叠。
 // * 检测辅助CIDR是否与当前VPC的路由的目的端存在重叠。
 // * 检测辅助CIDR是否与当前VPC的对等连接，对端VPC下的主CIDR或辅助CIDR存在重叠。
@@ -476,27 +501,27 @@ func (c *Client) CheckAssistantCidr(request *CheckAssistantCidrRequest) (respons
     return
 }
 
-func NewCheckBandwidthPackageRequest() (request *CheckBandwidthPackageRequest) {
-    request = &CheckBandwidthPackageRequest{
+func NewCheckDefaultSubnetRequest() (request *CheckDefaultSubnetRequest) {
+    request = &CheckDefaultSubnetRequest{
         BaseRequest: &tchttp.BaseRequest{},
     }
-    request.Init().WithApiInfo("vpc", APIVersion, "CheckBandwidthPackage")
+    request.Init().WithApiInfo("vpc", APIVersion, "CheckDefaultSubnet")
     return
 }
 
-func NewCheckBandwidthPackageResponse() (response *CheckBandwidthPackageResponse) {
-    response = &CheckBandwidthPackageResponse{
+func NewCheckDefaultSubnetResponse() (response *CheckDefaultSubnetResponse) {
+    response = &CheckDefaultSubnetResponse{
         BaseResponse: &tchttp.BaseResponse{},
     }
     return
 }
 
-// 检查账户带宽包属性。
-func (c *Client) CheckBandwidthPackage(request *CheckBandwidthPackageRequest) (response *CheckBandwidthPackageResponse, err error) {
+// 本接口（CheckDefaultSubnet）用于预判是否可建默认子网。
+func (c *Client) CheckDefaultSubnet(request *CheckDefaultSubnetRequest) (response *CheckDefaultSubnetResponse, err error) {
     if request == nil {
-        request = NewCheckBandwidthPackageRequest()
+        request = NewCheckDefaultSubnetRequest()
     }
-    response = NewCheckBandwidthPackageResponse()
+    response = NewCheckDefaultSubnetResponse()
     err = c.Send(request, response)
     return
 }
@@ -522,31 +547,6 @@ func (c *Client) CheckNetDetectState(request *CheckNetDetectStateRequest) (respo
         request = NewCheckNetDetectStateRequest()
     }
     response = NewCheckNetDetectStateResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCheckSecurityGroupPoliciesRequest() (request *CheckSecurityGroupPoliciesRequest) {
-    request = &CheckSecurityGroupPoliciesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "CheckSecurityGroupPolicies")
-    return
-}
-
-func NewCheckSecurityGroupPoliciesResponse() (response *CheckSecurityGroupPoliciesResponse) {
-    response = &CheckSecurityGroupPoliciesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（CheckSecurityGroupPolicies）用于查询安全组策略中常用端口的放开策略。
-func (c *Client) CheckSecurityGroupPolicies(request *CheckSecurityGroupPoliciesRequest) (response *CheckSecurityGroupPoliciesResponse, err error) {
-    if request == nil {
-        request = NewCheckSecurityGroupPoliciesRequest()
-    }
-    response = NewCheckSecurityGroupPoliciesResponse()
     err = c.Send(request, response)
     return
 }
@@ -601,6 +601,36 @@ func (c *Client) CreateAddressTemplateGroup(request *CreateAddressTemplateGroupR
     return
 }
 
+func NewCreateAndAttachNetworkInterfaceRequest() (request *CreateAndAttachNetworkInterfaceRequest) {
+    request = &CreateAndAttachNetworkInterfaceRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "CreateAndAttachNetworkInterface")
+    return
+}
+
+func NewCreateAndAttachNetworkInterfaceResponse() (response *CreateAndAttachNetworkInterfaceResponse) {
+    response = &CreateAndAttachNetworkInterfaceResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（CreateAndAttachNetworkInterface）用于创建弹性网卡并绑定云主机。
+// * 创建弹性网卡时可以指定内网IP，并且可以指定一个主IP，指定的内网IP必须在弹性网卡所在子网内，而且不能被占用。
+// * 创建弹性网卡时可以指定需要申请的内网IP数量，系统会随机生成内网IP地址。
+// * 一个弹性网卡支持绑定的IP地址是有限制的，更多资源限制信息详见弹性网卡使用限制。
+// * 创建弹性网卡同时可以绑定已有安全组。
+// * 创建弹性网卡同时可以绑定标签, 应答里的标签列表代表添加成功的标签。
+func (c *Client) CreateAndAttachNetworkInterface(request *CreateAndAttachNetworkInterfaceRequest) (response *CreateAndAttachNetworkInterfaceResponse, err error) {
+    if request == nil {
+        request = NewCreateAndAttachNetworkInterfaceRequest()
+    }
+    response = NewCreateAndAttachNetworkInterfaceResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewCreateAssistantCidrRequest() (request *CreateAssistantCidrRequest) {
     request = &CreateAssistantCidrRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -616,7 +646,7 @@ func NewCreateAssistantCidrResponse() (response *CreateAssistantCidrResponse) {
     return
 }
 
-// 本接口(CreateAssistantCidr)用于批量创建辅助CIDR。
+// 本接口(CreateAssistantCidr)用于批量创建辅助CIDR。（接口灰度中，如需使用请提工单。）
 func (c *Client) CreateAssistantCidr(request *CreateAssistantCidrRequest) (response *CreateAssistantCidrResponse, err error) {
     if request == nil {
         request = NewCreateAssistantCidrRequest()
@@ -641,7 +671,7 @@ func NewCreateBandwidthPackageResponse() (response *CreateBandwidthPackageRespon
     return
 }
 
-// 接口支持创建设备带宽包和ip带宽包
+// 接口支持创建设备带宽包和IP带宽包
 func (c *Client) CreateBandwidthPackage(request *CreateBandwidthPackageRequest) (response *CreateBandwidthPackageResponse, err error) {
     if request == nil {
         request = NewCreateBandwidthPackageRequest()
@@ -667,37 +697,13 @@ func NewCreateCcnResponse() (response *CreateCcnResponse) {
 }
 
 // 本接口（CreateCcn）用于创建云联网（CCN）。<br />
+// * 创建云联网同时可以绑定标签, 应答里的标签列表代表添加成功的标签。
 // 每个账号能创建的云联网实例个数是有限的，详请参考产品文档。如果需要扩充请联系在线客服。
 func (c *Client) CreateCcn(request *CreateCcnRequest) (response *CreateCcnResponse, err error) {
     if request == nil {
         request = NewCreateCcnRequest()
     }
     response = NewCreateCcnResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreateCcnBandwidthRequest() (request *CreateCcnBandwidthRequest) {
-    request = &CreateCcnBandwidthRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "CreateCcnBandwidth")
-    return
-}
-
-func NewCreateCcnBandwidthResponse() (response *CreateCcnBandwidthResponse) {
-    response = &CreateCcnBandwidthResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（CreateCcnBandwidth）用于创建预付费模式下云联网实例的地域间带宽
-func (c *Client) CreateCcnBandwidth(request *CreateCcnBandwidthRequest) (response *CreateCcnBandwidthResponse, err error) {
-    if request == nil {
-        request = NewCreateCcnBandwidthRequest()
-    }
-    response = NewCreateCcnBandwidthResponse()
     err = c.Send(request, response)
     return
 }
@@ -727,6 +733,34 @@ func (c *Client) CreateCustomerGateway(request *CreateCustomerGatewayRequest) (r
     return
 }
 
+func NewCreateDefaultSecurityGroupRequest() (request *CreateDefaultSecurityGroupRequest) {
+    request = &CreateDefaultSecurityGroupRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "CreateDefaultSecurityGroup")
+    return
+}
+
+func NewCreateDefaultSecurityGroupResponse() (response *CreateDefaultSecurityGroupResponse) {
+    response = &CreateDefaultSecurityGroupResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（CreateDefaultSecurityGroup）用于创建（如果项目下未存在默认安全组，则创建；已存在则获取。）默认安全组（SecurityGroup）。
+// * 每个账户下每个地域的每个项目的安全组数量限制。
+// * 新建的安全组的入站和出站规则默认都是全部拒绝，在创建后通常您需要再调用CreateSecurityGroupPolicies将安全组的规则设置为需要的规则。
+// * 创建安全组同时可以绑定标签, 应答里的标签列表代表添加成功的标签。
+func (c *Client) CreateDefaultSecurityGroup(request *CreateDefaultSecurityGroupRequest) (response *CreateDefaultSecurityGroupResponse, err error) {
+    if request == nil {
+        request = NewCreateDefaultSecurityGroupRequest()
+    }
+    response = NewCreateDefaultSecurityGroupResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewCreateDefaultVpcRequest() (request *CreateDefaultVpcRequest) {
     request = &CreateDefaultVpcRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -744,13 +778,13 @@ func NewCreateDefaultVpcResponse() (response *CreateDefaultVpcResponse) {
 
 // 本接口（CreateDefaultVpc）用于创建默认私有网络(VPC）。
 // 
-// 默认VPC适用于快速入门和启动公共实例，您可以像使用任何其他VPC一样使用默认VPC。如果你想创建标准VPC，即指定VPC名称、VPC网段、子网网段、子网可用区，请使用常规创建VPC接口（CreateVpc）
+// 默认VPC适用于快速入门和启动公共实例，您可以像使用任何其他VPC一样使用默认VPC。如果您想创建标准VPC，即指定VPC名称、VPC网段、子网网段、子网可用区，请使用常规创建VPC接口（CreateVpc）
 // 
 // 正常情况，本接口并不一定生产默认VPC，而是根据用户账号的网络属性（DescribeAccountAttributes）来决定的
 // * 支持基础网络、VPC，返回VpcId为0
 // * 只支持VPC，返回默认VPC信息
 // 
-// 你也可以通过 Force 参数，强制返回默认VPC
+// 您也可以通过 Force 参数，强制返回默认VPC
 func (c *Client) CreateDefaultVpc(request *CreateDefaultVpcRequest) (response *CreateDefaultVpcResponse, err error) {
     if request == nil {
         request = NewCreateDefaultVpcRequest()
@@ -876,7 +910,7 @@ func NewCreateIp6TranslatorsResponse() (response *CreateIp6TranslatorsResponse) 
 }
 
 // 1. 该接口用于创建IPV6转换IPV4实例，支持批量
-// 2. 同一个账户在在一个地域最多允许创建10个转换实例
+// 2. 同一个账户在一个地域最多允许创建10个转换实例
 func (c *Client) CreateIp6Translators(request *CreateIp6TranslatorsRequest) (response *CreateIp6TranslatorsResponse, err error) {
     if request == nil {
         request = NewCreateIp6TranslatorsRequest()
@@ -961,6 +995,32 @@ func (c *Client) CreateNetDetect(request *CreateNetDetectRequest) (response *Cre
     return
 }
 
+func NewCreateNetworkAclRequest() (request *CreateNetworkAclRequest) {
+    request = &CreateNetworkAclRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "CreateNetworkAcl")
+    return
+}
+
+func NewCreateNetworkAclResponse() (response *CreateNetworkAclResponse) {
+    response = &CreateNetworkAclResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（CreateNetworkAcl）用于创建新的网络ACL。
+// * 新建的网络ACL的入站和出站规则默认都是全部拒绝，在创建后通常您需要再调用ModifyNetworkAclEntries将网络ACL的规则设置为需要的规则。
+func (c *Client) CreateNetworkAcl(request *CreateNetworkAclRequest) (response *CreateNetworkAclResponse, err error) {
+    if request == nil {
+        request = NewCreateNetworkAclRequest()
+    }
+    response = NewCreateNetworkAclResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewCreateNetworkInterfaceRequest() (request *CreateNetworkInterfaceRequest) {
     request = &CreateNetworkInterfaceRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1008,6 +1068,7 @@ func NewCreateRouteTableResponse() (response *CreateRouteTableResponse) {
 
 // 本接口(CreateRouteTable)用于创建路由表。
 // * 创建了VPC后，系统会创建一个默认路由表，所有新建的子网都会关联到默认路由表。默认情况下您可以直接使用默认路由表来管理您的路由策略。当您的路由策略较多时，您可以调用创建路由表接口创建更多路由表管理您的路由策略。
+// * 创建路由表同时可以绑定标签, 应答里的标签列表代表添加成功的标签。
 func (c *Client) CreateRouteTable(request *CreateRouteTableRequest) (response *CreateRouteTableResponse, err error) {
     if request == nil {
         request = NewCreateRouteTableRequest()
@@ -1061,6 +1122,7 @@ func NewCreateSecurityGroupResponse() (response *CreateSecurityGroupResponse) {
 // 本接口（CreateSecurityGroup）用于创建新的安全组（SecurityGroup）。
 // * 每个账户下每个地域的每个项目的安全组数量限制。
 // * 新建的安全组的入站和出站规则默认都是全部拒绝，在创建后通常您需要再调用CreateSecurityGroupPolicies将安全组的规则设置为需要的规则。
+// * 创建安全组同时可以绑定标签, 应答里的标签列表代表添加成功的标签。
 func (c *Client) CreateSecurityGroup(request *CreateSecurityGroupRequest) (response *CreateSecurityGroupResponse, err error) {
     if request == nil {
         request = NewCreateSecurityGroupRequest()
@@ -1087,7 +1149,7 @@ func NewCreateSecurityGroupPoliciesResponse() (response *CreateSecurityGroupPoli
 
 // 本接口（CreateSecurityGroupPolicies）用于创建安全组规则（SecurityGroupPolicy）。
 // 
-// * Version安全组规则版本号，用户每次更新安全规则版本会自动加1，防止你更新的路由规则已过期，不填不考虑冲突。
+// * Version安全组规则版本号，用户每次更新安全规则版本会自动加1，防止您更新的路由规则已过期，不填不考虑冲突。
 // * Protocol字段支持输入TCP, UDP, ICMP, ICMPV6, GRE, ALL。
 // * CidrBlock字段允许输入符合cidr格式标准的任意字符串。(展开)在基础网络中，如果CidrBlock包含您的账户内的云服务器之外的设备在Tce的内网IP，并不代表此规则允许您访问这些设备，租户之间网络隔离规则优先于安全组中的内网规则。
 // * Ipv6CidrBlock字段允许输入符合IPv6 cidr格式标准的任意字符串。(展开)在基础网络中，如果Ipv6CidrBlock包含您的账户内的云服务器之外的设备在Tce的内网IPv6，并不代表此规则允许您访问这些设备，租户之间网络隔离规则优先于安全组中的内网规则。
@@ -1125,7 +1187,7 @@ func NewCreateSecurityGroupWithPoliciesResponse() (response *CreateSecurityGroup
 // * 新建的安全组的入站和出站规则默认都是全部拒绝，在创建后通常您需要再调用CreateSecurityGroupPolicies将安全组的规则设置为需要的规则。
 // 
 // 安全组规则说明：
-// * Version安全组规则版本号，用户每次更新安全规则版本会自动加1，防止你更新的路由规则已过期，不填不考虑冲突。
+// * Version安全组规则版本号，用户每次更新安全规则版本会自动加1，防止您更新的路由规则已过期，不填不考虑冲突。
 // * Protocol字段支持输入TCP, UDP, ICMP, ICMPV6, GRE, ALL。
 // * CidrBlock字段允许输入符合cidr格式标准的任意字符串。(展开)在基础网络中，如果CidrBlock包含您的账户内的云服务器之外的设备在Tce的内网IP，并不代表此规则允许您访问这些设备，租户之间网络隔离规则优先于安全组中的内网规则。
 // * Ipv6CidrBlock字段允许输入符合IPv6 cidr格式标准的任意字符串。(展开)在基础网络中，如果Ipv6CidrBlock包含您的账户内的云服务器之外的设备在Tce的内网IPv6，并不代表此规则允许您访问这些设备，租户之间网络隔离规则优先于安全组中的内网规则。
@@ -1211,9 +1273,10 @@ func NewCreateSubnetResponse() (response *CreateSubnetResponse) {
 // 本接口(CreateSubnet)用于创建子网。
 // * 创建子网前必须创建好 VPC。
 // * 子网创建成功后，子网网段不能修改。子网网段必须在VPC网段内，可以和VPC网段相同（VPC有且只有一个子网时），建议子网网段在VPC网段内，预留网段给其他子网使用。
-// * 你可以创建的最小网段子网掩码为28（有16个IP地址），最大网段子网掩码为16（65,536个IP地址）。
+// * 您可以创建的最小网段子网掩码为28（有16个IP地址），最大网段子网掩码为16（65,536个IP地址）。
 // * 同一个VPC内，多个子网的网段不能重叠。
 // * 子网创建后会自动关联到默认路由表。
+// * 创建子网同时可以绑定标签, 应答里的标签列表代表添加成功的标签。
 func (c *Client) CreateSubnet(request *CreateSubnetRequest) (response *CreateSubnetResponse, err error) {
     if request == nil {
         request = NewCreateSubnetRequest()
@@ -1241,64 +1304,15 @@ func NewCreateSubnetsResponse() (response *CreateSubnetsResponse) {
 // 本接口(CreateSubnets)用于批量创建子网。
 // * 创建子网前必须创建好 VPC。
 // * 子网创建成功后，子网网段不能修改。子网网段必须在VPC网段内，可以和VPC网段相同（VPC有且只有一个子网时），建议子网网段在VPC网段内，预留网段给其他子网使用。
-// * 你可以创建的最小网段子网掩码为28（有16个IP地址），最大网段子网掩码为16（65,536个IP地址）。
+// * 您可以创建的最小网段子网掩码为28（有16个IP地址），最大网段子网掩码为16（65,536个IP地址）。
 // * 同一个VPC内，多个子网的网段不能重叠。
 // * 子网创建后会自动关联到默认路由表。
+// * 创建子网同时可以绑定标签, 应答里的标签列表代表添加成功的标签。
 func (c *Client) CreateSubnets(request *CreateSubnetsRequest) (response *CreateSubnetsResponse, err error) {
     if request == nil {
         request = NewCreateSubnetsRequest()
     }
     response = NewCreateSubnetsResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreateTrafficMirrorRequest() (request *CreateTrafficMirrorRequest) {
-    request = &CreateTrafficMirrorRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "CreateTrafficMirror")
-    return
-}
-
-func NewCreateTrafficMirrorResponse() (response *CreateTrafficMirrorResponse) {
-    response = &CreateTrafficMirrorResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（CreateTrafficMirror）用于创建流量镜像实例。
-func (c *Client) CreateTrafficMirror(request *CreateTrafficMirrorRequest) (response *CreateTrafficMirrorResponse, err error) {
-    if request == nil {
-        request = NewCreateTrafficMirrorRequest()
-    }
-    response = NewCreateTrafficMirrorResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewCreateTrafficPackagesRequest() (request *CreateTrafficPackagesRequest) {
-    request = &CreateTrafficPackagesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "CreateTrafficPackages")
-    return
-}
-
-func NewCreateTrafficPackagesResponse() (response *CreateTrafficPackagesResponse) {
-    response = &CreateTrafficPackagesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 创建共享流量包
-func (c *Client) CreateTrafficPackages(request *CreateTrafficPackagesRequest) (response *CreateTrafficPackagesResponse, err error) {
-    if request == nil {
-        request = NewCreateTrafficPackagesRequest()
-    }
-    response = NewCreateTrafficPackagesResponse()
     err = c.Send(request, response)
     return
 }
@@ -1321,6 +1335,7 @@ func NewCreateVpcResponse() (response *CreateVpcResponse) {
 // 本接口(CreateVpc)用于创建私有网络(VPC)。
 // * 用户可以创建的最小网段子网掩码为28（有16个IP地址），最大网段子网掩码为16（65,536个IP地址）,如果规划VPC网段请参见VPC网段规划说明。
 // * 同一个地域能创建的VPC资源个数也是有限制的，详见 VPC使用限制,如果需要扩充请联系在线客服。
+// * 创建VPC同时可以绑定标签, 应答里的标签列表代表添加成功的标签。
 func (c *Client) CreateVpc(request *CreateVpcRequest) (response *CreateVpcResponse, err error) {
     if request == nil {
         request = NewCreateVpcRequest()
@@ -1445,7 +1460,7 @@ func NewDeleteAssistantCidrResponse() (response *DeleteAssistantCidrResponse) {
     return
 }
 
-// 本接口(DeleteAssistantCidr)用于删除辅助CIDR。
+// 本接口(DeleteAssistantCidr)用于删除辅助CIDR。（接口灰度中，如需使用请提工单。）
 func (c *Client) DeleteAssistantCidr(request *DeleteAssistantCidrRequest) (response *DeleteAssistantCidrResponse, err error) {
     if request == nil {
         request = NewDeleteAssistantCidrRequest()
@@ -1470,7 +1485,7 @@ func NewDeleteBandwidthPackageResponse() (response *DeleteBandwidthPackageRespon
     return
 }
 
-// 接口支持删除共享带宽包，包括设备带宽包和ip带宽包
+// 接口支持删除共享带宽包，包括设备带宽包和IP带宽包
 func (c *Client) DeleteBandwidthPackage(request *DeleteBandwidthPackageRequest) (response *DeleteBandwidthPackageResponse, err error) {
     if request == nil {
         request = NewDeleteBandwidthPackageRequest()
@@ -1503,31 +1518,6 @@ func (c *Client) DeleteCcn(request *DeleteCcnRequest) (response *DeleteCcnRespon
         request = NewDeleteCcnRequest()
     }
     response = NewDeleteCcnResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDeleteCcnRegionBandwidthLimitsRequest() (request *DeleteCcnRegionBandwidthLimitsRequest) {
-    request = &DeleteCcnRegionBandwidthLimitsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DeleteCcnRegionBandwidthLimits")
-    return
-}
-
-func NewDeleteCcnRegionBandwidthLimitsResponse() (response *DeleteCcnRegionBandwidthLimitsResponse) {
-    response = &DeleteCcnRegionBandwidthLimitsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（DeleteCcnRegionBandwidthLimits）用于删除云联网实例的限速规则。
-func (c *Client) DeleteCcnRegionBandwidthLimits(request *DeleteCcnRegionBandwidthLimitsRequest) (response *DeleteCcnRegionBandwidthLimitsResponse, err error) {
-    if request == nil {
-        request = NewDeleteCcnRegionBandwidthLimitsRequest()
-    }
-    response = NewDeleteCcnRegionBandwidthLimitsResponse()
     err = c.Send(request, response)
     return
 }
@@ -1763,6 +1753,31 @@ func (c *Client) DeleteNetDetect(request *DeleteNetDetectRequest) (response *Del
     return
 }
 
+func NewDeleteNetworkAclRequest() (request *DeleteNetworkAclRequest) {
+    request = &DeleteNetworkAclRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "DeleteNetworkAcl")
+    return
+}
+
+func NewDeleteNetworkAclResponse() (response *DeleteNetworkAclResponse) {
+    response = &DeleteNetworkAclResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（DeleteNetworkAcl）用于删除网络ACL。
+func (c *Client) DeleteNetworkAcl(request *DeleteNetworkAclRequest) (response *DeleteNetworkAclResponse, err error) {
+    if request == nil {
+        request = NewDeleteNetworkAclRequest()
+    }
+    response = NewDeleteNetworkAclResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewDeleteNetworkInterfaceRequest() (request *DeleteNetworkInterfaceRequest) {
     request = &DeleteNetworkInterfaceRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -1779,7 +1794,7 @@ func NewDeleteNetworkInterfaceResponse() (response *DeleteNetworkInterfaceRespon
 }
 
 // 本接口（DeleteNetworkInterface）用于删除弹性网卡。
-// * 弹性网卡上绑定了云主机时，不能被删除。
+// * 弹性网卡上绑定了云服务器时，不能被删除。
 // * 删除指定弹性网卡，弹性网卡必须先和子机解绑才能删除。删除之后弹性网卡上所有内网IP都将被退还。
 func (c *Client) DeleteNetworkInterface(request *DeleteNetworkInterfaceRequest) (response *DeleteNetworkInterfaceResponse, err error) {
     if request == nil {
@@ -1960,62 +1975,12 @@ func NewDeleteSubnetResponse() (response *DeleteSubnetResponse) {
 }
 
 // 本接口（DeleteSubnet）用于用于删除子网(Subnet)。
-// * 删除子网前，请清理该子网下所有资源，包括云主机、负载均衡、云数据、noSql、弹性网卡等资源。
+// * 删除子网前，请清理该子网下所有资源，包括云服务器、负载均衡、云数据、noSql、弹性网卡等资源。
 func (c *Client) DeleteSubnet(request *DeleteSubnetRequest) (response *DeleteSubnetResponse, err error) {
     if request == nil {
         request = NewDeleteSubnetRequest()
     }
     response = NewDeleteSubnetResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDeleteTrafficMirrorRequest() (request *DeleteTrafficMirrorRequest) {
-    request = &DeleteTrafficMirrorRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DeleteTrafficMirror")
-    return
-}
-
-func NewDeleteTrafficMirrorResponse() (response *DeleteTrafficMirrorResponse) {
-    response = &DeleteTrafficMirrorResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（DeleteTrafficMirror）用于删除流量镜像实例。
-func (c *Client) DeleteTrafficMirror(request *DeleteTrafficMirrorRequest) (response *DeleteTrafficMirrorResponse, err error) {
-    if request == nil {
-        request = NewDeleteTrafficMirrorRequest()
-    }
-    response = NewDeleteTrafficMirrorResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDeleteTrafficPackagesRequest() (request *DeleteTrafficPackagesRequest) {
-    request = &DeleteTrafficPackagesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DeleteTrafficPackages")
-    return
-}
-
-func NewDeleteTrafficPackagesResponse() (response *DeleteTrafficPackagesResponse) {
-    response = &DeleteTrafficPackagesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 删除共享带宽包（仅非活动状态的流量包可删除）。
-func (c *Client) DeleteTrafficPackages(request *DeleteTrafficPackagesRequest) (response *DeleteTrafficPackagesResponse, err error) {
-    if request == nil {
-        request = NewDeleteTrafficPackagesRequest()
-    }
-    response = NewDeleteTrafficPackagesResponse()
     err = c.Send(request, response)
     return
 }
@@ -2036,7 +2001,7 @@ func NewDeleteVpcResponse() (response *DeleteVpcResponse) {
 }
 
 // 本接口（DeleteVpc）用于删除私有网络。
-// * 删除前请确保 VPC 内已经没有相关资源，例如云主机、云数据库、NoSQL、VPN网关、专线网关、负载均衡、对等连接、与之互通的基础网络设备等。
+// * 删除前请确保 VPC 内已经没有相关资源，例如云服务器、云数据库、NoSQL、VPN网关、专线网关、负载均衡、对等连接、与之互通的基础网络设备等。
 // * 删除私有网络是不可逆的操作，请谨慎处理。
 func (c *Client) DeleteVpc(request *DeleteVpcRequest) (response *DeleteVpcResponse, err error) {
     if request == nil {
@@ -2122,81 +2087,6 @@ func (c *Client) DescribeAccountAttributes(request *DescribeAccountAttributesReq
     return
 }
 
-func NewDescribeAddressAssociationQuotaRequest() (request *DescribeAddressAssociationQuotaRequest) {
-    request = &DescribeAddressAssociationQuotaRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeAddressAssociationQuota")
-    return
-}
-
-func NewDescribeAddressAssociationQuotaResponse() (response *DescribeAddressAssociationQuotaResponse) {
-    response = &DescribeAddressAssociationQuotaResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询弹性公网IP（EIP）绑定配额
-func (c *Client) DescribeAddressAssociationQuota(request *DescribeAddressAssociationQuotaRequest) (response *DescribeAddressAssociationQuotaResponse, err error) {
-    if request == nil {
-        request = NewDescribeAddressAssociationQuotaRequest()
-    }
-    response = NewDescribeAddressAssociationQuotaResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeAddressAvailabilityRequest() (request *DescribeAddressAvailabilityRequest) {
-    request = &DescribeAddressAvailabilityRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeAddressAvailability")
-    return
-}
-
-func NewDescribeAddressAvailabilityResponse() (response *DescribeAddressAvailabilityResponse) {
-    response = &DescribeAddressAvailabilityResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询弹性公网IP（EIP）库存状态
-func (c *Client) DescribeAddressAvailability(request *DescribeAddressAvailabilityRequest) (response *DescribeAddressAvailabilityResponse, err error) {
-    if request == nil {
-        request = NewDescribeAddressAvailabilityRequest()
-    }
-    response = NewDescribeAddressAvailabilityResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeAddressBandwidthConfigsRequest() (request *DescribeAddressBandwidthConfigsRequest) {
-    request = &DescribeAddressBandwidthConfigsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeAddressBandwidthConfigs")
-    return
-}
-
-func NewDescribeAddressBandwidthConfigsResponse() (response *DescribeAddressBandwidthConfigsResponse) {
-    response = &DescribeAddressBandwidthConfigsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 无
-func (c *Client) DescribeAddressBandwidthConfigs(request *DescribeAddressBandwidthConfigsRequest) (response *DescribeAddressBandwidthConfigsResponse, err error) {
-    if request == nil {
-        request = NewDescribeAddressBandwidthConfigsRequest()
-    }
-    response = NewDescribeAddressBandwidthConfigsResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeAddressQuotaRequest() (request *DescribeAddressQuotaRequest) {
     request = &DescribeAddressQuotaRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -2218,31 +2108,6 @@ func (c *Client) DescribeAddressQuota(request *DescribeAddressQuotaRequest) (res
         request = NewDescribeAddressQuotaRequest()
     }
     response = NewDescribeAddressQuotaResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeAddressSetRequest() (request *DescribeAddressSetRequest) {
-    request = &DescribeAddressSetRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeAddressSet")
-    return
-}
-
-func NewDescribeAddressSetResponse() (response *DescribeAddressSetResponse) {
-    response = &DescribeAddressSetResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 该接口支持查询弹性公网IP集群上的IP状态
-func (c *Client) DescribeAddressSet(request *DescribeAddressSetRequest) (response *DescribeAddressSetResponse, err error) {
-    if request == nil {
-        request = NewDescribeAddressSetRequest()
-    }
-    response = NewDescribeAddressSetResponse()
     err = c.Send(request, response)
     return
 }
@@ -2323,31 +2188,6 @@ func (c *Client) DescribeAddresses(request *DescribeAddressesRequest) (response 
     return
 }
 
-func NewDescribeAddressesHistoryRequest() (request *DescribeAddressesHistoryRequest) {
-    request = &DescribeAddressesHistoryRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeAddressesHistory")
-    return
-}
-
-func NewDescribeAddressesHistoryResponse() (response *DescribeAddressesHistoryResponse) {
-    response = &DescribeAddressesHistoryResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 该接口用于查询账户以往使用过但是当前已释放的eip记录
-func (c *Client) DescribeAddressesHistory(request *DescribeAddressesHistoryRequest) (response *DescribeAddressesHistoryResponse, err error) {
-    if request == nil {
-        request = NewDescribeAddressesHistoryRequest()
-    }
-    response = NewDescribeAddressesHistoryResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeAssistantCidrRequest() (request *DescribeAssistantCidrRequest) {
     request = &DescribeAssistantCidrRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -2363,62 +2203,12 @@ func NewDescribeAssistantCidrResponse() (response *DescribeAssistantCidrResponse
     return
 }
 
-// 本接口（DescribeAssistantCidr）用于查询辅助CIDR列表。
+// 本接口（DescribeAssistantCidr）用于查询辅助CIDR列表。（接口灰度中，如需使用请提工单。）
 func (c *Client) DescribeAssistantCidr(request *DescribeAssistantCidrRequest) (response *DescribeAssistantCidrResponse, err error) {
     if request == nil {
         request = NewDescribeAssistantCidrRequest()
     }
     response = NewDescribeAssistantCidrResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeAvailableZoneRequest() (request *DescribeAvailableZoneRequest) {
-    request = &DescribeAvailableZoneRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeAvailableZone")
-    return
-}
-
-func NewDescribeAvailableZoneResponse() (response *DescribeAvailableZoneResponse) {
-    response = &DescribeAvailableZoneResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取EIP可用区列表信息
-func (c *Client) DescribeAvailableZone(request *DescribeAvailableZoneRequest) (response *DescribeAvailableZoneResponse, err error) {
-    if request == nil {
-        request = NewDescribeAvailableZoneRequest()
-    }
-    response = NewDescribeAvailableZoneResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeBandwidthAttributeRequest() (request *DescribeBandwidthAttributeRequest) {
-    request = &DescribeBandwidthAttributeRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeBandwidthAttribute")
-    return
-}
-
-func NewDescribeBandwidthAttributeResponse() (response *DescribeBandwidthAttributeResponse) {
-    response = &DescribeBandwidthAttributeResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 该接口用于查询转化的带宽属性。
-func (c *Client) DescribeBandwidthAttribute(request *DescribeBandwidthAttributeRequest) (response *DescribeBandwidthAttributeResponse, err error) {
-    if request == nil {
-        request = NewDescribeBandwidthAttributeRequest()
-    }
-    response = NewDescribeBandwidthAttributeResponse()
     err = c.Send(request, response)
     return
 }
@@ -2444,31 +2234,6 @@ func (c *Client) DescribeBandwidthPackageQuota(request *DescribeBandwidthPackage
         request = NewDescribeBandwidthPackageQuotaRequest()
     }
     response = NewDescribeBandwidthPackageQuotaResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeBandwidthPackageResourcesRequest() (request *DescribeBandwidthPackageResourcesRequest) {
-    request = &DescribeBandwidthPackageResourcesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeBandwidthPackageResources")
-    return
-}
-
-func NewDescribeBandwidthPackageResourcesResponse() (response *DescribeBandwidthPackageResourcesResponse) {
-    response = &DescribeBandwidthPackageResourcesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口 (DescribeBandwidthPackageResources) 用于根据共享带宽包唯一ID查询共享带宽包内的资源列表，支持按条件过滤查询结果和分页查询。
-func (c *Client) DescribeBandwidthPackageResources(request *DescribeBandwidthPackageResourcesRequest) (response *DescribeBandwidthPackageResourcesResponse, err error) {
-    if request == nil {
-        request = NewDescribeBandwidthPackageResourcesRequest()
-    }
-    response = NewDescribeBandwidthPackageResourcesResponse()
     err = c.Send(request, response)
     return
 }
@@ -2519,31 +2284,6 @@ func (c *Client) DescribeCcnAttachedInstances(request *DescribeCcnAttachedInstan
         request = NewDescribeCcnAttachedInstancesRequest()
     }
     response = NewDescribeCcnAttachedInstancesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeCcnLimitsRequest() (request *DescribeCcnLimitsRequest) {
-    request = &DescribeCcnLimitsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeCcnLimits")
-    return
-}
-
-func NewDescribeCcnLimitsResponse() (response *DescribeCcnLimitsResponse) {
-    response = &DescribeCcnLimitsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（DescribeCcnLimits）用于查询云联网配额。
-func (c *Client) DescribeCcnLimits(request *DescribeCcnLimitsRequest) (response *DescribeCcnLimitsResponse, err error) {
-    if request == nil {
-        request = NewDescribeCcnLimitsRequest()
-    }
-    response = NewDescribeCcnLimitsResponse()
     err = c.Send(request, response)
     return
 }
@@ -2748,56 +2488,6 @@ func (c *Client) DescribeDirectConnectGateways(request *DescribeDirectConnectGat
     return
 }
 
-func NewDescribeEIPIspInfoRequest() (request *DescribeEIPIspInfoRequest) {
-    request = &DescribeEIPIspInfoRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeEIPIspInfo")
-    return
-}
-
-func NewDescribeEIPIspInfoResponse() (response *DescribeEIPIspInfoResponse) {
-    response = &DescribeEIPIspInfoResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（DescribeEIPIspInfo）用户查询EIP运营商信息
-func (c *Client) DescribeEIPIspInfo(request *DescribeEIPIspInfoRequest) (response *DescribeEIPIspInfoResponse, err error) {
-    if request == nil {
-        request = NewDescribeEIPIspInfoRequest()
-    }
-    response = NewDescribeEIPIspInfoResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeEipStatisticsRequest() (request *DescribeEipStatisticsRequest) {
-    request = &DescribeEipStatisticsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeEipStatistics")
-    return
-}
-
-func NewDescribeEipStatisticsResponse() (response *DescribeEipStatisticsResponse) {
-    response = &DescribeEipStatisticsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 接口用于查询各地域EIP数量统计信息，包括全地域EIP总数，和各地域的地域名称及其EIP总数等。
-func (c *Client) DescribeEipStatistics(request *DescribeEipStatisticsRequest) (response *DescribeEipStatisticsResponse, err error) {
-    if request == nil {
-        request = NewDescribeEipStatisticsRequest()
-    }
-    response = NewDescribeEipStatisticsResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeFlowLogRequest() (request *DescribeFlowLogRequest) {
     request = &DescribeFlowLogRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -2875,6 +2565,31 @@ func (c *Client) DescribeGatewayFlowMonitorDetail(request *DescribeGatewayFlowMo
     return
 }
 
+func NewDescribeGatewayFlowQosRequest() (request *DescribeGatewayFlowQosRequest) {
+    request = &DescribeGatewayFlowQosRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "DescribeGatewayFlowQos")
+    return
+}
+
+func NewDescribeGatewayFlowQosResponse() (response *DescribeGatewayFlowQosResponse) {
+    response = &DescribeGatewayFlowQosResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（DescribeGatewayFlowQos）用于查询网关来访IP流控带宽。
+func (c *Client) DescribeGatewayFlowQos(request *DescribeGatewayFlowQosRequest) (response *DescribeGatewayFlowQosResponse, err error) {
+    if request == nil {
+        request = NewDescribeGatewayFlowQosRequest()
+    }
+    response = NewDescribeGatewayFlowQosResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewDescribeHaVipsRequest() (request *DescribeHaVipsRequest) {
     request = &DescribeHaVipsRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -2921,31 +2636,6 @@ func (c *Client) DescribeIp6Addresses(request *DescribeIp6AddressesRequest) (res
         request = NewDescribeIp6AddressesRequest()
     }
     response = NewDescribeIp6AddressesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeIp6IdcInfoRequest() (request *DescribeIp6IdcInfoRequest) {
-    request = &DescribeIp6IdcInfoRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeIp6IdcInfo")
-    return
-}
-
-func NewDescribeIp6IdcInfoResponse() (response *DescribeIp6IdcInfoResponse) {
-    response = &DescribeIp6IdcInfoResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询IPV6创建时的IDC信息
-func (c *Client) DescribeIp6IdcInfo(request *DescribeIp6IdcInfoRequest) (response *DescribeIp6IdcInfoResponse, err error) {
-    if request == nil {
-        request = NewDescribeIp6IdcInfoRequest()
-    }
-    response = NewDescribeIp6IdcInfoResponse()
     err = c.Send(request, response)
     return
 }
@@ -3001,31 +2691,6 @@ func (c *Client) DescribeIp6Translators(request *DescribeIp6TranslatorsRequest) 
     return
 }
 
-func NewDescribeIpOnlineRequest() (request *DescribeIpOnlineRequest) {
-    request = &DescribeIpOnlineRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeIpOnline")
-    return
-}
-
-func NewDescribeIpOnlineResponse() (response *DescribeIpOnlineResponse) {
-    response = &DescribeIpOnlineResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询IP地址信息，包括地理位置信息和网络信息
-func (c *Client) DescribeIpOnline(request *DescribeIpOnlineRequest) (response *DescribeIpOnlineResponse, err error) {
-    if request == nil {
-        request = NewDescribeIpOnlineRequest()
-    }
-    response = NewDescribeIpOnlineResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeNatGatewayDestinationIpPortTranslationNatRulesRequest() (request *DescribeNatGatewayDestinationIpPortTranslationNatRulesRequest) {
     request = &DescribeNatGatewayDestinationIpPortTranslationNatRulesRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -3047,31 +2712,6 @@ func (c *Client) DescribeNatGatewayDestinationIpPortTranslationNatRules(request 
         request = NewDescribeNatGatewayDestinationIpPortTranslationNatRulesRequest()
     }
     response = NewDescribeNatGatewayDestinationIpPortTranslationNatRulesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeNatGatewayQuotaRequest() (request *DescribeNatGatewayQuotaRequest) {
-    request = &DescribeNatGatewayQuotaRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeNatGatewayQuota")
-    return
-}
-
-func NewDescribeNatGatewayQuotaResponse() (response *DescribeNatGatewayQuotaResponse) {
-    response = &DescribeNatGatewayQuotaResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（DescribeNatGatewayQuota）用于查询 NAT 网关配额。
-func (c *Client) DescribeNatGatewayQuota(request *DescribeNatGatewayQuotaRequest) (response *DescribeNatGatewayQuotaResponse, err error) {
-    if request == nil {
-        request = NewDescribeNatGatewayQuotaRequest()
-    }
-    response = NewDescribeNatGatewayQuotaResponse()
     err = c.Send(request, response)
     return
 }
@@ -3151,6 +2791,56 @@ func (c *Client) DescribeNetDetects(request *DescribeNetDetectsRequest) (respons
     return
 }
 
+func NewDescribeNetworkAclsRequest() (request *DescribeNetworkAclsRequest) {
+    request = &DescribeNetworkAclsRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "DescribeNetworkAcls")
+    return
+}
+
+func NewDescribeNetworkAclsResponse() (response *DescribeNetworkAclsResponse) {
+    response = &DescribeNetworkAclsResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（DescribeNetworkAcls）用于查询网络ACL列表。
+func (c *Client) DescribeNetworkAcls(request *DescribeNetworkAclsRequest) (response *DescribeNetworkAclsResponse, err error) {
+    if request == nil {
+        request = NewDescribeNetworkAclsRequest()
+    }
+    response = NewDescribeNetworkAclsResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewDescribeNetworkInterfaceExtendIpsRequest() (request *DescribeNetworkInterfaceExtendIpsRequest) {
+    request = &DescribeNetworkInterfaceExtendIpsRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "DescribeNetworkInterfaceExtendIps")
+    return
+}
+
+func NewDescribeNetworkInterfaceExtendIpsResponse() (response *DescribeNetworkInterfaceExtendIpsResponse) {
+    response = &DescribeNetworkInterfaceExtendIpsResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 获取弹性网卡的扩展ip
+func (c *Client) DescribeNetworkInterfaceExtendIps(request *DescribeNetworkInterfaceExtendIpsRequest) (response *DescribeNetworkInterfaceExtendIpsResponse, err error) {
+    if request == nil {
+        request = NewDescribeNetworkInterfaceExtendIpsRequest()
+    }
+    response = NewDescribeNetworkInterfaceExtendIpsResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewDescribeNetworkInterfaceLimitRequest() (request *DescribeNetworkInterfaceLimitRequest) {
     request = &DescribeNetworkInterfaceLimitRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -3166,7 +2856,7 @@ func NewDescribeNetworkInterfaceLimitResponse() (response *DescribeNetworkInterf
     return
 }
 
-// 本接口（DescribeNetworkInterfaceLimit）根据CVM实例ID查询弹性网卡配额，返回该CVM实例能绑定的弹性网卡配额，以及每个弹性网卡可以分配的ip配额
+// 本接口（DescribeNetworkInterfaceLimit）根据CVM实例ID或弹性网卡ID查询弹性网卡配额，返回该CVM实例或弹性网卡能绑定的弹性网卡配额，以及弹性网卡可以分配的IP配额
 func (c *Client) DescribeNetworkInterfaceLimit(request *DescribeNetworkInterfaceLimitRequest) (response *DescribeNetworkInterfaceLimitResponse, err error) {
     if request == nil {
         request = NewDescribeNetworkInterfaceLimitRequest()
@@ -3197,56 +2887,6 @@ func (c *Client) DescribeNetworkInterfaces(request *DescribeNetworkInterfacesReq
         request = NewDescribeNetworkInterfacesRequest()
     }
     response = NewDescribeNetworkInterfacesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeNetworkInterfacesExtraRequest() (request *DescribeNetworkInterfacesExtraRequest) {
-    request = &DescribeNetworkInterfacesExtraRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeNetworkInterfacesExtra")
-    return
-}
-
-func NewDescribeNetworkInterfacesExtraResponse() (response *DescribeNetworkInterfacesExtraResponse) {
-    response = &DescribeNetworkInterfacesExtraResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（DescribeNetworkInterfacesExtra）用于查询弹性网卡列表（IP维度），支持根据内网IP模糊查询。
-func (c *Client) DescribeNetworkInterfacesExtra(request *DescribeNetworkInterfacesExtraRequest) (response *DescribeNetworkInterfacesExtraResponse, err error) {
-    if request == nil {
-        request = NewDescribeNetworkInterfacesExtraRequest()
-    }
-    response = NewDescribeNetworkInterfacesExtraResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeRegionsRequest() (request *DescribeRegionsRequest) {
-    request = &DescribeRegionsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeRegions")
-    return
-}
-
-func NewDescribeRegionsResponse() (response *DescribeRegionsResponse) {
-    response = &DescribeRegionsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（DescribeRegions）用于查询Tce地域（大区）列表，本接口没有入参，固定返回已开服的所有大区列表。
-func (c *Client) DescribeRegions(request *DescribeRegionsRequest) (response *DescribeRegionsResponse, err error) {
-    if request == nil {
-        request = NewDescribeRegionsRequest()
-    }
-    response = NewDescribeRegionsResponse()
     err = c.Send(request, response)
     return
 }
@@ -3326,6 +2966,31 @@ func (c *Client) DescribeSecurityGroupAssociationStatistics(request *DescribeSec
     return
 }
 
+func NewDescribeSecurityGroupLimitsRequest() (request *DescribeSecurityGroupLimitsRequest) {
+    request = &DescribeSecurityGroupLimitsRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "DescribeSecurityGroupLimits")
+    return
+}
+
+func NewDescribeSecurityGroupLimitsResponse() (response *DescribeSecurityGroupLimitsResponse) {
+    response = &DescribeSecurityGroupLimitsResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口(DescribeSecurityGroupLimits)用于查询用户安全组配额。
+func (c *Client) DescribeSecurityGroupLimits(request *DescribeSecurityGroupLimitsRequest) (response *DescribeSecurityGroupLimitsResponse, err error) {
+    if request == nil {
+        request = NewDescribeSecurityGroupLimitsRequest()
+    }
+    response = NewDescribeSecurityGroupLimitsResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewDescribeSecurityGroupPoliciesRequest() (request *DescribeSecurityGroupPoliciesRequest) {
     request = &DescribeSecurityGroupPoliciesRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -3347,6 +3012,31 @@ func (c *Client) DescribeSecurityGroupPolicies(request *DescribeSecurityGroupPol
         request = NewDescribeSecurityGroupPoliciesRequest()
     }
     response = NewDescribeSecurityGroupPoliciesResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewDescribeSecurityGroupReferencesRequest() (request *DescribeSecurityGroupReferencesRequest) {
+    request = &DescribeSecurityGroupReferencesRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "DescribeSecurityGroupReferences")
+    return
+}
+
+func NewDescribeSecurityGroupReferencesResponse() (response *DescribeSecurityGroupReferencesResponse) {
+    response = &DescribeSecurityGroupReferencesResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（DescribeSecurityGroupReferences）用于查询安全组被引用信息。
+func (c *Client) DescribeSecurityGroupReferences(request *DescribeSecurityGroupReferencesRequest) (response *DescribeSecurityGroupReferencesResponse, err error) {
+    if request == nil {
+        request = NewDescribeSecurityGroupReferencesRequest()
+    }
+    response = NewDescribeSecurityGroupReferencesResponse()
     err = c.Send(request, response)
     return
 }
@@ -3426,31 +3116,6 @@ func (c *Client) DescribeServiceTemplates(request *DescribeServiceTemplatesReque
     return
 }
 
-func NewDescribeSingleIspRegionRequest() (request *DescribeSingleIspRegionRequest) {
-    request = &DescribeSingleIspRegionRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeSingleIspRegion")
-    return
-}
-
-func NewDescribeSingleIspRegionResponse() (response *DescribeSingleIspRegionResponse) {
-    response = &DescribeSingleIspRegionResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询可用区对应的EIP运营商信息，包括CMCC/CTCC/CUCC
-func (c *Client) DescribeSingleIspRegion(request *DescribeSingleIspRegionRequest) (response *DescribeSingleIspRegionResponse, err error) {
-    if request == nil {
-        request = NewDescribeSingleIspRegionRequest()
-    }
-    response = NewDescribeSingleIspRegionResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewDescribeSubnetsRequest() (request *DescribeSubnetsRequest) {
     request = &DescribeSubnetsRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -3501,102 +3166,52 @@ func (c *Client) DescribeTaskResult(request *DescribeTaskResultRequest) (respons
     return
 }
 
-func NewDescribeTrafficMirrorsRequest() (request *DescribeTrafficMirrorsRequest) {
-    request = &DescribeTrafficMirrorsRequest{
+func NewDescribeTemplateLimitsRequest() (request *DescribeTemplateLimitsRequest) {
+    request = &DescribeTemplateLimitsRequest{
         BaseRequest: &tchttp.BaseRequest{},
     }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeTrafficMirrors")
+    request.Init().WithApiInfo("vpc", APIVersion, "DescribeTemplateLimits")
     return
 }
 
-func NewDescribeTrafficMirrorsResponse() (response *DescribeTrafficMirrorsResponse) {
-    response = &DescribeTrafficMirrorsResponse{
+func NewDescribeTemplateLimitsResponse() (response *DescribeTemplateLimitsResponse) {
+    response = &DescribeTemplateLimitsResponse{
         BaseResponse: &tchttp.BaseResponse{},
     }
     return
 }
 
-// 本接口（DescribeTrafficMirrors）用于查询流量镜像实例信息。
-func (c *Client) DescribeTrafficMirrors(request *DescribeTrafficMirrorsRequest) (response *DescribeTrafficMirrorsResponse, err error) {
+// 本接口（DescribeTemplateLimits）用于查询参数模板配额列表。
+func (c *Client) DescribeTemplateLimits(request *DescribeTemplateLimitsRequest) (response *DescribeTemplateLimitsResponse, err error) {
     if request == nil {
-        request = NewDescribeTrafficMirrorsRequest()
+        request = NewDescribeTemplateLimitsRequest()
     }
-    response = NewDescribeTrafficMirrorsResponse()
+    response = NewDescribeTemplateLimitsResponse()
     err = c.Send(request, response)
     return
 }
 
-func NewDescribeTrafficPackageQuotaRequest() (request *DescribeTrafficPackageQuotaRequest) {
-    request = &DescribeTrafficPackageQuotaRequest{
+func NewDescribeVpcInstancesRequest() (request *DescribeVpcInstancesRequest) {
+    request = &DescribeVpcInstancesRequest{
         BaseRequest: &tchttp.BaseRequest{},
     }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeTrafficPackageQuota")
+    request.Init().WithApiInfo("vpc", APIVersion, "DescribeVpcInstances")
     return
 }
 
-func NewDescribeTrafficPackageQuotaResponse() (response *DescribeTrafficPackageQuotaResponse) {
-    response = &DescribeTrafficPackageQuotaResponse{
+func NewDescribeVpcInstancesResponse() (response *DescribeVpcInstancesResponse) {
+    response = &DescribeVpcInstancesResponse{
         BaseResponse: &tchttp.BaseResponse{},
     }
     return
 }
 
-// 接口用于查询账户在当前地域的共享流量包上限数量以及使用数量
-func (c *Client) DescribeTrafficPackageQuota(request *DescribeTrafficPackageQuotaRequest) (response *DescribeTrafficPackageQuotaResponse, err error) {
+//  本接口（DescribeVpcInstances）用于查询VPC下的云主机实例列表。
+func (c *Client) DescribeVpcInstances(request *DescribeVpcInstancesRequest) (response *DescribeVpcInstancesResponse, err error) {
     if request == nil {
-        request = NewDescribeTrafficPackageQuotaRequest()
+        request = NewDescribeVpcInstancesRequest()
     }
-    response = NewDescribeTrafficPackageQuotaResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeTrafficPackageStatisticsRequest() (request *DescribeTrafficPackageStatisticsRequest) {
-    request = &DescribeTrafficPackageStatisticsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeTrafficPackageStatistics")
-    return
-}
-
-func NewDescribeTrafficPackageStatisticsResponse() (response *DescribeTrafficPackageStatisticsResponse) {
-    response = &DescribeTrafficPackageStatisticsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 接口用于查询各地域共享流量包数量统计信息，包括全地域共享流量包总数、各地域的地域名称及其共享流量包总数等。
-func (c *Client) DescribeTrafficPackageStatistics(request *DescribeTrafficPackageStatisticsRequest) (response *DescribeTrafficPackageStatisticsResponse, err error) {
-    if request == nil {
-        request = NewDescribeTrafficPackageStatisticsRequest()
-    }
-    response = NewDescribeTrafficPackageStatisticsResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewDescribeTrafficPackagesRequest() (request *DescribeTrafficPackagesRequest) {
-    request = &DescribeTrafficPackagesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeTrafficPackages")
-    return
-}
-
-func NewDescribeTrafficPackagesResponse() (response *DescribeTrafficPackagesResponse) {
-    response = &DescribeTrafficPackagesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 接口用于查询共享流量包详细信息，包括共享流量包唯一标识ID，名称，流量使用信息等
-func (c *Client) DescribeTrafficPackages(request *DescribeTrafficPackagesRequest) (response *DescribeTrafficPackagesResponse, err error) {
-    if request == nil {
-        request = NewDescribeTrafficPackagesRequest()
-    }
-    response = NewDescribeTrafficPackagesResponse()
+    response = NewDescribeVpcInstancesResponse()
     err = c.Send(request, response)
     return
 }
@@ -3623,6 +3238,60 @@ func (c *Client) DescribeVpcIpv6Addresses(request *DescribeVpcIpv6AddressesReque
         request = NewDescribeVpcIpv6AddressesRequest()
     }
     response = NewDescribeVpcIpv6AddressesResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewDescribeVpcLimitsRequest() (request *DescribeVpcLimitsRequest) {
+    request = &DescribeVpcLimitsRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "DescribeVpcLimits")
+    return
+}
+
+func NewDescribeVpcLimitsResponse() (response *DescribeVpcLimitsResponse) {
+    response = &DescribeVpcLimitsResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 获取私有网络配额，部分私有网络的配额有地域属性。
+// LimitTypes取值范围：
+// * appid-max-vpcs （每个开发商每个地域可创建的VPC数）
+// * vpc-max-subnets（每个VPC可创建的子网数）
+// * vpc-max-route-tables（每个VPC可创建的路由表数）
+// * route-table-max-policies（每个路由表可添加的策略数）
+// * vpc-max-vpn-gateways（每个VPC可创建的VPN网关数）
+// * appid-max-custom-gateways（每个开发商可创建的对端网关数）
+// * appid-max-vpn-connections（每个开发商可创建的VPN通道数）
+// * custom-gateway-max-vpn-connections（每个对端网关可创建的VPN通道数）
+// * vpn-gateway-max-custom-gateways（每个VPNGW可以创建的通道数）
+// * vpc-max-network-acls（每个VPC可创建的网络ACL数）
+// * network-acl-max-inbound-policies（每个网络ACL可添加的入站规则数）
+// * network-acl-max-outbound-policies（每个网络ACL可添加的出站规则数）
+// * vpc-max-vpcpeers（每个VPC可创建的对等连接数）
+// * vpc-max-available-vpcpeers（每个VPC可创建的有效对等连接数）
+// * vpc-max-basic-network-interconnections（每个VPC可创建的基础网络云主机与VPC互通数）
+// * direct-connection-max-snats（每个专线网关可创建的SNAT数）
+// * direct-connection-max-dnats（每个专线网关可创建的DNAT数）
+// * direct-connection-max-snapts（每个专线网关可创建的SNAPT数）
+// * direct-connection-max-dnapts（每个专线网关可创建的DNAPT数）
+// * vpc-max-nat-gateways（每个VPC可创建的NAT网关数）
+// * nat-gateway-max-eips（每个NAT可以购买的外网IP数量）
+// * vpc-max-enis（每个VPC可创建弹性网卡数）
+// * vpc-max-havips（每个VPC可创建HAVIP数）
+// * eni-max-private-ips（每个ENI可以绑定的内网IP数（ENI未绑定子机））
+// * nat-gateway-max-dnapts（每个NAT网关可创建的DNAPT数）
+// * vpc-max-ipv6s（每个VPC可分配的IPv6地址数）
+// * eni-max-ipv6s（每个ENI可分配的IPv6地址数）
+// * vpc-max-assistant_cidrs（每个VPC可分配的辅助CIDR数）
+func (c *Client) DescribeVpcLimits(request *DescribeVpcLimitsRequest) (response *DescribeVpcLimitsResponse, err error) {
+    if request == nil {
+        request = NewDescribeVpcLimitsRequest()
+    }
+    response = NewDescribeVpcLimitsResponse()
     err = c.Send(request, response)
     return
 }
@@ -3668,7 +3337,7 @@ func NewDescribeVpcResourceDashboardResponse() (response *DescribeVpcResourceDas
     return
 }
 
-// 查看VPC资源
+// 本接口(DescribeVpcResourceDashboard)用于查看VPC资源信息。
 func (c *Client) DescribeVpcResourceDashboard(request *DescribeVpcResourceDashboardRequest) (response *DescribeVpcResourceDashboardResponse, err error) {
     if request == nil {
         request = NewDescribeVpcResourceDashboardRequest()
@@ -3728,27 +3397,27 @@ func (c *Client) DescribeVpnConnections(request *DescribeVpnConnectionsRequest) 
     return
 }
 
-func NewDescribeVpnGatewayQuotaRequest() (request *DescribeVpnGatewayQuotaRequest) {
-    request = &DescribeVpnGatewayQuotaRequest{
+func NewDescribeVpnGatewayCcnRoutesRequest() (request *DescribeVpnGatewayCcnRoutesRequest) {
+    request = &DescribeVpnGatewayCcnRoutesRequest{
         BaseRequest: &tchttp.BaseRequest{},
     }
-    request.Init().WithApiInfo("vpc", APIVersion, "DescribeVpnGatewayQuota")
+    request.Init().WithApiInfo("vpc", APIVersion, "DescribeVpnGatewayCcnRoutes")
     return
 }
 
-func NewDescribeVpnGatewayQuotaResponse() (response *DescribeVpnGatewayQuotaResponse) {
-    response = &DescribeVpnGatewayQuotaResponse{
+func NewDescribeVpnGatewayCcnRoutesResponse() (response *DescribeVpnGatewayCcnRoutesResponse) {
+    response = &DescribeVpnGatewayCcnRoutesResponse{
         BaseResponse: &tchttp.BaseResponse{},
     }
     return
 }
 
-// 查询VPN网关配额
-func (c *Client) DescribeVpnGatewayQuota(request *DescribeVpnGatewayQuotaRequest) (response *DescribeVpnGatewayQuotaResponse, err error) {
+// 本接口（DescribeVpnGatewayCcnRoutes）用于查询VPN网关云联网路由
+func (c *Client) DescribeVpnGatewayCcnRoutes(request *DescribeVpnGatewayCcnRoutesRequest) (response *DescribeVpnGatewayCcnRoutesResponse, err error) {
     if request == nil {
-        request = NewDescribeVpnGatewayQuotaRequest()
+        request = NewDescribeVpnGatewayCcnRoutesRequest()
     }
-    response = NewDescribeVpnGatewayQuotaResponse()
+    response = NewDescribeVpnGatewayCcnRoutesResponse()
     err = c.Send(request, response)
     return
 }
@@ -3879,6 +3548,31 @@ func (c *Client) DisableCcnRoutes(request *DisableCcnRoutesRequest) (response *D
     return
 }
 
+func NewDisableGatewayFlowMonitorRequest() (request *DisableGatewayFlowMonitorRequest) {
+    request = &DisableGatewayFlowMonitorRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "DisableGatewayFlowMonitor")
+    return
+}
+
+func NewDisableGatewayFlowMonitorResponse() (response *DisableGatewayFlowMonitorResponse) {
+    response = &DisableGatewayFlowMonitorResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（DisableGatewayFlowMonitor）用于关闭网关流量监控。
+func (c *Client) DisableGatewayFlowMonitor(request *DisableGatewayFlowMonitorRequest) (response *DisableGatewayFlowMonitorResponse, err error) {
+    if request == nil {
+        request = NewDisableGatewayFlowMonitorRequest()
+    }
+    response = NewDisableGatewayFlowMonitorResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewDisableRoutesRequest() (request *DisableRoutesRequest) {
     request = &DisableRoutesRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -3958,6 +3652,56 @@ func (c *Client) DisassociateNatGatewayAddress(request *DisassociateNatGatewayAd
     return
 }
 
+func NewDisassociateNetworkAclSubnetsRequest() (request *DisassociateNetworkAclSubnetsRequest) {
+    request = &DisassociateNetworkAclSubnetsRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "DisassociateNetworkAclSubnets")
+    return
+}
+
+func NewDisassociateNetworkAclSubnetsResponse() (response *DisassociateNetworkAclSubnetsResponse) {
+    response = &DisassociateNetworkAclSubnetsResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（DisassociateNetworkAclSubnets）用于网络ACL解关联vpc下的子网。
+func (c *Client) DisassociateNetworkAclSubnets(request *DisassociateNetworkAclSubnetsRequest) (response *DisassociateNetworkAclSubnetsResponse, err error) {
+    if request == nil {
+        request = NewDisassociateNetworkAclSubnetsRequest()
+    }
+    response = NewDisassociateNetworkAclSubnetsResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewDisassociateNetworkInterfaceSecurityGroupsRequest() (request *DisassociateNetworkInterfaceSecurityGroupsRequest) {
+    request = &DisassociateNetworkInterfaceSecurityGroupsRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "DisassociateNetworkInterfaceSecurityGroups")
+    return
+}
+
+func NewDisassociateNetworkInterfaceSecurityGroupsResponse() (response *DisassociateNetworkInterfaceSecurityGroupsResponse) {
+    response = &DisassociateNetworkInterfaceSecurityGroupsResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（DisassociateNetworkInterfaceSecurityGroups）用于弹性网卡解绑安全组。支持弹性网卡完全解绑安全组。
+func (c *Client) DisassociateNetworkInterfaceSecurityGroups(request *DisassociateNetworkInterfaceSecurityGroupsRequest) (response *DisassociateNetworkInterfaceSecurityGroupsResponse, err error) {
+    if request == nil {
+        request = NewDisassociateNetworkInterfaceSecurityGroupsRequest()
+    }
+    response = NewDisassociateNetworkInterfaceSecurityGroupsResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewDownloadCustomerGatewayConfigurationRequest() (request *DownloadCustomerGatewayConfigurationRequest) {
     request = &DownloadCustomerGatewayConfigurationRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -4009,6 +3753,31 @@ func (c *Client) EnableCcnRoutes(request *EnableCcnRoutesRequest) (response *Ena
     return
 }
 
+func NewEnableGatewayFlowMonitorRequest() (request *EnableGatewayFlowMonitorRequest) {
+    request = &EnableGatewayFlowMonitorRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "EnableGatewayFlowMonitor")
+    return
+}
+
+func NewEnableGatewayFlowMonitorResponse() (response *EnableGatewayFlowMonitorResponse) {
+    response = &EnableGatewayFlowMonitorResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（EnableGatewayFlowMonitor）用于开启网关流量监控。
+func (c *Client) EnableGatewayFlowMonitor(request *EnableGatewayFlowMonitorRequest) (response *EnableGatewayFlowMonitorResponse, err error) {
+    if request == nil {
+        request = NewEnableGatewayFlowMonitorRequest()
+    }
+    response = NewEnableGatewayFlowMonitorResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewEnableRoutesRequest() (request *EnableRoutesRequest) {
     request = &EnableRoutesRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -4031,131 +3800,6 @@ func (c *Client) EnableRoutes(request *EnableRoutesRequest) (response *EnableRou
         request = NewEnableRoutesRequest()
     }
     response = NewEnableRoutesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewGetCcnRegionBandwidthLimitsRequest() (request *GetCcnRegionBandwidthLimitsRequest) {
-    request = &GetCcnRegionBandwidthLimitsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "GetCcnRegionBandwidthLimits")
-    return
-}
-
-func NewGetCcnRegionBandwidthLimitsResponse() (response *GetCcnRegionBandwidthLimitsResponse) {
-    response = &GetCcnRegionBandwidthLimitsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（GetCcnRegionBandwidthLimits）用于查询云联网相关地域带宽信息，该接口只返回已关联网络实例包含的地域
-func (c *Client) GetCcnRegionBandwidthLimits(request *GetCcnRegionBandwidthLimitsRequest) (response *GetCcnRegionBandwidthLimitsResponse, err error) {
-    if request == nil {
-        request = NewGetCcnRegionBandwidthLimitsRequest()
-    }
-    response = NewGetCcnRegionBandwidthLimitsResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewGetCreateCcnBandwidthDealRequest() (request *GetCreateCcnBandwidthDealRequest) {
-    request = &GetCreateCcnBandwidthDealRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "GetCreateCcnBandwidthDeal")
-    return
-}
-
-func NewGetCreateCcnBandwidthDealResponse() (response *GetCreateCcnBandwidthDealResponse) {
-    response = &GetCreateCcnBandwidthDealResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 获取创建云联网带宽的商品信息
-func (c *Client) GetCreateCcnBandwidthDeal(request *GetCreateCcnBandwidthDealRequest) (response *GetCreateCcnBandwidthDealResponse, err error) {
-    if request == nil {
-        request = NewGetCreateCcnBandwidthDealRequest()
-    }
-    response = NewGetCreateCcnBandwidthDealResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewGetDealStatusByNameRequest() (request *GetDealStatusByNameRequest) {
-    request = &GetDealStatusByNameRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "GetDealStatusByName")
-    return
-}
-
-func NewGetDealStatusByNameResponse() (response *GetDealStatusByNameResponse) {
-    response = &GetDealStatusByNameResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（GetDealStatusByName）用于查询云联网预付费订单的状态信息
-func (c *Client) GetDealStatusByName(request *GetDealStatusByNameRequest) (response *GetDealStatusByNameResponse, err error) {
-    if request == nil {
-        request = NewGetDealStatusByNameRequest()
-    }
-    response = NewGetDealStatusByNameResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewGetRenewCcnBandwidthDealRequest() (request *GetRenewCcnBandwidthDealRequest) {
-    request = &GetRenewCcnBandwidthDealRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "GetRenewCcnBandwidthDeal")
-    return
-}
-
-func NewGetRenewCcnBandwidthDealResponse() (response *GetRenewCcnBandwidthDealResponse) {
-    response = &GetRenewCcnBandwidthDealResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口用于获取续费云联网带宽订单信息。
-func (c *Client) GetRenewCcnBandwidthDeal(request *GetRenewCcnBandwidthDealRequest) (response *GetRenewCcnBandwidthDealResponse, err error) {
-    if request == nil {
-        request = NewGetRenewCcnBandwidthDealRequest()
-    }
-    response = NewGetRenewCcnBandwidthDealResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewGetUpdateCcnBandwidthDealRequest() (request *GetUpdateCcnBandwidthDealRequest) {
-    request = &GetUpdateCcnBandwidthDealRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "GetUpdateCcnBandwidthDeal")
-    return
-}
-
-func NewGetUpdateCcnBandwidthDealResponse() (response *GetUpdateCcnBandwidthDealResponse) {
-    response = &GetUpdateCcnBandwidthDealResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口用于获取变更云联网带宽的商品信息
-func (c *Client) GetUpdateCcnBandwidthDeal(request *GetUpdateCcnBandwidthDealRequest) (response *GetUpdateCcnBandwidthDealResponse, err error) {
-    if request == nil {
-        request = NewGetUpdateCcnBandwidthDealRequest()
-    }
-    response = NewGetUpdateCcnBandwidthDealResponse()
     err = c.Send(request, response)
     return
 }
@@ -4212,131 +3856,6 @@ func (c *Client) HaVipDisassociateAddressIp(request *HaVipDisassociateAddressIpR
     return
 }
 
-func NewInquiryPriceAllocateAddressesRequest() (request *InquiryPriceAllocateAddressesRequest) {
-    request = &InquiryPriceAllocateAddressesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "InquiryPriceAllocateAddresses")
-    return
-}
-
-func NewInquiryPriceAllocateAddressesResponse() (response *InquiryPriceAllocateAddressesResponse) {
-    response = &InquiryPriceAllocateAddressesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 无
-func (c *Client) InquiryPriceAllocateAddresses(request *InquiryPriceAllocateAddressesRequest) (response *InquiryPriceAllocateAddressesResponse, err error) {
-    if request == nil {
-        request = NewInquiryPriceAllocateAddressesRequest()
-    }
-    response = NewInquiryPriceAllocateAddressesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInquiryPriceAllocateIp6AddressesBandwidthRequest() (request *InquiryPriceAllocateIp6AddressesBandwidthRequest) {
-    request = &InquiryPriceAllocateIp6AddressesBandwidthRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "InquiryPriceAllocateIp6AddressesBandwidth")
-    return
-}
-
-func NewInquiryPriceAllocateIp6AddressesBandwidthResponse() (response *InquiryPriceAllocateIp6AddressesBandwidthResponse) {
-    response = &InquiryPriceAllocateIp6AddressesBandwidthResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 该接口用于查询IPV6地址分配公网带宽价格
-func (c *Client) InquiryPriceAllocateIp6AddressesBandwidth(request *InquiryPriceAllocateIp6AddressesBandwidthRequest) (response *InquiryPriceAllocateIp6AddressesBandwidthResponse, err error) {
-    if request == nil {
-        request = NewInquiryPriceAllocateIp6AddressesBandwidthRequest()
-    }
-    response = NewInquiryPriceAllocateIp6AddressesBandwidthResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInquiryPriceCreateBandwidthPackageRequest() (request *InquiryPriceCreateBandwidthPackageRequest) {
-    request = &InquiryPriceCreateBandwidthPackageRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "InquiryPriceCreateBandwidthPackage")
-    return
-}
-
-func NewInquiryPriceCreateBandwidthPackageResponse() (response *InquiryPriceCreateBandwidthPackageResponse) {
-    response = &InquiryPriceCreateBandwidthPackageResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 无
-func (c *Client) InquiryPriceCreateBandwidthPackage(request *InquiryPriceCreateBandwidthPackageRequest) (response *InquiryPriceCreateBandwidthPackageResponse, err error) {
-    if request == nil {
-        request = NewInquiryPriceCreateBandwidthPackageRequest()
-    }
-    response = NewInquiryPriceCreateBandwidthPackageResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInquiryPriceCreateCcnBandwidthRequest() (request *InquiryPriceCreateCcnBandwidthRequest) {
-    request = &InquiryPriceCreateCcnBandwidthRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "InquiryPriceCreateCcnBandwidth")
-    return
-}
-
-func NewInquiryPriceCreateCcnBandwidthResponse() (response *InquiryPriceCreateCcnBandwidthResponse) {
-    response = &InquiryPriceCreateCcnBandwidthResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（InquiryPriceCreateCcnBandwidth）用于创建预付费云联网实例地域间带宽时的询价
-func (c *Client) InquiryPriceCreateCcnBandwidth(request *InquiryPriceCreateCcnBandwidthRequest) (response *InquiryPriceCreateCcnBandwidthResponse, err error) {
-    if request == nil {
-        request = NewInquiryPriceCreateCcnBandwidthRequest()
-    }
-    response = NewInquiryPriceCreateCcnBandwidthResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInquiryPriceCreateTrafficPackagesRequest() (request *InquiryPriceCreateTrafficPackagesRequest) {
-    request = &InquiryPriceCreateTrafficPackagesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "InquiryPriceCreateTrafficPackages")
-    return
-}
-
-func NewInquiryPriceCreateTrafficPackagesResponse() (response *InquiryPriceCreateTrafficPackagesResponse) {
-    response = &InquiryPriceCreateTrafficPackagesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 无
-func (c *Client) InquiryPriceCreateTrafficPackages(request *InquiryPriceCreateTrafficPackagesRequest) (response *InquiryPriceCreateTrafficPackagesResponse, err error) {
-    if request == nil {
-        request = NewInquiryPriceCreateTrafficPackagesRequest()
-    }
-    response = NewInquiryPriceCreateTrafficPackagesResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewInquiryPriceCreateVpnGatewayRequest() (request *InquiryPriceCreateVpnGatewayRequest) {
     request = &InquiryPriceCreateVpnGatewayRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -4358,206 +3877,6 @@ func (c *Client) InquiryPriceCreateVpnGateway(request *InquiryPriceCreateVpnGate
         request = NewInquiryPriceCreateVpnGatewayRequest()
     }
     response = NewInquiryPriceCreateVpnGatewayResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInquiryPriceModifyAddressesBandwidthRequest() (request *InquiryPriceModifyAddressesBandwidthRequest) {
-    request = &InquiryPriceModifyAddressesBandwidthRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "InquiryPriceModifyAddressesBandwidth")
-    return
-}
-
-func NewInquiryPriceModifyAddressesBandwidthResponse() (response *InquiryPriceModifyAddressesBandwidthResponse) {
-    response = &InquiryPriceModifyAddressesBandwidthResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 修改带宽询价
-func (c *Client) InquiryPriceModifyAddressesBandwidth(request *InquiryPriceModifyAddressesBandwidthRequest) (response *InquiryPriceModifyAddressesBandwidthResponse, err error) {
-    if request == nil {
-        request = NewInquiryPriceModifyAddressesBandwidthRequest()
-    }
-    response = NewInquiryPriceModifyAddressesBandwidthResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInquiryPriceModifyBandwidthPackageBandwidthRequest() (request *InquiryPriceModifyBandwidthPackageBandwidthRequest) {
-    request = &InquiryPriceModifyBandwidthPackageBandwidthRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "InquiryPriceModifyBandwidthPackageBandwidth")
-    return
-}
-
-func NewInquiryPriceModifyBandwidthPackageBandwidthResponse() (response *InquiryPriceModifyBandwidthPackageBandwidthResponse) {
-    response = &InquiryPriceModifyBandwidthPackageBandwidthResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 无
-func (c *Client) InquiryPriceModifyBandwidthPackageBandwidth(request *InquiryPriceModifyBandwidthPackageBandwidthRequest) (response *InquiryPriceModifyBandwidthPackageBandwidthResponse, err error) {
-    if request == nil {
-        request = NewInquiryPriceModifyBandwidthPackageBandwidthRequest()
-    }
-    response = NewInquiryPriceModifyBandwidthPackageBandwidthResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInquiryPriceModifyIp6AddressesBandwidthRequest() (request *InquiryPriceModifyIp6AddressesBandwidthRequest) {
-    request = &InquiryPriceModifyIp6AddressesBandwidthRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "InquiryPriceModifyIp6AddressesBandwidth")
-    return
-}
-
-func NewInquiryPriceModifyIp6AddressesBandwidthResponse() (response *InquiryPriceModifyIp6AddressesBandwidthResponse) {
-    response = &InquiryPriceModifyIp6AddressesBandwidthResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 该接口用于查询修改IPV6带宽的价格
-func (c *Client) InquiryPriceModifyIp6AddressesBandwidth(request *InquiryPriceModifyIp6AddressesBandwidthRequest) (response *InquiryPriceModifyIp6AddressesBandwidthResponse, err error) {
-    if request == nil {
-        request = NewInquiryPriceModifyIp6AddressesBandwidthRequest()
-    }
-    response = NewInquiryPriceModifyIp6AddressesBandwidthResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInquiryPriceNatGatewayRequest() (request *InquiryPriceNatGatewayRequest) {
-    request = &InquiryPriceNatGatewayRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "InquiryPriceNatGateway")
-    return
-}
-
-func NewInquiryPriceNatGatewayResponse() (response *InquiryPriceNatGatewayResponse) {
-    response = &InquiryPriceNatGatewayResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（InquiryPriceNatGateway）用于Nat网关的询价。
-func (c *Client) InquiryPriceNatGateway(request *InquiryPriceNatGatewayRequest) (response *InquiryPriceNatGatewayResponse, err error) {
-    if request == nil {
-        request = NewInquiryPriceNatGatewayRequest()
-    }
-    response = NewInquiryPriceNatGatewayResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInquiryPricePublicIp6AddressesRequest() (request *InquiryPricePublicIp6AddressesRequest) {
-    request = &InquiryPricePublicIp6AddressesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "InquiryPricePublicIp6Addresses")
-    return
-}
-
-func NewInquiryPricePublicIp6AddressesResponse() (response *InquiryPricePublicIp6AddressesResponse) {
-    response = &InquiryPricePublicIp6AddressesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 该接口用于查询IPV6地址访问internet的价格
-func (c *Client) InquiryPricePublicIp6Addresses(request *InquiryPricePublicIp6AddressesRequest) (response *InquiryPricePublicIp6AddressesResponse, err error) {
-    if request == nil {
-        request = NewInquiryPricePublicIp6AddressesRequest()
-    }
-    response = NewInquiryPricePublicIp6AddressesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInquiryPriceRenewAddressesRequest() (request *InquiryPriceRenewAddressesRequest) {
-    request = &InquiryPriceRenewAddressesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "InquiryPriceRenewAddresses")
-    return
-}
-
-func NewInquiryPriceRenewAddressesResponse() (response *InquiryPriceRenewAddressesResponse) {
-    response = &InquiryPriceRenewAddressesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 无
-func (c *Client) InquiryPriceRenewAddresses(request *InquiryPriceRenewAddressesRequest) (response *InquiryPriceRenewAddressesResponse, err error) {
-    if request == nil {
-        request = NewInquiryPriceRenewAddressesRequest()
-    }
-    response = NewInquiryPriceRenewAddressesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInquiryPriceRenewBandwidthPackageRequest() (request *InquiryPriceRenewBandwidthPackageRequest) {
-    request = &InquiryPriceRenewBandwidthPackageRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "InquiryPriceRenewBandwidthPackage")
-    return
-}
-
-func NewInquiryPriceRenewBandwidthPackageResponse() (response *InquiryPriceRenewBandwidthPackageResponse) {
-    response = &InquiryPriceRenewBandwidthPackageResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 无
-func (c *Client) InquiryPriceRenewBandwidthPackage(request *InquiryPriceRenewBandwidthPackageRequest) (response *InquiryPriceRenewBandwidthPackageResponse, err error) {
-    if request == nil {
-        request = NewInquiryPriceRenewBandwidthPackageRequest()
-    }
-    response = NewInquiryPriceRenewBandwidthPackageResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInquiryPriceRenewCcnBandwidthRequest() (request *InquiryPriceRenewCcnBandwidthRequest) {
-    request = &InquiryPriceRenewCcnBandwidthRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "InquiryPriceRenewCcnBandwidth")
-    return
-}
-
-func NewInquiryPriceRenewCcnBandwidthResponse() (response *InquiryPriceRenewCcnBandwidthResponse) {
-    response = &InquiryPriceRenewCcnBandwidthResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（InquiryPriceRenewCcnBandwidth）用于续费云联网实例地域间带宽时的询价
-func (c *Client) InquiryPriceRenewCcnBandwidth(request *InquiryPriceRenewCcnBandwidthRequest) (response *InquiryPriceRenewCcnBandwidthResponse, err error) {
-    if request == nil {
-        request = NewInquiryPriceRenewCcnBandwidthRequest()
-    }
-    response = NewInquiryPriceRenewCcnBandwidthResponse()
     err = c.Send(request, response)
     return
 }
@@ -4608,81 +3927,6 @@ func (c *Client) InquiryPriceResetVpnGatewayInternetMaxBandwidth(request *Inquir
         request = NewInquiryPriceResetVpnGatewayInternetMaxBandwidthRequest()
     }
     response = NewInquiryPriceResetVpnGatewayInternetMaxBandwidthResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInquiryPriceUpdateCcnBandwidthRequest() (request *InquiryPriceUpdateCcnBandwidthRequest) {
-    request = &InquiryPriceUpdateCcnBandwidthRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "InquiryPriceUpdateCcnBandwidth")
-    return
-}
-
-func NewInquiryPriceUpdateCcnBandwidthResponse() (response *InquiryPriceUpdateCcnBandwidthResponse) {
-    response = &InquiryPriceUpdateCcnBandwidthResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（InquiryPriceUpdateCcnBandwidth）用于修改预付费云联网实例地域间带宽时的询价
-func (c *Client) InquiryPriceUpdateCcnBandwidth(request *InquiryPriceUpdateCcnBandwidthRequest) (response *InquiryPriceUpdateCcnBandwidthResponse, err error) {
-    if request == nil {
-        request = NewInquiryPriceUpdateCcnBandwidthRequest()
-    }
-    response = NewInquiryPriceUpdateCcnBandwidthResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewInquiryPriceVacancyAddressesRequest() (request *InquiryPriceVacancyAddressesRequest) {
-    request = &InquiryPriceVacancyAddressesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "InquiryPriceVacancyAddresses")
-    return
-}
-
-func NewInquiryPriceVacancyAddressesResponse() (response *InquiryPriceVacancyAddressesResponse) {
-    response = &InquiryPriceVacancyAddressesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 闲置EIP询价
-func (c *Client) InquiryPriceVacancyAddresses(request *InquiryPriceVacancyAddressesRequest) (response *InquiryPriceVacancyAddressesResponse, err error) {
-    if request == nil {
-        request = NewInquiryPriceVacancyAddressesRequest()
-    }
-    response = NewInquiryPriceVacancyAddressesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewMigrateAddressesRequest() (request *MigrateAddressesRequest) {
-    request = &MigrateAddressesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "MigrateAddresses")
-    return
-}
-
-func NewMigrateAddressesResponse() (response *MigrateAddressesResponse) {
-    response = &MigrateAddressesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口 (MigrateAddresses) 用于跨账号迁移一个或多个弹性公网IP（简称 EIP），且仅限于未绑定任何资源的后付费EIP
-func (c *Client) MigrateAddresses(request *MigrateAddressesRequest) (response *MigrateAddressesResponse, err error) {
-    if request == nil {
-        request = NewMigrateAddressesRequest()
-    }
-    response = NewMigrateAddressesResponse()
     err = c.Send(request, response)
     return
 }
@@ -4765,6 +4009,33 @@ func (c *Client) ModifyAddressAttribute(request *ModifyAddressAttributeRequest) 
     return
 }
 
+func NewModifyAddressInternetChargeTypeRequest() (request *ModifyAddressInternetChargeTypeRequest) {
+    request = &ModifyAddressInternetChargeTypeRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "ModifyAddressInternetChargeType")
+    return
+}
+
+func NewModifyAddressInternetChargeTypeResponse() (response *ModifyAddressInternetChargeTypeResponse) {
+    response = &ModifyAddressInternetChargeTypeResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 该接口用于调整具有带宽属性弹性公网IP的网络计费模式
+// * 支持BANDWIDTH_PREPAID_BY_MONTH和TRAFFIC_POSTPAID_BY_HOUR两种网络计费模式之间的切换。
+// * 每个弹性公网IP支持调整两次，次数超出则无法调整。
+func (c *Client) ModifyAddressInternetChargeType(request *ModifyAddressInternetChargeTypeRequest) (response *ModifyAddressInternetChargeTypeResponse, err error) {
+    if request == nil {
+        request = NewModifyAddressInternetChargeTypeRequest()
+    }
+    response = NewModifyAddressInternetChargeTypeResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewModifyAddressTemplateAttributeRequest() (request *ModifyAddressTemplateAttributeRequest) {
     request = &ModifyAddressTemplateAttributeRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -4815,31 +4086,6 @@ func (c *Client) ModifyAddressTemplateGroupAttribute(request *ModifyAddressTempl
     return
 }
 
-func NewModifyAddressesAttributeRequest() (request *ModifyAddressesAttributeRequest) {
-    request = &ModifyAddressesAttributeRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "ModifyAddressesAttribute")
-    return
-}
-
-func NewModifyAddressesAttributeResponse() (response *ModifyAddressesAttributeResponse) {
-    response = &ModifyAddressesAttributeResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口 (ModifyAddressAttribute) 用于修改弹性公网IP（简称 EIP）的s属性。
-func (c *Client) ModifyAddressesAttribute(request *ModifyAddressesAttributeRequest) (response *ModifyAddressesAttributeResponse, err error) {
-    if request == nil {
-        request = NewModifyAddressesAttributeRequest()
-    }
-    response = NewModifyAddressesAttributeResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewModifyAddressesBandwidthRequest() (request *ModifyAddressesBandwidthRequest) {
     request = &ModifyAddressesBandwidthRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -4880,7 +4126,7 @@ func NewModifyAssistantCidrResponse() (response *ModifyAssistantCidrResponse) {
     return
 }
 
-// 本接口(ModifyAssistantCidr)用于批量修改辅助CIDR，支持新增和删除。
+// 本接口(ModifyAssistantCidr)用于批量修改辅助CIDR，支持新增和删除。（接口灰度中，如需使用请提工单。）
 func (c *Client) ModifyAssistantCidr(request *ModifyAssistantCidrRequest) (response *ModifyAssistantCidrResponse, err error) {
     if request == nil {
         request = NewModifyAssistantCidrRequest()
@@ -4911,31 +4157,6 @@ func (c *Client) ModifyBandwidthPackageAttribute(request *ModifyBandwidthPackage
         request = NewModifyBandwidthPackageAttributeRequest()
     }
     response = NewModifyBandwidthPackageAttributeResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewModifyBandwidthPackageBandwidthRequest() (request *ModifyBandwidthPackageBandwidthRequest) {
-    request = &ModifyBandwidthPackageBandwidthRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "ModifyBandwidthPackageBandwidth")
-    return
-}
-
-func NewModifyBandwidthPackageBandwidthResponse() (response *ModifyBandwidthPackageBandwidthResponse) {
-    response = &ModifyBandwidthPackageBandwidthResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 接口用于调整共享带宽包(BWP)带宽
-func (c *Client) ModifyBandwidthPackageBandwidth(request *ModifyBandwidthPackageBandwidthRequest) (response *ModifyBandwidthPackageBandwidthResponse, err error) {
-    if request == nil {
-        request = NewModifyBandwidthPackageBandwidthRequest()
-    }
-    response = NewModifyBandwidthPackageBandwidthResponse()
     err = c.Send(request, response)
     return
 }
@@ -5061,6 +4282,31 @@ func (c *Client) ModifyFlowLogAttribute(request *ModifyFlowLogAttributeRequest) 
         request = NewModifyFlowLogAttributeRequest()
     }
     response = NewModifyFlowLogAttributeResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewModifyGatewayFlowQosRequest() (request *ModifyGatewayFlowQosRequest) {
+    request = &ModifyGatewayFlowQosRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "ModifyGatewayFlowQos")
+    return
+}
+
+func NewModifyGatewayFlowQosResponse() (response *ModifyGatewayFlowQosResponse) {
+    response = &ModifyGatewayFlowQosResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（ModifyGatewayFlowQos）用于调整网关流控带宽。
+func (c *Client) ModifyGatewayFlowQos(request *ModifyGatewayFlowQosRequest) (response *ModifyGatewayFlowQosResponse, err error) {
+    if request == nil {
+        request = NewModifyGatewayFlowQosRequest()
+    }
+    response = NewModifyGatewayFlowQosResponse()
     err = c.Send(request, response)
     return
 }
@@ -5265,6 +4511,56 @@ func (c *Client) ModifyNetDetect(request *ModifyNetDetectRequest) (response *Mod
     return
 }
 
+func NewModifyNetworkAclAttributeRequest() (request *ModifyNetworkAclAttributeRequest) {
+    request = &ModifyNetworkAclAttributeRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "ModifyNetworkAclAttribute")
+    return
+}
+
+func NewModifyNetworkAclAttributeResponse() (response *ModifyNetworkAclAttributeResponse) {
+    response = &ModifyNetworkAclAttributeResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（ModifyNetworkAclAttribute）用于修改网络ACL属性。
+func (c *Client) ModifyNetworkAclAttribute(request *ModifyNetworkAclAttributeRequest) (response *ModifyNetworkAclAttributeResponse, err error) {
+    if request == nil {
+        request = NewModifyNetworkAclAttributeRequest()
+    }
+    response = NewModifyNetworkAclAttributeResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewModifyNetworkAclEntriesRequest() (request *ModifyNetworkAclEntriesRequest) {
+    request = &ModifyNetworkAclEntriesRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "ModifyNetworkAclEntries")
+    return
+}
+
+func NewModifyNetworkAclEntriesResponse() (response *ModifyNetworkAclEntriesResponse) {
+    response = &ModifyNetworkAclEntriesResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 本接口（ModifyNetworkAclEntries）用于修改（包括添加和删除）网络ACL的入站规则和出站规则。
+func (c *Client) ModifyNetworkAclEntries(request *ModifyNetworkAclEntriesRequest) (response *ModifyNetworkAclEntriesResponse, err error) {
+    if request == nil {
+        request = NewModifyNetworkAclEntriesRequest()
+    }
+    response = NewModifyNetworkAclEntriesResponse()
+    err = c.Send(request, response)
+    return
+}
+
 func NewModifyNetworkInterfaceAttributeRequest() (request *ModifyNetworkInterfaceAttributeRequest) {
     request = &ModifyNetworkInterfaceAttributeRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -5286,6 +4582,31 @@ func (c *Client) ModifyNetworkInterfaceAttribute(request *ModifyNetworkInterface
         request = NewModifyNetworkInterfaceAttributeRequest()
     }
     response = NewModifyNetworkInterfaceAttributeResponse()
+    err = c.Send(request, response)
+    return
+}
+
+func NewModifyNetworkInterfaceExtendIpRequest() (request *ModifyNetworkInterfaceExtendIpRequest) {
+    request = &ModifyNetworkInterfaceExtendIpRequest{
+        BaseRequest: &tchttp.BaseRequest{},
+    }
+    request.Init().WithApiInfo("vpc", APIVersion, "ModifyNetworkInterfaceExtendIp")
+    return
+}
+
+func NewModifyNetworkInterfaceExtendIpResponse() (response *ModifyNetworkInterfaceExtendIpResponse) {
+    response = &ModifyNetworkInterfaceExtendIpResponse{
+        BaseResponse: &tchttp.BaseResponse{},
+    }
+    return
+}
+
+// 修改弹性网卡扩展ip
+func (c *Client) ModifyNetworkInterfaceExtendIp(request *ModifyNetworkInterfaceExtendIpRequest) (response *ModifyNetworkInterfaceExtendIpResponse, err error) {
+    if request == nil {
+        request = NewModifyNetworkInterfaceExtendIpRequest()
+    }
+    response = NewModifyNetworkInterfaceExtendIpResponse()
     err = c.Send(request, response)
     return
 }
@@ -5475,57 +4796,6 @@ func (c *Client) ModifySubnetAttribute(request *ModifySubnetAttributeRequest) (r
     return
 }
 
-func NewModifyTrafficMirrorAttributeRequest() (request *ModifyTrafficMirrorAttributeRequest) {
-    request = &ModifyTrafficMirrorAttributeRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "ModifyTrafficMirrorAttribute")
-    return
-}
-
-func NewModifyTrafficMirrorAttributeResponse() (response *ModifyTrafficMirrorAttributeResponse) {
-    response = &ModifyTrafficMirrorAttributeResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（ModifyTrafficMirrorAttribute）用于修改流量镜像实例属性。
-// 注意：只支持修改名字和描述信息
-func (c *Client) ModifyTrafficMirrorAttribute(request *ModifyTrafficMirrorAttributeRequest) (response *ModifyTrafficMirrorAttributeResponse, err error) {
-    if request == nil {
-        request = NewModifyTrafficMirrorAttributeRequest()
-    }
-    response = NewModifyTrafficMirrorAttributeResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewModifyTrafficPackageAttributeRequest() (request *ModifyTrafficPackageAttributeRequest) {
-    request = &ModifyTrafficPackageAttributeRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "ModifyTrafficPackageAttribute")
-    return
-}
-
-func NewModifyTrafficPackageAttributeResponse() (response *ModifyTrafficPackageAttributeResponse) {
-    response = &ModifyTrafficPackageAttributeResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 接口用于修改共享流量包属性，包括共享流量包名称等
-func (c *Client) ModifyTrafficPackageAttribute(request *ModifyTrafficPackageAttributeRequest) (response *ModifyTrafficPackageAttributeResponse, err error) {
-    if request == nil {
-        request = NewModifyTrafficPackageAttributeRequest()
-    }
-    response = NewModifyTrafficPackageAttributeResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewModifyVpcAttributeRequest() (request *ModifyVpcAttributeRequest) {
     request = &ModifyVpcAttributeRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -5601,77 +4871,27 @@ func (c *Client) ModifyVpnGatewayAttribute(request *ModifyVpnGatewayAttributeReq
     return
 }
 
-func NewPrivateIp6AddressesRequest() (request *PrivateIp6AddressesRequest) {
-    request = &PrivateIp6AddressesRequest{
+func NewModifyVpnGatewayCcnRoutesRequest() (request *ModifyVpnGatewayCcnRoutesRequest) {
+    request = &ModifyVpnGatewayCcnRoutesRequest{
         BaseRequest: &tchttp.BaseRequest{},
     }
-    request.Init().WithApiInfo("vpc", APIVersion, "PrivateIp6Addresses")
+    request.Init().WithApiInfo("vpc", APIVersion, "ModifyVpnGatewayCcnRoutes")
     return
 }
 
-func NewPrivateIp6AddressesResponse() (response *PrivateIp6AddressesResponse) {
-    response = &PrivateIp6AddressesResponse{
+func NewModifyVpnGatewayCcnRoutesResponse() (response *ModifyVpnGatewayCcnRoutesResponse) {
+    response = &ModifyVpnGatewayCcnRoutesResponse{
         BaseResponse: &tchttp.BaseResponse{},
     }
     return
 }
 
-// 该接口用于取消IPV6地址访问internet的能力
-func (c *Client) PrivateIp6Addresses(request *PrivateIp6AddressesRequest) (response *PrivateIp6AddressesResponse, err error) {
+// 本接口（ModifyVpnGatewayCcnRoutes）用于修改VPN网关云联网路由
+func (c *Client) ModifyVpnGatewayCcnRoutes(request *ModifyVpnGatewayCcnRoutesRequest) (response *ModifyVpnGatewayCcnRoutesResponse, err error) {
     if request == nil {
-        request = NewPrivateIp6AddressesRequest()
+        request = NewModifyVpnGatewayCcnRoutesRequest()
     }
-    response = NewPrivateIp6AddressesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewPublicIp6AddressesRequest() (request *PublicIp6AddressesRequest) {
-    request = &PublicIp6AddressesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "PublicIp6Addresses")
-    return
-}
-
-func NewPublicIp6AddressesResponse() (response *PublicIp6AddressesResponse) {
-    response = &PublicIp6AddressesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 该接口用于给指定的ipv6地址开通internet访问能力。
-func (c *Client) PublicIp6Addresses(request *PublicIp6AddressesRequest) (response *PublicIp6AddressesResponse, err error) {
-    if request == nil {
-        request = NewPublicIp6AddressesRequest()
-    }
-    response = NewPublicIp6AddressesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewQueryTaskRequest() (request *QueryTaskRequest) {
-    request = &QueryTaskRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "QueryTask")
-    return
-}
-
-func NewQueryTaskResponse() (response *QueryTaskResponse) {
-    response = &QueryTaskResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 查询异步任务执行结果
-func (c *Client) QueryTask(request *QueryTaskRequest) (response *QueryTaskResponse, err error) {
-    if request == nil {
-        request = NewQueryTaskRequest()
-    }
-    response = NewQueryTaskResponse()
+    response = NewModifyVpnGatewayCcnRoutesResponse()
     err = c.Send(request, response)
     return
 }
@@ -5800,56 +5020,6 @@ func (c *Client) RemoveIp6Rules(request *RemoveIp6RulesRequest) (response *Remov
         request = NewRemoveIp6RulesRequest()
     }
     response = NewRemoveIp6RulesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewRenewAddressesRequest() (request *RenewAddressesRequest) {
-    request = &RenewAddressesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "RenewAddresses")
-    return
-}
-
-func NewRenewAddressesResponse() (response *RenewAddressesResponse) {
-    response = &RenewAddressesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 无
-func (c *Client) RenewAddresses(request *RenewAddressesRequest) (response *RenewAddressesResponse, err error) {
-    if request == nil {
-        request = NewRenewAddressesRequest()
-    }
-    response = NewRenewAddressesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewRenewCcnBandwidthRequest() (request *RenewCcnBandwidthRequest) {
-    request = &RenewCcnBandwidthRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "RenewCcnBandwidth")
-    return
-}
-
-func NewRenewCcnBandwidthResponse() (response *RenewCcnBandwidthResponse) {
-    response = &RenewCcnBandwidthResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（CreateCcnBandwidth）用于续费预付费模式下云联网实例的地域间带宽
-func (c *Client) RenewCcnBandwidth(request *RenewCcnBandwidthRequest) (response *RenewCcnBandwidthResponse, err error) {
-    if request == nil {
-        request = NewRenewCcnBandwidthRequest()
-    }
-    response = NewRenewCcnBandwidthResponse()
     err = c.Send(request, response)
     return
 }
@@ -6057,82 +5227,6 @@ func (c *Client) ResetRoutes(request *ResetRoutesRequest) (response *ResetRoutes
     return
 }
 
-func NewResetTrafficMirrorFilterRequest() (request *ResetTrafficMirrorFilterRequest) {
-    request = &ResetTrafficMirrorFilterRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "ResetTrafficMirrorFilter")
-    return
-}
-
-func NewResetTrafficMirrorFilterResponse() (response *ResetTrafficMirrorFilterResponse) {
-    response = &ResetTrafficMirrorFilterResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（ResetTrafficMirrorFilter）用于更新流量镜像实例过滤规则。
-// 注意：每一个流量镜像实例，不能同时支持按nat网关和五元组两种规则过滤
-func (c *Client) ResetTrafficMirrorFilter(request *ResetTrafficMirrorFilterRequest) (response *ResetTrafficMirrorFilterResponse, err error) {
-    if request == nil {
-        request = NewResetTrafficMirrorFilterRequest()
-    }
-    response = NewResetTrafficMirrorFilterResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewResetTrafficMirrorSrcsRequest() (request *ResetTrafficMirrorSrcsRequest) {
-    request = &ResetTrafficMirrorSrcsRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "ResetTrafficMirrorSrcs")
-    return
-}
-
-func NewResetTrafficMirrorSrcsResponse() (response *ResetTrafficMirrorSrcsResponse) {
-    response = &ResetTrafficMirrorSrcsResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（ResetTrafficMirrorSrcs）用于重置流量镜像实例采集对象。
-func (c *Client) ResetTrafficMirrorSrcs(request *ResetTrafficMirrorSrcsRequest) (response *ResetTrafficMirrorSrcsResponse, err error) {
-    if request == nil {
-        request = NewResetTrafficMirrorSrcsRequest()
-    }
-    response = NewResetTrafficMirrorSrcsResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewResetTrafficMirrorTargetRequest() (request *ResetTrafficMirrorTargetRequest) {
-    request = &ResetTrafficMirrorTargetRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "ResetTrafficMirrorTarget")
-    return
-}
-
-func NewResetTrafficMirrorTargetResponse() (response *ResetTrafficMirrorTargetResponse) {
-    response = &ResetTrafficMirrorTargetResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（ResetTrafficMirrorTarget）用于更新流量镜像实例的接收目的信息。
-func (c *Client) ResetTrafficMirrorTarget(request *ResetTrafficMirrorTargetRequest) (response *ResetTrafficMirrorTargetResponse, err error) {
-    if request == nil {
-        request = NewResetTrafficMirrorTargetRequest()
-    }
-    response = NewResetTrafficMirrorTargetResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewResetVpnConnectionRequest() (request *ResetVpnConnectionRequest) {
     request = &ResetVpnConnectionRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -6183,56 +5277,6 @@ func (c *Client) ResetVpnGatewayInternetMaxBandwidth(request *ResetVpnGatewayInt
     return
 }
 
-func NewReturnNormalAddressesRequest() (request *ReturnNormalAddressesRequest) {
-    request = &ReturnNormalAddressesRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "ReturnNormalAddresses")
-    return
-}
-
-func NewReturnNormalAddressesResponse() (response *ReturnNormalAddressesResponse) {
-    response = &ReturnNormalAddressesResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 无
-func (c *Client) ReturnNormalAddresses(request *ReturnNormalAddressesRequest) (response *ReturnNormalAddressesResponse, err error) {
-    if request == nil {
-        request = NewReturnNormalAddressesRequest()
-    }
-    response = NewReturnNormalAddressesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewSetCcnBandwidthRenewFlagRequest() (request *SetCcnBandwidthRenewFlagRequest) {
-    request = &SetCcnBandwidthRenewFlagRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "SetCcnBandwidthRenewFlag")
-    return
-}
-
-func NewSetCcnBandwidthRenewFlagResponse() (response *SetCcnBandwidthRenewFlagResponse) {
-    response = &SetCcnBandwidthRenewFlagResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（SetCcnBandwidthRenewFlag）用于设置预付费云联网实例地域间限速的自动续费标记
-func (c *Client) SetCcnBandwidthRenewFlag(request *SetCcnBandwidthRenewFlagRequest) (response *SetCcnBandwidthRenewFlagResponse, err error) {
-    if request == nil {
-        request = NewSetCcnBandwidthRenewFlagRequest()
-    }
-    response = NewSetCcnBandwidthRenewFlagResponse()
-    err = c.Send(request, response)
-    return
-}
-
 func NewSetCcnRegionBandwidthLimitsRequest() (request *SetCcnRegionBandwidthLimitsRequest) {
     request = &SetCcnRegionBandwidthLimitsRequest{
         BaseRequest: &tchttp.BaseRequest{},
@@ -6254,56 +5298,6 @@ func (c *Client) SetCcnRegionBandwidthLimits(request *SetCcnRegionBandwidthLimit
         request = NewSetCcnRegionBandwidthLimitsRequest()
     }
     response = NewSetCcnRegionBandwidthLimitsResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewStartTrafficMirrorRequest() (request *StartTrafficMirrorRequest) {
-    request = &StartTrafficMirrorRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "StartTrafficMirror")
-    return
-}
-
-func NewStartTrafficMirrorResponse() (response *StartTrafficMirrorResponse) {
-    response = &StartTrafficMirrorResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（StartTrafficMirror）用于开启流量镜像实例。
-func (c *Client) StartTrafficMirror(request *StartTrafficMirrorRequest) (response *StartTrafficMirrorResponse, err error) {
-    if request == nil {
-        request = NewStartTrafficMirrorRequest()
-    }
-    response = NewStartTrafficMirrorResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewStopTrafficMirrorRequest() (request *StopTrafficMirrorRequest) {
-    request = &StopTrafficMirrorRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "StopTrafficMirror")
-    return
-}
-
-func NewStopTrafficMirrorResponse() (response *StopTrafficMirrorResponse) {
-    response = &StopTrafficMirrorResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（StopTrafficMirror）用于关闭流量镜像实例。
-func (c *Client) StopTrafficMirror(request *StopTrafficMirrorRequest) (response *StopTrafficMirrorResponse, err error) {
-    if request == nil {
-        request = NewStopTrafficMirrorRequest()
-    }
-    response = NewStopTrafficMirrorResponse()
     err = c.Send(request, response)
     return
 }
@@ -6434,81 +5428,6 @@ func (c *Client) UnassignPrivateIpAddresses(request *UnassignPrivateIpAddressesR
         request = NewUnassignPrivateIpAddressesRequest()
     }
     response = NewUnassignPrivateIpAddressesResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewUpdateCcnBandwidthRequest() (request *UpdateCcnBandwidthRequest) {
-    request = &UpdateCcnBandwidthRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "UpdateCcnBandwidth")
-    return
-}
-
-func NewUpdateCcnBandwidthResponse() (response *UpdateCcnBandwidthResponse) {
-    response = &UpdateCcnBandwidthResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（UpdateCcnBandwidth）用于变更预付费模式下云联网实例的地域间带宽
-func (c *Client) UpdateCcnBandwidth(request *UpdateCcnBandwidthRequest) (response *UpdateCcnBandwidthResponse, err error) {
-    if request == nil {
-        request = NewUpdateCcnBandwidthRequest()
-    }
-    response = NewUpdateCcnBandwidthResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewUpdateTrafficMirrorAllFilterRequest() (request *UpdateTrafficMirrorAllFilterRequest) {
-    request = &UpdateTrafficMirrorAllFilterRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "UpdateTrafficMirrorAllFilter")
-    return
-}
-
-func NewUpdateTrafficMirrorAllFilterResponse() (response *UpdateTrafficMirrorAllFilterResponse) {
-    response = &UpdateTrafficMirrorAllFilterResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（UpdateTrafficMirrorAllFilter）用于更新流量镜像实例的过滤规则或者采集对象。
-func (c *Client) UpdateTrafficMirrorAllFilter(request *UpdateTrafficMirrorAllFilterRequest) (response *UpdateTrafficMirrorAllFilterResponse, err error) {
-    if request == nil {
-        request = NewUpdateTrafficMirrorAllFilterRequest()
-    }
-    response = NewUpdateTrafficMirrorAllFilterResponse()
-    err = c.Send(request, response)
-    return
-}
-
-func NewUpdateTrafficMirrorDirectionRequest() (request *UpdateTrafficMirrorDirectionRequest) {
-    request = &UpdateTrafficMirrorDirectionRequest{
-        BaseRequest: &tchttp.BaseRequest{},
-    }
-    request.Init().WithApiInfo("vpc", APIVersion, "UpdateTrafficMirrorDirection")
-    return
-}
-
-func NewUpdateTrafficMirrorDirectionResponse() (response *UpdateTrafficMirrorDirectionResponse) {
-    response = &UpdateTrafficMirrorDirectionResponse{
-        BaseResponse: &tchttp.BaseResponse{},
-    }
-    return
-}
-
-// 本接口（UpdateTrafficMirrorDirection）用于更新流量镜像实例的采集方向。
-func (c *Client) UpdateTrafficMirrorDirection(request *UpdateTrafficMirrorDirectionRequest) (response *UpdateTrafficMirrorDirectionResponse, err error) {
-    if request == nil {
-        request = NewUpdateTrafficMirrorDirectionRequest()
-    }
-    response = NewUpdateTrafficMirrorDirectionResponse()
     err = c.Send(request, response)
     return
 }

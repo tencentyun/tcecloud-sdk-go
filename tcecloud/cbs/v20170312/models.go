@@ -109,10 +109,10 @@ type AutoSnapshotPolicy struct {
 	AutoSnapshotPolicyState *string `json:"AutoSnapshotPolicyState,omitempty" name:"AutoSnapshotPolicyState"`
 
 	// 定期快照策略是否激活。
-	IsActivated *uint64 `json:"IsActivated,omitempty" name:"IsActivated"`
+	IsActivated *bool `json:"IsActivated,omitempty" name:"IsActivated"`
 
 	// 使用该定期快照策略创建出来的快照是否永久保留。
-	IsPermanent *uint64 `json:"IsPermanent,omitempty" name:"IsPermanent"`
+	IsPermanent *bool `json:"IsPermanent,omitempty" name:"IsPermanent"`
 
 	// 使用该定期快照策略创建出来的快照保留天数。
 	RetentionDays *uint64 `json:"RetentionDays,omitempty" name:"RetentionDays"`
